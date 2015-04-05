@@ -1,4 +1,6 @@
-# Asset Compress
+# Mini Asset
+
+:warning: This repo is not ready to be used. I'm still in the progress of removing the CakePHP plugin bits.
 
 [![Build Status](https://travis-ci.org/markstory/asset_compress.svg?branch=master)](https://travis-ci.org/markstory/asset_compress)
 
