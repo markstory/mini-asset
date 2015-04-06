@@ -2,54 +2,72 @@
 
 :warning: This repo is not ready to be used. I'm still in the progress of removing the CakePHP plugin bits.
 
-[![Build Status](https://travis-ci.org/markstory/asset_compress.svg?branch=master)](https://travis-ci.org/markstory/asset_compress)
+[![Build Status](https://travis-ci.org/markstory/mini-asset.svg?branch=master)](https://travis-ci.org/markstory/mini-asset)
 
-Asset Compress is CakePHP plugin for helping reduce the number of requests, and optimizing the remaining requests your application makes for Javascript and CSS files.
+Mini Asset is a small footprint library that provide tools to assist in
+building an asset minification/optimization pipeline. It uses a simple INI
+based configuration file that lets you define output files, that are comprised
+of a number of input files. Input files can be processed by filters on
+a per-extension or per file basis.  Filters allow you to integrate existing
+pre-processors and minifiers or build your own.
 
-### Features
+## Features
 
-* Development mode builder that rebuilds assets on each request.
-* Command line build tool to compile static assets for deployment.
 * Built-in support for LESScss, Sass and CoffeeScript, as well as several
   minifiers.
 * Powerful and flexible filter system allowing you to add your own
   minifiers/pre-processors.
-* Simple configuration file.
-* Incremental builds that don't recompile assets when they don't need to
-  be.
+* Simple ini configuration files.
+* Incremental builds that don't recompile assets when they don't need to be.
+* Command Line Tools for building and clearing assets.
 
 ## Installing
 
-Clone or download the plugin into one of your plugin paths. Then make
-sure you load the plugin:
+Add this library to your application with composer, after that you can
+start integrating MiniAsset into your application and use the provided CLI tools
+to generate asset targets:
 
-	// in config/bootstrap.php
-	Plugin::load('AssetCompress', ['bootstrap' => true]);
+```
+php composer.phar require 'markstory/mini-asset'
+```
 
-Copy the `Config/asset_compress.sample.ini` to `App/Config/asset_compress.ini`. From there
-read the [wiki](http://github.com/markstory/asset_compress/wiki) for more information.
+## Usage
 
-## Documentation
+Before MiniAsset can do anything, you'll need to define a configuration file to
+define your asset and which filters apply to them. For example purposes, we'll assume
+you have some CSS files that need to be minified.
 
-Documentation for AssetCompress is available on the [github wiki pages](http://github.com/markstory/asset_compress/wiki)
+### Defining a configuration file
+
+### Define a build target
+
+### Add a filter
+
+### Use the CLI tool to build your asset
+
+### Integrating a live development builder
+
+## Framework Integrations
+
+* CakePHP - [AssetCompress plugin](https://github.com/markstory/asset_compress).
 
 ## Issues
 
-Please report any issues you have with the plugin to the [issue tracker](http://github.com/markstory/asset_compress/issues) on github.
+Please report any issues you have with the plugin to the [issue tracker](http://github.com/markstory/mini-asset/issues) on github.
 
 ## License
 
-Asset Compress is offered under an [MIT license](http://www.opensource.org/licenses/mit-license.php).
+Mini Asset is offered under an [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 ## Copyright
 
-2010-2014 Mark Story (http://mark-story.com)
+2010-2015 Mark Story (http://mark-story.com)
 
 ### Authors
 
-See the [github contributors list](https://github.com/markstory/asset_compress/graphs/contributors)
+See the [github contributors list](https://github.com/markstory/mini-asset/graphs/contributors).
 
 ### Changelog
 
 See CHANGELOG for changes only available on `master`. See
-[github releases](https://github.com/markstory/asset_compress/releases) for changelogs on previous releases.
+[github releases](https://github.com/markstory/mini-asset/releases) for changelogs on previous releases.
