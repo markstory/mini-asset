@@ -9,7 +9,6 @@ use RuntimeException;
  */
 class AssetConfig
 {
-
     /**
      * Parsed configuration data.
      *
@@ -68,7 +67,7 @@ class AssetConfig
      *
      * @var array
      */
-    public $constantMap = [];
+    protected $constantMap = [];
 
     const FILTERS = 'filters';
     const FILTER_PREFIX = 'filter_';
@@ -78,14 +77,41 @@ class AssetConfig
     /**
      * Constructor, set some initial data for a AssetConfig object.
      *
+     * Any userland constants that resolve to file paths will automatically
+     * be added to the constants available in configuration files.
+     *
      * @param array $data Initial data set for the object.
-     * @param array $additionalConstants  Additional constants that will be translated
+     * @param array $constants  Additional constants that will be translated
      *    when parsing paths.
      */
     public function __construct(array $data = [], array $constants = [])
     {
         $this->_data = $data ?: static::$_defaults;
-        $this->constantMap = $constants;
+        $userland = get_defined_constants(true);
+        if (isset($userland['user'])) {
+            $this->_addConstants($userland['user']);
+        }
+        $this->_addConstants($constants);
+    }
+
+    /**
+     * Add path based constants to the mapped constants.
+     *
+     * @param array $constants The constants to map
+     * @return void
+     */
+    protected function _addConstants($constants)
+    {
+        foreach ($constants as $key => $value) {
+            if (strpos($value, DIRECTORY_SEPARATOR) === false) {
+                continue;
+            }
+            if (!file_exists($value)) {
+                continue;
+            }
+            $this->constantMap[$key] = rtrim($value, DIRECTORY_SEPARATOR);
+        }
+        ksort($this->constantMap);
     }
 
     /**
@@ -103,6 +129,16 @@ class AssetConfig
         }
         $config = new static([], $constants);
         return $config->load($iniFile);
+    }
+
+    /**
+     * Get the list of loaded constants.
+     *
+     * @return array
+     */
+    public function constants()
+    {
+        return $this->constantMap;
     }
 
     /**

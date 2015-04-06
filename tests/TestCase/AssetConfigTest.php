@@ -18,11 +18,19 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->testConfig = $this->_testFiles . 'config' . DS . 'config.ini';
         $this->_themeConfig = $this->_testFiles . 'config' . DS . 'themed.ini';
 
-        $this->config = AssetConfig::buildFromIniFile($this->testConfig, [
-            'APP/' => APP,
-            'WEBROOT/' => WWW_ROOT,
-            'ROOT' => ROOT
-        ]);
+        $this->config = AssetConfig::buildFromIniFile($this->testConfig);
+    }
+
+    /**
+     * Test that constructor imports file path constants.
+     *
+     * @return void
+     */
+    public function testConstructImportsConstants()
+    {
+        $config = new AssetConfig();
+        $this->assertArrayHasKey('WEBROOT', $config->constants());
+        $this->assertEquals(rtrim(WEBROOT, DS), $config->constants()['WEBROOT']);
     }
 
     public function testBuildFromIniFile()
@@ -92,7 +100,7 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->config->paths('css');
         $result = str_replace('/', DS, $result);
-        $this->assertEquals(array(WWW_ROOT . 'css' . DS), $result);
+        $this->assertEquals(array(WEBROOT . 'css' . DS), $result);
         $this->assertEquals(array(), $this->config->paths('nothing'));
     }
 
@@ -101,12 +109,12 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->config->paths('js', null, array('/path/to/files', 'WEBROOT/js'));
         $result = $this->config->paths('js');
         $result = str_replace('/', DS, $result);
-        $expected = array(DS . 'path' . DS . 'to' . DS . 'files', WWW_ROOT . 'js');
+        $expected = array(DS . 'path' . DS . 'to' . DS . 'files', WEBROOT . 'js');
         $this->assertEquals($expected, $result);
 
         $result = $this->config->paths('js', 'libs.js');
         $result = str_replace('/', DS, $result);
-        $expected[] = WWW_ROOT . 'js' . DS . 'libs' . DS . '*';
+        $expected[] = WEBROOT . 'js' . DS . 'libs' . DS . '*';
         $this->assertEquals($expected, $result);
     }
 
@@ -134,10 +142,10 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
     public function testCachePath()
     {
         $this->config->cachePath('js', 'WEBROOT/css_build');
-        $this->assertEquals(WWW_ROOT . 'css_build/', $this->config->cachePath('js'));
+        $this->assertEquals(WEBROOT . 'css_build/', $this->config->cachePath('js'));
 
         $this->config->cachePath('js', 'WEBROOT/css_build/');
-        $this->assertEquals(WWW_ROOT . 'css_build/', $this->config->cachePath('js'));
+        $this->assertEquals(WEBROOT . 'css_build/', $this->config->cachePath('js'));
     }
 
     public function testFilterConfig()
@@ -184,7 +192,7 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
     public function testGet()
     {
         $result = $this->config->get('js.cachePath');
-        $this->assertEquals(WWW_ROOT . 'cache_js/', $result);
+        $this->assertEquals(WEBROOT . 'cache_js/', $result);
 
         $this->assertNull($this->config->get('Bogus.poop'));
     }
@@ -229,17 +237,13 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
     public function testDefaultConventions()
     {
         $ini = dirname($this->testConfig) . DS . 'bare.ini';
-        $config = AssetConfig::buildFromIniFile($ini, [
-            'APP/' => APP,
-            'WEBROOT/' => WWW_ROOT,
-            'ROOT' => ROOT
-        ]);
+        $config = AssetConfig::buildFromIniFile($ini);
 
         $result = $config->paths('js');
-        $this->assertEquals(array(WWW_ROOT . 'js/**'), $result);
+        $this->assertEquals(array(WEBROOT . 'js/**'), $result);
 
         $result = $config->paths('css');
-        $this->assertEquals(array(WWW_ROOT . 'css/**'), $result);
+        $this->assertEquals(array(WEBROOT . 'css/**'), $result);
     }
 
     public function testTheme()

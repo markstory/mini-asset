@@ -46,8 +46,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testAssetCollection()
     {
         $config = AssetConfig::buildFromIniFile($this->integrationFile, [
-            'TEST_FILES/' => APP,
-            'WEBROOT/' => TMP
+            'TEST_FILES' => APP,
+            'WEBROOT' => TMP
         ]);
         $factory = new Factory($config);
         $collection = $factory->assetCollection();
@@ -74,9 +74,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAssetCreationWithAdditionalPath()
     {
-        $config = AssetConfig::buildFromIniFile($this->overrideFile, [
-            'WEBROOT/' => APP
-        ]);
+        $config = AssetConfig::buildFromIniFile($this->overrideFile);
         $factory = new Factory($config);
         $collection = $factory->assetCollection();
         $asset = $collection->get('libs.js');
@@ -99,10 +97,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testWriter()
     {
-        $config = AssetConfig::buildFromIniFile($this->integrationFile, [
-            'TEST_FILES/' => APP,
-            'WEBROOT/' => TMP
-        ]);
+        $config = AssetConfig::buildFromIniFile($this->integrationFile);
         $config->theme('Red');
         $config->set('js.timestamp', true);
         $factory = new Factory($config);
