@@ -46,7 +46,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testAssetCollection()
     {
         $config = AssetConfig::buildFromIniFile($this->integrationFile, [
-            'TEST_FILES' => APP,
             'WEBROOT' => TMP
         ]);
         $factory = new Factory($config);

@@ -11,9 +11,7 @@ class AssetCollectionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = new AssetConfig([], [
-            'TEST_FILES' => APP,
-        ]);
+        $config = new AssetConfig([]);
         $config->load(APP . 'config/integration.ini');
         $this->factory = new Factory($config);
     }
