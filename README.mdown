@@ -39,13 +39,59 @@ you have some CSS files that need to be minified.
 
 ### Defining a configuration file
 
-### Define a build target
+In your application's configuration directory create a file called
+`assets.ini`. In this file we'll put all the configuration that MiniAsset
+needs. We'll cover how to use multiple configuration files later on. Assuming your,
+application has a `app.css` and `reset.css` put the following in your config file:
 
-### Add a filter
+```ini
+[css]
+cachePath = WEBROOT/cache_css/
+paths[] = WEBROOT/css/*
+filters[] = SimpleCssMin
+
+[app.css]
+files[] = reset.css
+files[] = app.css
+```
+
+The above also assumes that `WEBROOT` resolves to your application's document
+root. In the above we defined a few sections. First, the `[css]` section defines how all
+CSS files should behave:
+
+* The `cachePath` option tells MiniAsset where to store generated assets.
+* The `paths[]` options tell MiniAsset where to find CSS files. Paths use glob syntax.
+* The `filters[]` options let you configure which filters are applied to all CSS files.
+  Filters are applied in the order they are defined.
+
+We also defined an `[app.css]` section. This section defines the files that are used to
+create `WEBROOT/cache_css/app.css` when it is generated. We've added two files.
 
 ### Use the CLI tool to build your asset
 
+:warning: CLI tools are not built yet.
+
+With a simple build target defined, we can now generate our asset. We can use the CLI
+tool to generate our assets:
+
+```sh
+vendor/bin/mini_asset build --config /path/to/assets.ini
+```
+
+The above should generate output indicating that the `all.css` file we defined
+was compiled. If we were to re-run the above command `all.css` would be skipped.
+MiniAsset is smart enough to know when the components of a build target change and
+only re-build files when it is necessary.
+
+You can also use the `mini_asset` CLI tool to clear targets:
+
+```sh
+vendor/bin/mini_asset clear --config /path/to/assets.ini
+```
+
 ### Integrating a live development builder
+
+:warning: Not done - Use CakePHP plugin as an example.
 
 ## Framework Integrations
 
