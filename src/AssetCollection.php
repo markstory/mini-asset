@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\AssetConfig;
-use AssetCompress\AssetTarget;
-use AssetCompress\Factory;
+use MiniAsset\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\Factory;
 use Countable;
 use Iterator;
 use InvalidArgumentException;
@@ -41,7 +41,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * A factory instance that can be used to lazily build targets.
      *
-     * @var AssetCompress\Factory
+     * @var MiniAsset\Factory
      */
     protected $factory;
 

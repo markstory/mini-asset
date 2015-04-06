@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Output;
+namespace MiniAsset\Output;
 
-use AssetCompress\AssetTarget;
+use MiniAsset\AssetTarget;
 
 trait FreshTrait
 {

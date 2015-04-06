@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\File;
+namespace MiniAsset\Test\TestCase\File;
 
-use AssetCompress\File\Local;
+use MiniAsset\File\Local;
 use Cake\TestSuite\TestCase;
 
 class LocalTest extends TestCase

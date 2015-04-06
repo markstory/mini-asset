@@ -1,10 +1,10 @@
 <?php
-namespace AssetCompress\Test\TestCase;
+namespace MiniAsset\Test\TestCase;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\AssetCollection;
-use AssetCompress\Factory;
-use AssetCompress\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\AssetCollection;
+use MiniAsset\Factory;
+use MiniAsset\AssetConfig;
 use Cake\TestSuite\TestCase;
 
 class AssetCollectionTest extends TestCase
@@ -57,6 +57,6 @@ class AssetCollectionTest extends TestCase
         $collection = new AssetCollection(['libs.js', 'all.css'], $this->factory);
 
         $this->assertNull($collection->get('nope.js'));
-        $this->assertInstanceOf('AssetCompress\AssetTarget', $collection->get('libs.js'));
+        $this->assertInstanceOf('MiniAsset\AssetTarget', $collection->get('libs.js'));
     }
 }

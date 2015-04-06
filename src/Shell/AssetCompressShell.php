@@ -1,10 +1,10 @@
 <?php
-namespace AssetCompress\Shell;
+namespace MiniAsset\Shell;
 
-use AssetCompress\AssetCache;
-use AssetCompress\AssetCompiler;
-use AssetCompress\Config\ConfigFinder;
-use AssetCompress\Factory;
+use MiniAsset\AssetCache;
+use MiniAsset\AssetCompiler;
+use MiniAsset\Config\ConfigFinder;
+use MiniAsset\Factory;
 use Cake\Console\Shell;
 use Cake\Utility\Folder;
 use DirectoryIterator;
@@ -15,10 +15,10 @@ use DirectoryIterator;
  * Assists in clearing and creating the build files this plugin makes.
  *
  */
-class AssetCompressShell extends Shell
+class MiniAssetShell extends Shell
 {
 
-    public $tasks = array('AssetCompress.AssetBuild');
+    public $tasks = array('MiniAsset.AssetBuild');
 
     protected $config;
 
@@ -39,7 +39,7 @@ class AssetCompressShell extends Shell
     /**
      * Set the config object.
      *
-     * @var \AssetCompress\AssetConfig $config The config instance.
+     * @var \MiniAsset\AssetConfig $config The config instance.
      * @return void
      */
     public function setConfig($config)

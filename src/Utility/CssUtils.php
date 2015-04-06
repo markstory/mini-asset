@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress\Utility;
+namespace MiniAsset\Utility;
 
 /**
  * Utility class for CSS files.

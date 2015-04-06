@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\AssetProcess;
-use AssetCompress\AssetTarget;
-use AssetCompress\AssetFilterInterface;
+use MiniAsset\AssetProcess;
+use MiniAsset\AssetTarget;
+use MiniAsset\AssetFilterInterface;
 use RuntimeException;
 
 /**
@@ -63,7 +63,7 @@ class AssetFilter implements AssetFilterInterface
      * files.
      *
      * @param AssetTarget $target The target to find dependencies for this filter.
-     * @return array An array of AssetCompress\File\Local objects.
+     * @return array An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $file)
     {

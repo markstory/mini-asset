@@ -1,10 +1,10 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
-use AssetCompress\AssetScanner;
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
+use MiniAsset\AssetFilter;
+use MiniAsset\AssetScanner;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
 
 /**
  * Implements directive replacement similar to sprockets <http://getsprockets.org>

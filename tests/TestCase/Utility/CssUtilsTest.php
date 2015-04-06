@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\Utility;
+namespace MiniAsset\Test\TestCase\Utility;
 
-use AssetCompress\Utility\CssUtils;
+use MiniAsset\Utility\CssUtils;
 use PHPUnit_Framework_TestCase;
 
 /**

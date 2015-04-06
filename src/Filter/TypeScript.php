@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
+use MiniAsset\AssetFilter;
 
 /**
  * Pre-processing filter that adds support for TypeScript files.

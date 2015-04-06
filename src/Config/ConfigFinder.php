@@ -1,13 +1,13 @@
 <?php
-namespace AssetCompress\Config;
+namespace MiniAsset\Config;
 
-use AssetCompress\AssetConfig;
+use MiniAsset\AssetConfig;
 use Cake\Core\Plugin;
 
 /**
  * Find and create a configuration object by
  * looking in all the places a CakePHP application could
- * have config files for AssetCompress.
+ * have config files for MiniAsset.
  *
  * The app and each plugin could have config files, in addition for
  * each config file that is found, also look for a `.local` file for
@@ -39,7 +39,7 @@ class ConfigFinder
     /**
      * Load a config file and its `.local` file if it exists.
      *
-     * @param AssetCompress\AssetConfig $config The config object to update.
+     * @param MiniAsset\AssetConfig $config The config object to update.
      * @param string $path The config file to load.
      * @return void
      */

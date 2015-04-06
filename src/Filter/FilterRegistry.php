@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilterInterface;
-use AssetCompress\AssetTarget;
-use AssetCompress\Filter\FilterCollection;
+use MiniAsset\AssetFilterInterface;
+use MiniAsset\AssetTarget;
+use MiniAsset\Filter\FilterCollection;
 use RuntimeException;
 
 /**
@@ -48,7 +48,7 @@ class FilterRegistry
      * Add a filter to the registry
      *
      * @param string $name The filter name to load.
-     * @param AssetCompress\AssetFilterInterface $filter The filter to load.
+     * @param MiniAsset\AssetFilterInterface $filter The filter to load.
      * @return void
      */
     public function add($name, AssetFilterInterface $filter)
@@ -60,7 +60,7 @@ class FilterRegistry
      * Get a filter from the registry
      *
      * @param string $name The filter name to fetch.
-     * @return AssetCompress\AssetFilterInterface|null
+     * @return MiniAsset\AssetFilterInterface|null
      */
     public function get($name)
     {
@@ -84,8 +84,8 @@ class FilterRegistry
     /**
      * Get a filter collection for a specific target.
      *
-     * @param AssetCompress\AssetTarget $target The target to get a filter collection for.
-     * @return AssetCompress\Filter\FilterCollection
+     * @param MiniAsset\AssetTarget $target The target to get a filter collection for.
+     * @return MiniAsset\Filter\FilterCollection
      */
     public function collection(AssetTarget $target)
     {

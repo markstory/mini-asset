@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\Filter\ImportInline;
+use MiniAsset\Filter\ImportInline;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 

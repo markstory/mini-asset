@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
 /**
  * Represents a single asset build target.
@@ -17,7 +17,7 @@ class AssetTarget
 
     /**
      * @param string $path The output path or the asset target.
-     * @param array $files An array of AssetCompress\File\FileInterface
+     * @param array $files An array of MiniAsset\File\FileInterface
      * @param array $filters An array of filter names for this target.
      * @param array $paths A list of search paths for this asset. These paths
      *   are used by filters that allow additional resources to be included e.g. Sprockets

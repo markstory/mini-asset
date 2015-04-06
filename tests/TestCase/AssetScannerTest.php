@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase;
+namespace MiniAsset\Test\TestCase;
 
-use AssetCompress\AssetScanner;
+use MiniAsset\AssetScanner;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;

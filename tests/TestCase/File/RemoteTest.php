@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\File;
+namespace MiniAsset\Test\TestCase\File;
 
-use AssetCompress\File\Remote;
+use MiniAsset\File\Remote;
 use Cake\TestSuite\TestCase;
 
 class RemoteTest extends TestCase

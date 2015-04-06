@@ -1,12 +1,12 @@
 <?php
-namespace AssetCompress\Shell\Task;
+namespace MiniAsset\Shell\Task;
 
 use App\Console\Command\AppShell;
-use AssetCompress\AssetCache;
-use AssetCompress\AssetCompiler;
-use AssetCompress\AssetConfig;
-use AssetCompress\AssetTarget;
-use AssetCompress\Factory;
+use MiniAsset\AssetCache;
+use MiniAsset\AssetCompiler;
+use MiniAsset\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\Factory;
 use Cake\Console\Shell;
 use Cake\Utility\Folder;
 
@@ -19,7 +19,7 @@ class AssetBuildTask extends Shell
     /**
      * Set the Configuration object that will be used.
      *
-     * @param \AssetCompress\AssetConfig $config The config object.
+     * @param \MiniAsset\AssetConfig $config The config object.
      * @return void
      */
     public function setConfig(AssetConfig $config)

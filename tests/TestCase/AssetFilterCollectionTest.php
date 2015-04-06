@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Test\TestCase;
+namespace MiniAsset\Test\TestCase;
 
-use AssetCompress\AssetFilter;
-use AssetCompress\AssetFilterCollection;
+use MiniAsset\AssetFilter;
+use MiniAsset\AssetFilterCollection;
 use Cake\TestSuite\TestCase;
 
 class AssetFilterCollectionTest extends TestCase
@@ -15,7 +15,7 @@ class AssetFilterCollectionTest extends TestCase
         'paths' => array()
         );
         $Filters = new AssetFilterCollection($filters, $settings, array());
-        $this->assertTrue($Filters->has('AssetCompress\Filter\ImportInline'));
+        $this->assertTrue($Filters->has('MiniAsset\Filter\ImportInline'));
         $this->assertFalse($Filters->has('Boogers'));
     }
 

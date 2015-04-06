@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress\File;
+namespace MiniAsset\File;
 
 interface FileInterface
 {

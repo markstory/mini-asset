@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
 use Cake\Core\App;
 use Cake\Core\Plugin;

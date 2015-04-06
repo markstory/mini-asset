@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
-use AssetCompress\Filter\Sprockets;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
+use MiniAsset\Filter\Sprockets;
 use Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;

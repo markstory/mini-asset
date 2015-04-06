@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Test\TestCase\Routing\Filter;
+namespace MiniAsset\Test\TestCase\Routing\Filter;
 
-use AssetCompress\AssetConfig;
-use AssetCompress\Routing\Filter\AssetCompressorFilter;
+use MiniAsset\AssetConfig;
+use MiniAsset\Routing\Filter\MiniAssetorFilter;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Event\Event;
@@ -37,7 +37,7 @@ class AssetsCompressorTest extends TestCase
         $config->load(APP . 'Plugin/TestAssetIni/config/asset_compress.local.ini', 'TestAssetIni.');
 
         $this->Compressor = $this->getMock(
-            'AssetCompress\Routing\Filter\AssetCompressorFilter',
+            'MiniAsset\Routing\Filter\MiniAssetorFilter',
             array('_getConfig')
         );
         $this->Compressor->expects($this->atLeastOnce())

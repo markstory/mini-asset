@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Test\TestCase\Output;
+namespace MiniAsset\Test\TestCase\Output;
 
-use AssetCompress\Output\AssetWriter;
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
+use MiniAsset\Output\AssetWriter;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
 use Cake\TestSuite\TestCase;
 
 class AssetWriterTest extends TestCase

@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
 use Countable;
 

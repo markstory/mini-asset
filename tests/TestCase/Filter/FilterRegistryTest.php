@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\AssetFilter;
-use AssetCompress\AssetTarget;
-use AssetCompress\Filter\FilterRegistry;
+use MiniAsset\AssetFilter;
+use MiniAsset\AssetTarget;
+use MiniAsset\Filter\FilterRegistry;
 use Cake\TestSuite\TestCase;
 
 class FilterRegistryTest extends TestCase
@@ -58,7 +58,7 @@ class FilterRegistryTest extends TestCase
     {
         $target = new AssetTarget('test.js', [], ['noop', 'simple'], ['/some/path/*']);
         $collection = $this->registry->collection($target);
-        $this->assertInstanceOf('AssetCompress\Filter\FilterCollection', $collection);
+        $this->assertInstanceOf('MiniAsset\Filter\FilterCollection', $collection);
 
         $this->assertCount(2, $collection);
         $filters = $collection->filters();

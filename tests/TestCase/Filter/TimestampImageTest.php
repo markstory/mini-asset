@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\Filter\TimestampImage;
+use MiniAsset\Filter\TimestampImage;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 

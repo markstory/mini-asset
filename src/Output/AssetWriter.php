@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Output;
+namespace MiniAsset\Output;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\Output\FreshTrait;
+use MiniAsset\AssetTarget;
+use MiniAsset\Output\FreshTrait;
 use RuntimeException;
 
 /**

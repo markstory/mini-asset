@@ -1,20 +1,20 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\Filter\FilterRegistry;
+use MiniAsset\Filter\FilterRegistry;
 use Cake\Core\Configure;
 use RuntimeException;
 
 /**
  * Compiles a set of assets together, and applies filters.
- * Forms the center of AssetCompress
+ * Forms the center of MiniAsset
  */
 class AssetCompiler
 {
     /**
      * The filter registry to use.
      *
-     * @var AssetCompress\FilterRegistry
+     * @var MiniAsset\FilterRegistry
      */
     protected $filterRegistry;
 

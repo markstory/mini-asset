@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
 /**
  * Thin wrapper around proc_open() so Filters

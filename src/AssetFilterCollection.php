@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\AssetFilter;
+use MiniAsset\AssetFilter;
 use Cake\Core\App;
 use Exception;
 use RuntimeException;
@@ -16,7 +16,7 @@ class AssetFilterCollection
     /**
      * Config object.
      *
-     * @var \AssetCompress\AssetConfig
+     * @var \MiniAsset\AssetConfig
      */
     protected $_config = array();
 
@@ -49,7 +49,7 @@ class AssetFilterCollection
         foreach ($filters as $name) {
             $className = App::className($name, 'Filter');
             if (!class_exists($className)) {
-                $className = App::className('AssetCompress.' . $name, 'Filter');
+                $className = App::className('MiniAsset.' . $name, 'Filter');
             }
             if (!class_exists($className)) {
                 throw new Exception(sprintf('Cannot not load filter "%s".', $name));

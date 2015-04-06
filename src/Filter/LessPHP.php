@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
-use AssetCompress\Filter\CssDependencyTrait;
+use MiniAsset\AssetFilter;
+use MiniAsset\Filter\CssDependencyTrait;
 use lessc;
 
 /**

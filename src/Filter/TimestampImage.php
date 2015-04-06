@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
+use MiniAsset\AssetFilter;
 
 /**
  * Adds timestamp querystrings to all background images in CSS files.

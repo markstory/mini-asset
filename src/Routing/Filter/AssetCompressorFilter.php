@@ -1,14 +1,14 @@
 <?php
-namespace AssetCompress\Routing\Filter;
+namespace MiniAsset\Routing\Filter;
 
-use AssetCompress\Config\ConfigFinder;
-use AssetCompress\Factory;
+use MiniAsset\Config\ConfigFinder;
+use MiniAsset\Factory;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Routing\DispatcherFilter;
 use RuntimeException;
 
-class AssetCompressorFilter extends DispatcherFilter
+class MiniAssetorFilter extends DispatcherFilter
 {
 
     /**

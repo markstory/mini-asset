@@ -1,15 +1,15 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\AssetCollection;
-use AssetCompress\AssetCompiler;
-use AssetCompress\AssetConfig;
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
-use AssetCompress\File\Remote;
-use AssetCompress\Filter\FilterRegistry;
-use AssetCompress\Output\AssetCacher;
-use AssetCompress\Output\AssetWriter;
+use MiniAsset\AssetCollection;
+use MiniAsset\AssetCompiler;
+use MiniAsset\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
+use MiniAsset\File\Remote;
+use MiniAsset\Filter\FilterRegistry;
+use MiniAsset\Output\AssetCacher;
+use MiniAsset\Output\AssetWriter;
 use Cake\Core\App;
 use RuntimeException;
 
@@ -24,14 +24,14 @@ class Factory
     /**
      * The config instance to make objects based on.
      *
-     * @var AssetCompress\AssetConfig
+     * @var MiniAsset\AssetConfig
      */
     protected $config;
 
     /**
      * Constructor
      *
-     * @param AssetCompress\AssetConfig $config
+     * @param MiniAsset\AssetConfig $config
      */
     public function __construct(AssetConfig $config)
     {
@@ -41,7 +41,7 @@ class Factory
     /**
      * Create an AssetCompiler
      *
-     * @return AssetCompress\AssetCompiler
+     * @return MiniAsset\AssetCompiler
      */
     public function compiler()
     {
@@ -51,7 +51,7 @@ class Factory
     /**
      * Create an AssetWriter
      *
-     * @return AssetCompress\AssetWriter
+     * @return MiniAsset\AssetWriter
      */
     public function writer()
     {
@@ -67,7 +67,7 @@ class Factory
     /**
      * Create an AssetCacher
      *
-     * @return AssetCompress\AssetCacher
+     * @return MiniAsset\AssetCacher
      */
     public function cacher()
     {
@@ -82,7 +82,7 @@ class Factory
     /**
      * Create an AssetCollection with all the configured assets.
      *
-     * @return AssetCompress\AssetCollection
+     * @return MiniAsset\AssetCollection
      */
     public function assetCollection()
     {
@@ -94,7 +94,7 @@ class Factory
      * Create a single build target
      *
      * @param string $name The name of the target to build
-     * @return AssetCompress\AssetTarget
+     * @return MiniAsset\AssetTarget
      */
     public function target($name)
     {
@@ -124,7 +124,7 @@ class Factory
     /**
      * Create a filter registry containing all the configured filters.
      *
-     * @return AssetCompress\Filter\FilterRegistry
+     * @return MiniAsset\Filter\FilterRegistry
      */
     public function filterRegistry()
     {
@@ -140,14 +140,14 @@ class Factory
      *
      * @param string $name The name of the filter to build.
      * @param array $config The configuration for the filter.
-     * @return AssetCompress\Filter\AssetFilterInterface
+     * @return MiniAsset\Filter\AssetFilterInterface
      */
     protected function buildFilter($name, $config)
     {
         // TODO remove reliance on App so the code can be extracted.
         $className = App::className($name, 'Filter');
         if (!class_exists($className)) {
-            $className = App::className('AssetCompress.' . $name, 'Filter');
+            $className = App::className('MiniAsset.' . $name, 'Filter');
         }
         if (!class_exists($className)) {
             throw new RuntimeException(sprintf('Cannot load filter "%s".', $name));

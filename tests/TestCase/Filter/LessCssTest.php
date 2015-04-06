@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
-use AssetCompress\Filter\LessCss;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
+use MiniAsset\Filter\LessCss;
 use Cake\Core\Plugin;
 use PHPUnit_Framework_TestCase;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
+use MiniAsset\AssetFilter;
 
 /**
  * Google Closure Compiler API Filter
@@ -10,7 +10,7 @@ use AssetCompress\AssetFilter;
  * Allows you to filter Javascript files through the Google Closure compiler API. The script
  * needs to have web access to run.
  *
- * @package AssetCompress.Lib.Filter
+ * @package MiniAsset.Lib.Filter
  */
 class ClosureCompiler extends AssetFilter
 {
@@ -42,7 +42,7 @@ class ClosureCompiler extends AssetFilter
     /**
      * Optional API parameters.
      *
-     * - The `output_file_name` hasn't been included because AssetCompress is used for saving the minified javascript.
+     * - The `output_file_name` hasn't been included because MiniAsset is used for saving the minified javascript.
      * - The `warning_level` is automatically handled in `self::$_settings`.
      *
      * @var array

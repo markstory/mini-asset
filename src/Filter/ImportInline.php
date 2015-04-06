@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
-use AssetCompress\AssetScanner;
+use MiniAsset\AssetFilter;
+use MiniAsset\AssetScanner;
 use RuntimeException;
 
 /**

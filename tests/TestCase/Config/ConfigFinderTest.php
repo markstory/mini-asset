@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase;
+namespace MiniAsset\Test\TestCase;
 
-use AssetCompress\Config\ConfigFinder;
+use MiniAsset\Config\ConfigFinder;
 use Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;

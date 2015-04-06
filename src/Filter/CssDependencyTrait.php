@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\File\Local;
-use AssetCompress\Utility\CssUtils;
+use MiniAsset\AssetTarget;
+use MiniAsset\File\Local;
+use MiniAsset\Utility\CssUtils;
 
 trait CssDependencyTrait
 {

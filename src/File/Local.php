@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\File;
+namespace MiniAsset\File;
 
-use AssetCompress\File\FileInterface;
+use MiniAsset\File\FileInterface;
 
 /**
  * Wrapper for local files that are used in asset targets.

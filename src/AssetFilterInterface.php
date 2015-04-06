@@ -1,5 +1,5 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
 /**
  * AssetFilterInterface all filters declared in your config.ini must implement
@@ -42,7 +42,7 @@ interface AssetFilterInterface
      * files. For example, `import` statements in Less/Sass.
      *
      * @param AssetTarget $target The target to find dependencies for this filter.
-     * @return array An array of AssetCompress\File\Local objects.
+     * @return array An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $target);
 }

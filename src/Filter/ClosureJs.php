@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\AssetFilter;
+use MiniAsset\AssetFilter;
 
 /**
  * A Google Closure compressor adapter for compressing Javascript.

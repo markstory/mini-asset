@@ -1,7 +1,7 @@
 <?php
-namespace AssetCompress\Test\TestCase\Filter;
+namespace MiniAsset\Test\TestCase\Filter;
 
-use AssetCompress\Filter\ClosureJs;
+use MiniAsset\Filter\ClosureJs;
 use Cake\TestSuite\TestCase;
 
 class ClosureJsTest extends TestCase
@@ -9,7 +9,7 @@ class ClosureJsTest extends TestCase
 
     public function testCommand()
     {
-        $Filter = $this->getMock('AssetCompress\Filter\ClosureJs', array('_findExecutable', '_runCmd'));
+        $Filter = $this->getMock('MiniAsset\Filter\ClosureJs', array('_findExecutable', '_runCmd'));
 
         $Filter->expects($this->at(0))
         ->method('_findExecutable')

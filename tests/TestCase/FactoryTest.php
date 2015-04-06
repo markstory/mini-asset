@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
-use AssetCompress\AssetConfig;
-use AssetCompress\Factory;
+use MiniAsset\AssetConfig;
+use MiniAsset\Factory;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 

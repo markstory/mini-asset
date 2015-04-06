@@ -1,16 +1,16 @@
 <?php
-namespace AssetCompress\Test\TestCase\Shell;
+namespace MiniAsset\Test\TestCase\Shell;
 
-use AssetCompress\Shell\AssetCompressShell;
-use AssetCompress\AssetConfig;
+use MiniAsset\Shell\MiniAssetShell;
+use MiniAsset\AssetConfig;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\Filesystem\Folder;
 
 /**
- * AssetCompressShell test case.
+ * MiniAssetShell test case.
  */
-class AssetCompressShellTest extends TestCase
+class MiniAssetShellTest extends TestCase
 {
 
     /**
@@ -23,7 +23,7 @@ class AssetCompressShellTest extends TestCase
         parent::setUp();
         $io = $this->getMock('Cake\Console\ConsoleIo', array(), array(), '', false);
 
-        $this->Shell = new AssetCompressShell($io);
+        $this->Shell = new MiniAssetShell($io);
         $this->Shell->initialize();
 
         $this->testConfig = APP . 'config' . DS;

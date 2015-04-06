@@ -1,8 +1,8 @@
 <?php
-namespace AssetCompress\Filter;
+namespace MiniAsset\Filter;
 
-use AssetCompress\Filter\CssDependencyTrait;
-use AssetCompress\AssetFilter;
+use MiniAsset\Filter\CssDependencyTrait;
+use MiniAsset\AssetFilter;
 
 /**
  * Pre-processing filter that adds support for LESS.css files.

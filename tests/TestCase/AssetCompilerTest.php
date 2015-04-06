@@ -1,11 +1,11 @@
 <?php
-namespace AssetCompress\Test\TestCase;
+namespace MiniAsset\Test\TestCase;
 
-use AssetCompress\AssetCompiler;
-use AssetCompress\AssetConfig;
-use AssetCompress\AssetTarget;
-use AssetCompress\Factory;
-use AssetCompress\File\Local;
+use MiniAsset\AssetCompiler;
+use MiniAsset\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\Factory;
+use MiniAsset\File\Local;
 use Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;

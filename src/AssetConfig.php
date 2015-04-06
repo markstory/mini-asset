@@ -1,10 +1,10 @@
 <?php
-namespace AssetCompress;
+namespace MiniAsset;
 
 use RuntimeException;
 
 /**
- * Parses the ini files AssetCompress uses into arrays that
+ * Parses the ini files MiniAsset uses into arrays that
  * other objects can use.
  */
 class AssetConfig
@@ -47,7 +47,7 @@ class AssetConfig
     );
 
     /**
-     * Names of normal extensions that AssetCompress could
+     * Names of normal extensions that MiniAsset could
      * handle.
      *
      * @var array

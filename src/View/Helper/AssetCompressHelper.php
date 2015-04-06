@@ -1,9 +1,9 @@
 <?php
-namespace AssetCompress\View\Helper;
+namespace MiniAsset\View\Helper;
 
-use AssetCompress\AssetTarget;
-use AssetCompress\Config\ConfigFinder;
-use AssetCompress\Factory;
+use MiniAsset\AssetTarget;
+use MiniAsset\Config\ConfigFinder;
+use MiniAsset\Factory;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Routing\Router;
@@ -13,13 +13,13 @@ use Cake\View\View;
 use RuntimeException;
 
 /**
- * AssetCompress Helper.
+ * MiniAsset Helper.
  *
- * Handle inclusion assets using the AssetCompress features for concatenating and
+ * Handle inclusion assets using the MiniAsset features for concatenating and
  * compressing asset files.
  *
  */
-class AssetCompressHelper extends Helper
+class MiniAssetHelper extends Helper
 {
 
     /**
@@ -37,23 +37,23 @@ class AssetCompressHelper extends Helper
     protected $config;
 
     /**
-     * Factory for other AssetCompress objects.
+     * Factory for other MiniAsset objects.
      *
-     * @var AssetCompress\Factory
+     * @var MiniAsset\Factory
      */
     protected $factory;
 
     /**
      * AssetCollection for the current config set.
      *
-     * @var AssetCompress\AssetCollection
+     * @var MiniAsset\AssetCollection
      */
     protected $collection;
 
     /**
      * AssetWriter instance
      *
-     * @var AssetCompress\AssetWriter
+     * @var MiniAsset\AssetWriter
      */
     protected $writer;
 
@@ -93,7 +93,7 @@ class AssetCompressHelper extends Helper
      * Modify the runtime configuration of the helper.
      * Used as a get/set for the ini file values.
      *
-     * @param AssetCompress\AssetConfig $config The config instance to set.
+     * @param MiniAsset\AssetConfig $config The config instance to set.
      * @return Either the current config object or null.
      */
     public function assetConfig($config = null)
@@ -105,9 +105,9 @@ class AssetCompressHelper extends Helper
     }
 
     /**
-     * Get the AssetCompress factory based on the config object.
+     * Get the MiniAsset factory based on the config object.
      *
-     * @return AssetCompress\Factory
+     * @return MiniAsset\Factory
      */
     protected function factory()
     {
@@ -121,7 +121,7 @@ class AssetCompressHelper extends Helper
     /**
      * Get the AssetCollection
      *
-     * @return AssetCompress\AssetCollection
+     * @return MiniAsset\AssetCollection
      */
     protected function collection()
     {
@@ -134,7 +134,7 @@ class AssetCompressHelper extends Helper
     /**
      * Get the AssetWriter
      *
-     * @return AssetCompress\AssetWriter
+     * @return MiniAsset\AssetWriter
      */
     protected function writer()
     {
@@ -291,7 +291,7 @@ class AssetCompressHelper extends Helper
     protected function _relativizePath($path)
     {
         $plugins = Plugin::loaded();
-        $index = array_search('AssetCompress', $plugins);
+        $index = array_search('MiniAsset', $plugins);
         unset($plugins[$index]);
 
         if ($plugins) {
@@ -370,7 +370,7 @@ class AssetCompressHelper extends Helper
      * Generates filenames that are intended for production use
      * with statically generated files.
      *
-     * @param AssetCompress\AssetTarget $build The build being resolved.
+     * @param MiniAsset\AssetTarget $build The build being resolved.
      * @return string The resolved build name.
      */
     protected function _getBuildName(AssetTarget $build)
