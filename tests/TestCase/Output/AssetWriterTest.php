@@ -4,9 +4,8 @@ namespace MiniAsset\Test\TestCase\Output;
 use MiniAsset\Output\AssetWriter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
-use Cake\TestSuite\TestCase;
 
-class AssetWriterTest extends TestCase
+class AssetWriterTest extends \PHPUnit_Framework_TestCase
 {
     protected $files = [];
 

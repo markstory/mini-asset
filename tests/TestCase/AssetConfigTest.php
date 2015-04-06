@@ -2,10 +2,8 @@
 namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetConfig;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class AssetConfigTest extends TestCase
+class AssetConfigTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

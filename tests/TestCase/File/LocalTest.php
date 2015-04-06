@@ -2,9 +2,8 @@
 namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Local;
-use Cake\TestSuite\TestCase;
 
-class LocalTest extends TestCase
+class LocalTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException RuntimeException

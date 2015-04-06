@@ -2,12 +2,8 @@
 namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetScanner;
-use Cake\Core\App;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class AssetScannerTest extends TestCase
+class AssetScannerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -38,37 +34,6 @@ class AssetScannerTest extends TestCase
         $scanner = new AssetScanner($paths);
         $result = $scanner->find('other.less');
         $expected = $this->_testFiles . 'css' . DS . 'other.less';
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testFindResolveThemePaths()
-    {
-        Plugin::load('Blue');
-        $paths = array(
-            $this->_testFiles . 'css' . DS
-        );
-        $scanner = new AssetScanner($paths, 'Blue');
-        $result = $scanner->find('t:theme.css');
-        $expected = $this->_testFiles . 'Plugin' . DS . 'Blue' . DS . 'webroot' . DS . 'theme.css';
-        $this->assertEquals($expected, $result);
-
-        $result = $scanner->find('theme:theme.css');
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testFindResolvePluginPaths()
-    {
-        Plugin::load('TestAsset');
-
-        $paths = array(
-            $this->_testFiles . 'css' . DS
-        );
-        $scanner = new AssetScanner($paths);
-        $result = $scanner->find('p:TestAsset:plugin.css');
-        $expected = $this->_testFiles . 'Plugin' . DS . 'TestAsset' . DS . 'webroot' . DS . 'plugin.css';
-        $this->assertEquals($expected, $result);
-
-        $result = $scanner->find('plugin:TestAsset:plugin.css');
         $this->assertEquals($expected, $result);
     }
 

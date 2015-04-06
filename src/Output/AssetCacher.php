@@ -3,7 +3,6 @@ namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
 use MiniAsset\Output\FreshTrait;
-use Cake\Filesystem\Folder;
 
 /**
  * Writes temporary output files for assets.
@@ -65,8 +64,9 @@ class AssetCacher
      */
     public function ensureDir()
     {
-        $folder = new Folder($this->path, true);
-        $folder->chmod($this->path, 0777);
+        if (!is_dir($this->path)) {
+            mkdir($this->path, 0777);
+        }
     }
 
     /**

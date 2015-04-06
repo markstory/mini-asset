@@ -10,7 +10,6 @@ use MiniAsset\File\Remote;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
-use Cake\Core\App;
 use RuntimeException;
 
 /**
@@ -41,25 +40,30 @@ class Factory
     /**
      * Create an AssetCompiler
      *
+     * @param bool $debug Whether or not to enable debugging mode for the compiler.
      * @return MiniAsset\AssetCompiler
      */
-    public function compiler()
+    public function compiler($debug = false)
     {
-        return new AssetCompiler($this->filterRegistry());
+        return new AssetCompiler($this->filterRegistry(), $debug);
     }
 
     /**
      * Create an AssetWriter
      *
+     * @param string $tmpPath The path where the build timestamp lookup should be stored.
      * @return MiniAsset\AssetWriter
      */
-    public function writer()
+    public function writer($tmpPath = '')
     {
+        if (!$tmpPath) {
+            $tmpPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+        }
         $timestamp = [
             'js' => $this->config->get('js.timestamp'),
             'css' => $this->config->get('css.timestamp'),
         ];
-        $writer = new AssetWriter($timestamp, TMP, $this->config->theme());
+        $writer = new AssetWriter($timestamp, $tmpPath, $this->config->theme());
         $writer->configTimestamp($this->config->modifiedTime());
         return $writer;
     }
@@ -67,14 +71,15 @@ class Factory
     /**
      * Create an AssetCacher
      *
+     * @param string $path The path to cache assets into.
      * @return MiniAsset\AssetCacher
      */
-    public function cacher()
+    public function cacher($path = '')
     {
-        $cache = new AssetCacher(
-            CACHE . 'asset_compress' . DS,
-            $this->config->theme()
-        );
+        if (!$path) {
+            $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+        }
+        $cache = new AssetCacher($path, $this->config->theme());
         $cache->configTimestamp($this->config->modifiedTime());
         return $cache;
     }
@@ -144,10 +149,9 @@ class Factory
      */
     protected function buildFilter($name, $config)
     {
-        // TODO remove reliance on App so the code can be extracted.
-        $className = App::className($name, 'Filter');
+        $className = $name;
         if (!class_exists($className)) {
-            $className = App::className('MiniAsset.' . $name, 'Filter');
+            $className = 'MiniAsset\Filter\\' . $name;
         }
         if (!class_exists($className)) {
             throw new RuntimeException(sprintf('Cannot load filter "%s".', $name));

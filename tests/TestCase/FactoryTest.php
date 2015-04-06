@@ -3,10 +3,8 @@ namespace MiniAsset;
 
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class FactoryTest extends TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -72,67 +70,6 @@ class FactoryTest extends TestCase
         $this->assertEquals('js', $asset->ext(), 'Asset ext is wrong');
         $this->assertEquals(TMP . 'cache_js', $asset->outputDir(), 'Asset path is wrong');
         $this->assertEquals(TMP . 'cache_js/libs.js', $asset->path(), 'Asset path is wrong');
-    }
-
-    /**
-     * Test that themed assets are built correctly.
-     *
-     * @return void
-     */
-    public function testAssetCollectionThemed()
-    {
-        Plugin::load('Red');
-        $config = AssetConfig::buildFromIniFile($this->themedFile, [
-            'TEST_FILES/' => APP,
-            'WEBROOT/' => TMP
-        ]);
-        $config->theme('Red');
-
-        $factory = new Factory($config);
-        $collection = $factory->assetCollection();
-
-        $this->assertTrue($collection->contains('themed.css'));
-        $asset = $collection->get('themed.css');
-
-        $this->assertTrue($asset->isThemed());
-
-        $files = $asset->files();
-        $this->assertCount(1, $files);
-        $this->assertEquals(APP . 'Plugin/Red/webroot/theme.css', $files[0]->path());
-    }
-
-    /**
-     * Test that plugin assets are built correctly.
-     *
-     * @return void
-     */
-    public function testAssetCollectionPlugins()
-    {
-        Plugin::load('TestAsset');
-        $config = AssetConfig::buildFromIniFile($this->pluginFile, [
-            'TEST_FILES/' => APP,
-            'WEBROOT/' => TMP
-        ]);
-        $factory = new Factory($config);
-        $collection = $factory->assetCollection();
-
-        $this->assertTrue($collection->contains('plugins.js'));
-        $this->assertTrue($collection->contains('plugins.css'));
-
-        $asset = $collection->get('plugins.js');
-        $this->assertCount(1, $asset->files());
-        $this->assertEquals(
-            APP . 'Plugin/TestAsset/webroot/plugin.js',
-            $asset->files()[0]->path()
-        );
-
-        $asset = $collection->get('plugins.css');
-        $files = $asset->files();
-        $this->assertCount(2, $files);
-        $this->assertEquals(
-            APP . 'css/nav.css',
-            $asset->files()[0]->path()
-        );
     }
 
     public function testAssetCreationWithAdditionalPath()

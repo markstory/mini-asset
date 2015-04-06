@@ -2,10 +2,8 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\TimestampImage;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class TimestampImageTest extends TestCase
+class TimestampImageTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()

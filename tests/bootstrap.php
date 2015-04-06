@@ -5,6 +5,7 @@
 require_once 'vendor/autoload.php';
 
 // Path constants to a few helpful things.
+define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__DIR__) . DS);
 define('TESTS', ROOT . 'tests');
 define('APP', ROOT . 'tests' . DS . 'test_files' . DS);

@@ -2,10 +2,8 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\SimpleCssMin;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class SimpleCssMinTest extends TestCase
+class SimpleCssMinTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -20,14 +18,15 @@ class SimpleCssMinTest extends TestCase
         $content = file_get_contents($this->_cssDir . 'unminified.css');
         $result = $this->filter->output($this->_cssDir . 'unminified.css', $content);
         $expected = file_get_contents($this->_cssDir . 'minified.css');
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(trim($expected), $result);
     }
 
     public function testAlreadyMinified()
     {
         $content = file_get_contents($this->_cssDir . 'minified.css');
         $result = $this->filter->output($this->_cssDir . 'minified.css', $content);
+
         $expected = file_get_contents($this->_cssDir . 'minified.css');
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(trim($expected), $result);
     }
 }

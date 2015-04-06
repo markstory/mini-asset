@@ -5,9 +5,8 @@ use MiniAsset\AssetTarget;
 use MiniAsset\AssetCollection;
 use MiniAsset\Factory;
 use MiniAsset\AssetConfig;
-use Cake\TestSuite\TestCase;
 
-class AssetCollectionTest extends TestCase
+class AssetCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

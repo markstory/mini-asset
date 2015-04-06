@@ -4,10 +4,8 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\LessCss;
-use Cake\Core\Plugin;
-use PHPUnit_Framework_TestCase;
 
-class LessCssTest extends PHPUnit_Framework_TestCase
+class LessCssTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()

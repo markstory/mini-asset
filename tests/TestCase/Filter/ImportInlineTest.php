@@ -2,22 +2,18 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\ImportInline;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class ImportInlineTest extends TestCase
+class ImportInlineTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
         parent::setUp();
-        Plugin::load('Red');
         $this->filter = new ImportInline();
         $settings = array(
             'paths' => array(
                 APP . 'css/'
             ),
-            'theme' => 'Red',
         );
         $this->filter->settings($settings);
     }
@@ -31,34 +27,9 @@ class ImportInlineTest extends TestCase
     margin:0;
     padding:0;
 }
+
 #nav {
     width:100%;
-}
-
-TEXT;
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testReplacementNestedAndTheme()
-    {
-        $content = file_get_contents(APP . 'css' . DS . 'has_import.css');
-        $result = $this->filter->input('has_import.css', $content);
-        $expected = <<<TEXT
-* {
-    margin:0;
-    padding:0;
-}
-#nav {
-    width:100%;
-}
-
-body {
-    color: red !important;
-}
-
-body {
-    color:#f00;
-    background:#000;
 }
 
 TEXT;

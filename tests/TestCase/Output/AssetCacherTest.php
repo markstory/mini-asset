@@ -4,9 +4,8 @@ namespace MiniAsset\Test\TestCase\Output;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
-use Cake\TestSuite\TestCase;
 
-class AssetCacherTest extends TestCase
+class AssetCacherTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()

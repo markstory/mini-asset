@@ -13,7 +13,7 @@ class AssetWriter
 {
     use FreshTrait;
 
-    const BUILD_TIME_FILE = 'asset_compress_build_time';
+    const BUILD_TIME_FILE = 'mini_asset_build_time';
 
     protected $timestamp = [];
 

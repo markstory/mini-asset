@@ -19,14 +19,24 @@ class AssetCompiler
     protected $filterRegistry;
 
     /**
+     * Set to true when in development mode.
+     *
+     * Enabling this disables output filters.
+     *
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
      * Constructor.
      *
      * @param FilterRegistry $filters The filter registry
      * @return void
      */
-    public function __construct(FilterRegistry $filters)
+    public function __construct(FilterRegistry $filters, $debug)
     {
         $this->filterRegistry = $filters;
+        $this->debug = $debug;
     }
 
     /**
@@ -45,10 +55,9 @@ class AssetCompiler
             $content = $filters->input($file->path(), $content);
             $output .= $content . "\n";
         }
-        if (!Configure::read('debug') || php_sapi_name() === 'cli') {
+        if (!$this->debug || php_sapi_name() === 'cli') {
             $output = $filters->output($build->path(), $output);
         }
         return trim($output);
     }
-
 }

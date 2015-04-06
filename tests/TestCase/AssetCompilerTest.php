@@ -6,11 +6,8 @@ use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\Factory;
 use MiniAsset\File\Local;
-use Cake\Core\App;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class AssetCompilerTest extends TestCase
+class AssetCompilerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -75,6 +72,7 @@ TEXT;
     margin:0;
     padding:0;
 }
+
 @import url("reset/reset.css");
 #nav {
     width:100%;
@@ -102,26 +100,6 @@ TEXT;
 @import url("reset/reset.css");
 #nav {
     width:100%;
-}
-TEXT;
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testCombineThemeFile()
-    {
-        Plugin::load('Blue');
-        $this->config->theme('blue');
-
-        $files = [
-            new Local(APP . 'Plugin/Blue/webroot/theme.css'),
-        ];
-        $target = new AssetTarget(TMP . 'themed.css', $files, [], [], true);
-        $compiler = $this->instance();
-
-        $result = $compiler->generate($target);
-        $expected = <<<TEXT
-body {
-    color: blue !important;
 }
 TEXT;
         $this->assertEquals($expected, $result);

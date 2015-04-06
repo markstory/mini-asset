@@ -1,9 +1,6 @@
 <?php
 namespace MiniAsset;
 
-use Cake\Core\App;
-use Cake\Core\Plugin;
-use Cake\Utility\Inflector;
 use RuntimeException;
 
 /**
@@ -23,27 +20,12 @@ class AssetScanner
     protected $_paths = array();
 
     /**
-     * The active theme the scanner could find assets on.
-     *
-     * @var string
-     */
-    protected $_theme = null;
-
-    /**
-     * @const Pattern for various prefixes.
-     */
-    const THEME_PATTERN = '/^(?:t|theme)\:/';
-    const PLUGIN_PATTERN = '/^(?:p|plugin)\:(.*)\:(.*)$/';
-
-    /**
      * Constructor.
      *
      * @param array $paths The paths to scan.
-     * @param string $theme The current theme.
      */
-    public function __construct(array $paths, $theme = null)
+    public function __construct(array $paths)
     {
-        $this->_theme = $theme;
         $this->_paths = $paths;
         $this->_expandPaths();
         $this->_normalizePaths();
@@ -58,7 +40,7 @@ class AssetScanner
     protected function _normalizePaths()
     {
         foreach ($this->_paths as &$path) {
-            $ds = DS;
+            $ds = DIRECTORY_SEPARATOR;
             $path = $this->_normalizePath($path, $ds);
             $path = rtrim($path, $ds) . $ds;
         }
@@ -137,54 +119,15 @@ class AssetScanner
     }
 
     /**
-     * Resolve a plugin or theme path into the file path without the search paths.
+     * Path resolution hook. Used by framework integrations to add in
+     * framework module paths.
      *
      * @param string $path Path to resolve
-     * @param bool $full Gives absolute paths
      * @return string resolved path
      */
     protected function _expandPrefix($path)
     {
-        if (preg_match(self::PLUGIN_PATTERN, $path)) {
-            return $this->_expandPlugin($path);
-        }
-        if ($this->_theme && preg_match(self::THEME_PATTERN, $path)) {
-            return $this->_expandTheme($path);
-        }
         return $path;
-    }
-
-    /**
-     * Resolve a themed file to its full path. The file will be found on the
-     * current theme's path.
-     *
-     * @param string $file The theme file to find.
-     * @return string The expanded path
-     */
-    protected function _expandTheme($file)
-    {
-        $file = preg_replace(self::THEME_PATTERN, '', $file);
-        return Plugin::path($this->_theme) . 'webroot' . DS . $file;
-    }
-
-    /**
-     * Resolve a plugin file to its full path.
-     *
-     * @param string $file The theme file to find.
-     * @throws RuntimeException when plugins are missing.
-     * @return string The expanded path
-     */
-    protected function _expandPlugin($file)
-    {
-        preg_match(self::PLUGIN_PATTERN, $file, $matches);
-        if (empty($matches[1]) || empty($matches[2])) {
-            throw new RuntimeException('Missing required parameters');
-        }
-        if (!Plugin::loaded($matches[1])) {
-            throw new RuntimeException($matches[1] . ' is not a loaded plugin.');
-        }
-        $path = Plugin::path($matches[1]);
-        return $path . 'webroot' . DS . $matches[2];
     }
 
     /**

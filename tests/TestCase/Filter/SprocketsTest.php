@@ -4,11 +4,8 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\Sprockets;
-use Cake\Core\App;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class SprocketsTest extends TestCase
+class SprocketsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -89,38 +86,6 @@ TEXT;
         $this->assertTextEquals($expected, $result);
     }
 
-    public function testThemeAndPluginInclusion()
-    {
-        Plugin::load('TestAsset');
-        Plugin::load('Red');
-
-        $settings = array(
-        'paths' => array(),
-        'theme' => 'Red',
-        );
-        $this->filter->settings($settings);
-
-        $this->_themeDir = $this->_testFiles . 'Plugin' . DS . $settings['theme'] . DS;
-
-        $content = file_get_contents($this->_themeDir . 'webroot' . DS . 'theme.js');
-        $result = $this->filter->input('theme.js', $content);
-        $expected = <<<TEXT
-var Theme = new Class({
-
-});
-var ThemeInclude = new Class({
-
-});
-
-var Plugin = new Class({
-
-});
-
-
-TEXT;
-        $this->assertTextEquals($expected, $result);
-    }
-
     /**
      * test that <foo> scans all search paths for a suitable file. Unlike "foo" which only scans the
      * current dir.
@@ -142,6 +107,7 @@ function test(thing) {
     thing.doStuff(); //I get to stay
     return thing;
 }
+
 var AnotherClass = Class.extend({
 
 });
@@ -201,5 +167,12 @@ TEXT;
         $this->assertCount(2, $result, 'Should find 2 files.');
         $this->assertEquals('base_class_two.js', $result[0]->name());
         $this->assertEquals('base_class.js', $result[1]->name());
+    }
+
+    protected function assertTextEquals($expected, $result, $message = '')
+    {
+        $expected = str_replace(["\r\n", "\r"], "\n", $expected);
+        $result = str_replace(["\r\n", "\r"], "\n", $result);
+        $this->assertEquals($expected, $result, $message);
     }
 }

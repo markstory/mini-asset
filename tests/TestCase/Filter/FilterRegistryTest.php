@@ -4,9 +4,8 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetFilter;
 use MiniAsset\AssetTarget;
 use MiniAsset\Filter\FilterRegistry;
-use Cake\TestSuite\TestCase;
 
-class FilterRegistryTest extends TestCase
+class FilterRegistryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

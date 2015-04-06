@@ -2,10 +2,8 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\Hogan;
-use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
 
-class HoganTest extends TestCase
+class HoganTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -15,13 +13,15 @@ class HoganTest extends TestCase
 
         $this->filter = new Hogan();
         $settings = array(
-        'node' => trim(`which node`),
-        'node_path' => getenv('NODE_PATH')
+            'node' => trim(`which node`),
+            'node_path' => getenv('NODE_PATH')
         );
         $this->filter->settings($settings);
 
         $hasHogan = `which hulk`;
-        $this->skipIf(empty($hasHogan), 'Nodejs and Hogan.js to be installed');
+        if (!$hasHogan) {
+            $this->markTestSkipped('Nodejs and Hogan.js need to be installed.');
+        }
     }
 
     public function testInput()

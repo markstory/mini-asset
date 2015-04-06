@@ -2,15 +2,16 @@
 namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Remote;
-use Cake\TestSuite\TestCase;
 
-class RemoteTest extends TestCase
+class RemoteTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         parent::setUp();
         $file = file_get_contents('http://google.com');
-        $this->skipIf(strlen($file) === 0, 'Fetching file failed');
+        if (strlen($file) === 0) {
+            $this->markTestSkipped('Fetching file failed');
+        }
     }
 
     public function testName()
