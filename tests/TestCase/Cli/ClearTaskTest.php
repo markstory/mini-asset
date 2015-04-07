@@ -75,7 +75,7 @@ class ClearTaskTest extends \PHPUnit_Framework_TestCase
             touch($file);
         }
 
-        $this->task->main([]);
+        $this->task->main(['clear', '--config', APP . 'config/integration.ini']);
 
         foreach ($files as $file) {
             $this->assertFileNotExists($file, "$file was not cleared");
@@ -95,8 +95,7 @@ class ClearTaskTest extends \PHPUnit_Framework_TestCase
             touch($file);
         }
 
-        $this->task->main([]);
-
+        $this->task->main(['clear', '--config', APP . 'config/integration.ini']);
         foreach ($files as $file) {
             $this->assertFileExists($file, "$file should not be cleared");
         }

@@ -46,7 +46,8 @@ class BuildTask extends BaseTask
             'config' => [
                 'prefix' => 'c',
                 'longPrefix' => 'config',
-                'description' => 'The config file to use.'
+                'description' => 'The config file to use.',
+                'required' => true,
             ]
         ]);
     }
@@ -63,7 +64,6 @@ class BuildTask extends BaseTask
         }
         $factory = new Factory($this->config());
 
-        $this->verbose('Building un-themed targets.');
         foreach ($factory->assetCollection() as $target) {
             $this->_buildTarget($factory, $target);
         }

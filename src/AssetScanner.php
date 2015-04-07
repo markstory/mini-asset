@@ -107,7 +107,7 @@ class AssetScanner
             return $expanded;
         }
         foreach ($this->_paths as $path) {
-            $file = $this->_normalizePath($file, DS);
+            $file = $this->_normalizePath($file, DIRECTORY_SEPARATOR);
             $fullPath = $path . $file;
 
             if (file_exists($fullPath)) {

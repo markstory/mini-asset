@@ -8,7 +8,7 @@ abstract class BaseTask
     protected $cli;
     protected $config;
 
-    public function __construct($cli, $config)
+    public function __construct($cli, $config = null)
     {
         $this->cli = $cli;
         $this->config = $config;
@@ -42,7 +42,7 @@ abstract class BaseTask
             $this->cli->arguments->parse($argv);
         } catch (\Exception $e) {
             $this->cli->usage();
-            return 2;
+            return 0;
         }
         if ($this->cli->arguments->get('help')) {
             $this->cli->usage();

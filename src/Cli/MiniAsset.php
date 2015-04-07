@@ -27,8 +27,7 @@ class MiniAsset
             $this->help();
             return 1;
         }
-        $command = array_shift($argv);
-        switch ($command) {
+        switch ($argv[0]) {
             case 'build':
                 return $this->build->main($argv);
             case 'clear':

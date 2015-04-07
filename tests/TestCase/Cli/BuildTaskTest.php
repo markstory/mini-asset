@@ -68,7 +68,7 @@ class BuildTaskTest extends \PHPUnit_Framework_TestCase
         $this->cli->expects($this->never())
             ->method('usage');
 
-        $result = $this->task->main(['build']);
+        $result = $this->task->main(['build', '--config', APP . 'config/integration.ini']);
         $this->assertSame(0, $result, 'Exit is bad.');
         $this->assertTrue(file_exists(TMP . 'cache_css' . DS . 'all.css'), 'Css build missing');
         $this->assertTrue(file_exists(TMP . 'cache_js' . DS . 'libs.js'), 'Js build missing');
