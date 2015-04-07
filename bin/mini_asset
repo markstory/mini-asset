@@ -3,7 +3,6 @@
 /**
  * Bin stub for mini_asset.
  */
-
 $options = [
     __DIR__ . '/../../autoload.php',
     __DIR__ . '/../vendor/autoload.php',
