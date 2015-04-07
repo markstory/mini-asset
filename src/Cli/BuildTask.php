@@ -1,13 +1,20 @@
 <?php
 namespace MiniAsset\Cli;
 
-use MiniAsset\AssetConfig;
 use MiniAsset\Cli\BaseTask;
 use MiniAsset\Factory;
 
+/**
+ * Provides the `mini_asset build` command.
+ */
 class BuildTask extends BaseTask
 {
 
+    /**
+     * Define the CLI options.
+     *
+     * @return void
+     */
     protected function addArguments()
     {
         $this->cli->arguments->add([
@@ -54,9 +61,7 @@ class BuildTask extends BaseTask
         if ($this->cli->arguments->defined('bootstrap')) {
             $this->bootstrapApp();
         }
-        $config = new AssetConfig();
-        $config->load($this->cli->arguments->get('config'));
-        $factory = new Factory($config);
+        $factory = new Factory($this->config());
 
         $this->verbose('Building un-themed targets.');
         foreach ($factory->assetCollection() as $target) {
@@ -68,7 +73,8 @@ class BuildTask extends BaseTask
     /**
      * Generate and save the cached file for a build target.
      *
-     * @param AssetTarget $build The build to generate.
+     * @param MiniAsset\Factory $factory The factory class.
+     * @param MiniAsset\AssetTarget $build The build target.
      * @return void
      */
     protected function _buildTarget($factory, $build)
@@ -78,26 +84,18 @@ class BuildTask extends BaseTask
 
         $name = $writer->buildFileName($build);
         if ($writer->isFresh($build) && !$this->cli->arguments->defined('force')) {
-            $this->out('<light_blue>Skip building</light_blue> ' . $name . ' existing file is still fresh.');
+            $this->verbose('<light_blue>Skip building</light_blue> ' . $name . ' existing file is still fresh.', 'S');
             return;
         }
 
         $writer->invalidate($build);
         $name = $writer->buildFileName($build);
         try {
-            $this->cli->out('<green>Saving file</green> for ' . $name);
+            $this->verbose('<green>Saving file</green> for ' . $name, '.');
             $contents = $compiler->generate($build);
             $writer->write($build, $contents);
         } catch (Exception $e) {
             $this->cli->err('Error: ' . $e->getMessage());
-        }
-    }
-
-    protected function bootstrapApp()
-    {
-        $files = explode(',', $this->cli->arguments->get('bootstrap'));
-        foreach ($files as $file) {
-            require_once $file;
         }
     }
 }

@@ -1,7 +1,9 @@
 <?php
 namespace MiniAsset\Cli;
 
+use DirectoryIterator;
 use MiniAsset\Cli\BaseTask;
+use MiniAsset\Factory;
 
 class ClearTask extends BaseTask
 {
@@ -41,8 +43,7 @@ class ClearTask extends BaseTask
         if ($this->cli->arguments->defined('bootstrap')) {
             $this->bootstrapApp();
         }
-        $config = new AssetConfig();
-        $config->load($this->cli->arguments->get('config'));
+        $config = $this->config();
         $factory = new Factory($config);
 
         $this->verbose('Clearing build timestamps.');
@@ -50,7 +51,6 @@ class ClearTask extends BaseTask
         $writer->clearTimestamps();
 
         $this->verbose('Clearing build files:');
-
         $assets = $factory->assetCollection();
         if (count($assets) === 0) {
             $this->cli->err('<red>No build targets defined</red>.');
@@ -74,6 +74,7 @@ class ClearTask extends BaseTask
     protected function _clearPath($path, $targets)
     {
         if (!file_exists($path)) {
+            $this->verbose("Not clearing '$path' it does not exist.");
             return;
         }
 
