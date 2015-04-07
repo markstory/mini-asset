@@ -69,8 +69,6 @@ create `WEBROOT/cache_css/app.css` when it is generated. We've added two files.
 
 ### Use the CLI tool to build your asset
 
-:warning: CLI tools are not built yet.
-
 With a simple build target defined, we can now generate our asset. We can use the CLI
 tool to generate our assets:
 
