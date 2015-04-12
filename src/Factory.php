@@ -108,6 +108,17 @@ class Factory
     }
 
     /**
+     * Create a new scanner instance for the provided paths.
+     *
+     * @param array $paths The paths to scan.
+     * @return MiniAsset\AssetScanner
+     */
+    public function scanner($paths)
+    {
+        return new AssetScanner($paths, $this->config->theme());
+    }
+
+    /**
      * Create a single build target
      *
      * @param string $name The name of the target to build
@@ -123,7 +134,7 @@ class Factory
         $target = $this->config->cachePath($ext) . $name;
 
         $files = [];
-        $scanner = new AssetScanner($paths, $this->config->theme());
+        $scanner = $this->scanner($paths);
         foreach ($this->config->files($name) as $file) {
             if (preg_match('#^https?://#', $file)) {
                 $files[] = new Remote($file);
