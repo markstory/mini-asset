@@ -77,6 +77,7 @@ class Factory
         ];
         $writer = new AssetWriter($timestamp, $tmpPath, $this->config->theme());
         $writer->configTimestamp($this->config->modifiedTime());
+        $writer->filterRegistry($this->filterRegistry());
         return $writer;
     }
 
@@ -93,6 +94,7 @@ class Factory
         }
         $cache = new AssetCacher($path, $this->config->theme());
         $cache->configTimestamp($this->config->modifiedTime());
+        $cache->filterRegistry($this->filterRegistry());
         return $cache;
     }
 

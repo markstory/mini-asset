@@ -14,10 +14,23 @@
 namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
+use MiniAsset\Filter\FilterRegistry;
 
 trait FreshTrait
 {
+    /**
+     * The config file timestamp
+     *
+     * @var int
+     */
     protected $configTime = 0;
+
+    /**
+     * The filter registry to use.
+     *
+     * @var MiniAsset\Filter\FilterRegistry
+     */
+    protected $filterRegistry;
 
     /**
      * Set the modified time of the configuration
@@ -33,6 +46,17 @@ trait FreshTrait
     public function configTimestamp($time)
     {
         $this->configTime = $time;
+    }
+
+    /**
+     * Set the filter registry
+     *
+     * @param MiniAsset\Filter\FilterRegistry $filters The filter set to use.
+     * @return void
+     */
+    public function filterRegistry(FilterRegistry $filters)
+    {
+        $this->filterRegistry = $filters;
     }
 
     /**
@@ -65,7 +89,7 @@ trait FreshTrait
         }
 
         foreach ($target->filterNames() as $filterName) {
-            $filter = $this->_filterRegistry->get($filterName);
+            $filter = $this->filterRegistry->get($filterName);
             foreach ($filter->getDependencies($target) as $child) {
                 $time = $child->modifiedTime();
                 if ($time >= $buildTime) {
