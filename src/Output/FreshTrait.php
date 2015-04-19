@@ -39,7 +39,7 @@ trait FreshTrait
      * This value is used to determine if a build
      * output is still 'fresh'.
      *
-     * @param int $time The timestamp the configuration files 
+     * @param int $time The timestamp the configuration files
      *  were modified at.
      * @return void
      */

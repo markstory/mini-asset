@@ -20,7 +20,8 @@ use MiniAsset\Filter\AssetFilter;
  *
  * Requires both nodejs and TypeScript to be installed.
  */
-class TypeScript extends AssetFilter {
+class TypeScript extends AssetFilter
+{
 
     protected $_settings = array(
         'ext' => '.ts',
@@ -34,7 +35,8 @@ class TypeScript extends AssetFilter {
      * @param string $content Content of the file being processed.
      * @return string
      */
-    public function input($filename, $input) {
+    public function input($filename, $input)
+    {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $input;
         }

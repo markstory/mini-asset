@@ -105,5 +105,4 @@ class AssetCacher
     {
         return $this->path;
     }
-
 }
