@@ -11,13 +11,15 @@
  * @since         0.0.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace MiniAsset;
+namespace MiniAsset\Filter;
+
+use MiniAsset\AssetTarget;
 
 /**
- * AssetFilterInterface all filters declared in your config.ini must implement
+ * FilterInterface all filters declared in your config.ini must implement
  * this interface or exceptions will be thrown.
  */
-interface AssetFilterInterface
+interface FilterInterface
 {
 
     /**

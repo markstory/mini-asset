@@ -13,10 +13,10 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilter;
 use MiniAsset\AssetScanner;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * Implements directive replacement similar to sprockets <http://getsprockets.org>

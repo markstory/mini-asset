@@ -13,7 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilter;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * A YUI Compressor adapter for compressing Javascript.

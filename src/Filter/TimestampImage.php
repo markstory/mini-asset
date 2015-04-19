@@ -13,7 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilter;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * Adds timestamp querystrings to all background images in CSS files.

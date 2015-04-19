@@ -13,7 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilterInterface;
+use MiniAsset\Filter\FilterInterface;
 use MiniAsset\AssetTarget;
 use MiniAsset\Filter\FilterCollection;
 use RuntimeException;
@@ -60,10 +60,10 @@ class FilterRegistry
      * Add a filter to the registry
      *
      * @param string $name The filter name to load.
-     * @param MiniAsset\AssetFilterInterface $filter The filter to load.
+     * @param MiniAsset\Filter\FilterInterface $filter The filter to load.
      * @return void
      */
-    public function add($name, AssetFilterInterface $filter)
+    public function add($name, FilterInterface $filter)
     {
         $this->filters[$name] = $filter;
     }
@@ -72,7 +72,7 @@ class FilterRegistry
      * Get a filter from the registry
      *
      * @param string $name The filter name to fetch.
-     * @return MiniAsset\AssetFilterInterface|null
+     * @return MiniAsset\Filter\FilterInterface|null
      */
     public function get($name)
     {

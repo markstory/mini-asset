@@ -13,7 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilter;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * Output minifier for uglify-j

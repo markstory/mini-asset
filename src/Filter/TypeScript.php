@@ -13,7 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\AssetFilter;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * Pre-processing filter that adds support for TypeScript files.

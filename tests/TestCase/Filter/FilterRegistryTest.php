@@ -13,8 +13,8 @@
  */
 namespace MiniAsset\Test\TestCase\Filter;
 
-use MiniAsset\AssetFilter;
 use MiniAsset\AssetTarget;
+use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\FilterRegistry;
 
 class FilterRegistryTest extends \PHPUnit_Framework_TestCase

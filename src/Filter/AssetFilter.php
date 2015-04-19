@@ -11,18 +11,18 @@
  * @since         0.0.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace MiniAsset;
+namespace MiniAsset\Filter;
 
 use MiniAsset\AssetProcess;
 use MiniAsset\AssetTarget;
-use MiniAsset\AssetFilterInterface;
+use MiniAsset\Filter\FilterInterface;
 use RuntimeException;
 
 /**
  * A simple base class you can build filters on top of
  * if you only want to implement either input() or output()
  */
-class AssetFilter implements AssetFilterInterface
+class AssetFilter implements FilterInterface
 {
     /**
      * Settings

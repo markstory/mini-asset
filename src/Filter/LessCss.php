@@ -13,8 +13,8 @@
  */
 namespace MiniAsset\Filter;
 
+use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\CssDependencyTrait;
-use MiniAsset\AssetFilter;
 
 /**
  * Pre-processing filter that adds support for LESS.css files.
