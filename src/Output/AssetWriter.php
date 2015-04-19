@@ -271,4 +271,17 @@ class AssetWriter
         $ext = substr($file, $pos);
         return $name . '.v' . $time . $ext;
     }
+
+    /**
+     * Get the output dir
+     *
+     * Used to locate outputs when determining freshness.
+     *
+     * @param MiniAsset\AssetTarget $target
+     * @return string The path
+     */
+    public function outputDir(AssetTarget $target)
+    {
+        return $target->outputDir();
+    }
 }

@@ -93,4 +93,17 @@ class AssetCacher
         return file_get_contents($this->path . $buildName);
     }
 
+    /**
+     * Get the output dir
+     *
+     * Used to locate outputs when determining freshness.
+     *
+     * @param MiniAsset\AssetTarget $target
+     * @return string The path
+     */
+    public function outputDir(AssetTarget $target)
+    {
+        return $this->path;
+    }
+
 }

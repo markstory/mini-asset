@@ -70,7 +70,7 @@ trait FreshTrait
     public function isFresh(AssetTarget $target)
     {
         $buildName = $this->buildFileName($target);
-        $buildFile = $target->outputDir() . DS . $buildName;
+        $buildFile = $this->outputDir($target) . DS . $buildName;
 
         if (!file_exists($buildFile)) {
             return false;
@@ -100,4 +100,13 @@ trait FreshTrait
         return true;
     }
 
+    /**
+     * Get the output directory.
+     *
+     * Used to locate outputs when determining freshness.
+     *
+     * @param MiniAsset\AssetTarget $target
+     * @return string The path
+     */
+    abstract public function outputDir(AssetTarget $target);
 }
