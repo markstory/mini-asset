@@ -5,7 +5,6 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
 [![Build Status](https://travis-ci.org/markstory/mini-asset.svg?branch=master)](https://travis-ci.org/markstory/mini-asset)
 [![Coverage Status](https://img.shields.io/coveralls/markstory/mini-asset/master.svg?style=flat-square)](https://coveralls.io/r/markstory/mini-asset?branch=master)
-[![Code Consistency](http://squizlabs.github.io/PHP_CodeSniffer/analysis/markstory/mini-asset/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/markstory/mini-asset/)
 [![Total Downloads](https://img.shields.io/packagist/dt/markstory/mini-asset.svg?style=flat-square)](https://packagist.org/packages/markstory/mini-asset)
 
 Mini Asset is a small footprint library that provide tools to assist in
