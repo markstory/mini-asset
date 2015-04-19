@@ -1,7 +1,5 @@
 # Mini Asset
 
-:warning: This repo is not ready to be used. I'm still in the progress of removing the CakePHP plugin bits.
-
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
 [![Build Status](https://travis-ci.org/markstory/mini-asset.svg?branch=master)](https://travis-ci.org/markstory/mini-asset)
 [![Coverage Status](https://img.shields.io/coveralls/markstory/mini-asset/master.svg?style=flat-square)](https://coveralls.io/r/markstory/mini-asset?branch=master)
