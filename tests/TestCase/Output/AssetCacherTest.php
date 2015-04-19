@@ -16,6 +16,7 @@ namespace MiniAsset\Test\TestCase\Output;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
+use MiniAsset\Filter\FilterRegistry;
 
 class AssetCacherTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,8 +35,16 @@ class AssetCacherTest extends \PHPUnit_Framework_TestCase
             [],
             true
         );
+        $filter = $this->getMock('MiniAsset\Filter\FilterInterface');
+        $filter->method('getDependencies')
+            ->will($this->returnValue([]));
+        $registry = new FilterRegistry([$filter]);
+
         $this->cacher = new AssetCacher(TMP);
+        $this->cacher->filterRegistry($registry);
+
         $this->themed = new AssetCacher(TMP, 'Modern');
+        $this->themed->filterRegistry($registry);
     }
 
     public function tearDown()

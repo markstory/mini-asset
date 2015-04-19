@@ -16,6 +16,7 @@ namespace MiniAsset\Test\TestCase\Output;
 use MiniAsset\Output\AssetWriter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
+use MiniAsset\Filter\FilterRegistry;
 
 class AssetWriterTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,8 +29,14 @@ class AssetWriterTest extends \PHPUnit_Framework_TestCase
             new Local(APP . 'js/library_file.js'),
             new Local(APP . 'js/bad_comments.js'),
         ];
+        $filter = $this->getMock('MiniAsset\Filter\FilterInterface');
+        $filter->method('getDependencies')
+            ->will($this->returnValue([]));
+        $registry = new FilterRegistry([$filter]);
+
         $this->target = new AssetTarget(TMP . 'test.js', $this->files, [], [], true);
         $this->writer = new AssetWriter(['js' => false, 'css' => false], TMP);
+        $this->writer->filterRegistry($registry);
     }
 
     public function testWrite()

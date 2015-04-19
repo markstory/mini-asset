@@ -88,8 +88,8 @@ trait FreshTrait
             }
         }
 
-        foreach ($target->filterNames() as $filterName) {
-            $filter = $this->filterRegistry->get($filterName);
+        $filters = $this->filterRegistry->collection($target);
+        foreach ($filters->filters() as $filter) {
             foreach ($filter->getDependencies($target) as $child) {
                 $time = $child->modifiedTime();
                 if ($time >= $buildTime) {
