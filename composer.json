@@ -20,6 +20,7 @@
     "league/climate": "~3.0"
   },
   "require-dev": {
+    "squizlabs/PHP_CodeSniffer": "*",
     "phpunit/phpunit": "4.1.*"
   },
   "autoload": {
