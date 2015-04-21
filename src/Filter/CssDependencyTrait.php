@@ -47,13 +47,20 @@ trait CssDependencyTrait
             }
             foreach ($deps as $import) {
                 $path = $this->_findFile($import);
-                $file = new Local($path);
-                $newTarget = new AssetTarget('phony.css', [$file]);
+                try {
+                    $file = new Local($path);
+                    $newTarget = new AssetTarget('phony.css', [$file]);
+                    $children[] = $file;
+                } catch (\Exception $e) {
+                    // Do nothing, we just skip missing files.
+                    // sometimes these are things like compass or bourbon
+                    // internals.
+                    $newTarget = false;
+                }
 
-                $children[] = $file;
                 // Only recurse through non-css imports as css files are not
                 // inlined by less/sass.
-                if ($ext === substr($import, -$extLength)) {
+                if ($newTarget && $ext === substr($import, -$extLength)) {
                     $children = array_merge($children, $this->getDependencies($newTarget));
                 }
             }
