@@ -29,6 +29,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->themedFile = APP . 'config' . DS . 'themed.ini';
         $this->pluginFile = APP . 'config' . DS . 'plugins.ini';
         $this->overrideFile = APP . 'config' . DS . 'overridable.local.ini';
+        $this->globFile = APP . 'config' . DS . 'glob.ini';
     }
 
     public function testFilterRegistry()
@@ -103,6 +104,45 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             APP . 'js/classes/base_class.js',
             $files[2]->path()
+        );
+    }
+
+    public function testAssetCollectionGlob()
+    {
+        $config = AssetConfig::buildFromIniFile($this->globFile);
+        $factory = new Factory($config);
+        $collection = $factory->assetCollection();
+
+        $this->assertCount(1, $collection);
+        $this->assertTrue($collection->contains('all_classes.js'));
+
+        $asset = $collection->get('all_classes.js');
+        $files = $asset->files();
+
+        $this->assertCount(6, $files, 'Not enough files');
+        $this->assertEquals(
+            APP . 'js/classes/base_class.js',
+            $files[0]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/base_class_two.js',
+            $files[1]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/double_inclusion.js',
+            $files[2]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/nested_class.js',
+            $files[3]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/slideshow.js',
+            $files[4]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/template.js',
+            $files[5]->path()
         );
     }
 
