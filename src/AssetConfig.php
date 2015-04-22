@@ -86,6 +86,8 @@ class AssetConfig
     const TARGETS = 'targets';
     const GENERAL = 'general';
 
+    const CALLBACK_PATTERN = '/^(.*)::(.*)\(\)$/i';
+
     /**
      * Constructor, set some initial data for a AssetConfig object.
      *
@@ -518,10 +520,35 @@ class AssetConfig
             'filters' => [],
             'theme' => false,
         ];
+		$config = $this->_applyCallbackProviders($config);
         if (!empty($config['paths'])) {
             $config['paths'] = array_map(array($this, '_replacePathConstants'), (array)$config['paths']);
         }
         $this->_targets[$target] = $config;
+    }
+
+    /**
+     * Check the files list for any callbacks strings, executes them and replaces their
+     * position with the return array of the callback
+     *
+     * @param array $config Config data for the target.
+     * @return array $config Config data for the target.
+     */
+    protected function _applyCallbackProviders(array $config)
+    {
+        foreach ($config['files'] as $i => $file) {
+            if (preg_match(self::CALLBACK_PATTERN, $file, $matches)) {
+                $className = $matches[1];
+                $method = $matches[2];
+                $callbackFiles = call_user_func($className . '::' . $method);
+                if (is_array($callbackFiles)) {
+                    // Make sure we insert the files at the correct position, replacing
+                    // the callback string
+                    array_splice($config['files'], $i, 1, $callbackFiles);
+                }
+            }
+        }
+        return $config;
     }
 
     /**

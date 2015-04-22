@@ -108,6 +108,16 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $this->config->files('nothing here'));
     }
 
+    public function testCallbackProvider()
+    {
+        $callbacksConfig = $this->_testFiles . 'config' . DS . 'callbacks.ini';
+        $config = AssetConfig::buildFromIniFile($callbacksConfig);
+
+        $result = $config->files('callbacks.js');
+        $expected = array('jquery.js', 'mootools.js');
+        $this->assertEquals($expected, $result);
+    }
+
     public function testPathConstantReplacement()
     {
         $result = $this->config->paths('css');
