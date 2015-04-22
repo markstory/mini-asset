@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-	bootstrap="./tests/bootstrap.php"
-	>
+<phpunit bootstrap="./tests/bootstrap.php">
 
-	<testsuites>
-		<testsuite name="MiniAsset Test Cases">
-			<directory>./tests/</directory>
-		</testsuite>
-	</testsuites>
+    <testsuites>
+        <testsuite name="MiniAsset Test Cases">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Prevent coverage reports from looking in tests, vendors, config folders -->
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./vendor/</directory>
+            <directory suffix=".php">./tests/</directory>
+            <directory suffix=".php">./config/</directory>
+            <directory suffix=".php">./bin/</directory>
+        </blacklist>
+    </filter>
 </phpunit>
