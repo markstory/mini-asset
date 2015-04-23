@@ -161,6 +161,7 @@ class Factory
      *
      * @param array $files files[] list from the config file
      * @return array expanded files[] list
+     * @throws \RuntimeException
      */
     protected function _applyCallbackProviders(array $files)
     {
@@ -168,7 +169,13 @@ class Factory
             if (preg_match(self::CALLBACK_PATTERN, $file, $matches)) {
                 $className = $matches[1];
                 $method = $matches[2];
-                $callbackFiles = call_user_func($className . '::' . $method);
+                $callable = $className . '::' . $method;
+
+                if (!is_callable($callable)) {
+                    throw new \RuntimeException("Callback {$callable}() is not callable");
+                }
+
+                $callbackFiles = call_user_func($callable);
                 if (is_array($callbackFiles)) {
                     // Make sure we insert the files at the correct position, replacing
                     // the callback string
