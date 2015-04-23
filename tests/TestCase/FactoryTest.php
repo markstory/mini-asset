@@ -55,6 +55,28 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->filterRegistry();
     }
 
+
+    public function testCallbackProvider()
+    {
+        $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
+        $config = AssetConfig::buildFromIniFile($callbacksFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('callbacks.js');
+
+        $result = $target->files();
+        $this->assertCount(2, $result);
+
+        $this->assertEquals(
+            APP . 'js/classes/base_class.js',
+            $result[0]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/nested_class.js',
+            $result[1]->path()
+        );
+    }
+
     public function testAssetCollection()
     {
         $config = AssetConfig::buildFromIniFile($this->integrationFile, [

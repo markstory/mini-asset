@@ -1,12 +1,19 @@
 <?php
 namespace MiniAsset\Test\Helpers;
 
-class MyCallbackProvider {
+class MyCallbackProvider
+{
+
+    /**
+     * Returns a list of JS files
+     *
+     * @return array
+     */
     public static function getJsFiles()
     {
         return [
-            'jquery.js',
-            'mootools.js'
+            'classes/base_class.js',
+            'classes/nested_class.js'
         ];
     }
 }
