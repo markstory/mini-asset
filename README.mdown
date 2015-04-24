@@ -68,9 +68,12 @@ CSS files should behave:
 We also defined an `[app.css]` section. This section defines the files that are used to
 create `WEBROOT/cache_css/app.css` when it is generated. We've added two files.
 
+See the [sample configuration file](https://github.com/markstory/mini-asset/tree/master/config/assets.sample.ini)
+for an annotated sample configuration file.
+
 ### Use the CLI tool to build your asset
 
-With a simple build target defined, we can now generate our asset. We can use the CLI
+With a build target defined, we can now generate our asset. We can use the CLI
 tool to generate our assets:
 
 ```sh
@@ -98,7 +101,8 @@ vendor/bin/mini_asset clear --config /path/to/assets.ini
 
 ## Issues
 
-Please report any issues you have with the plugin to the [issue tracker](http://github.com/markstory/mini-asset/issues) on github.
+Please report any issues you have with the plugin to the [issue
+tracker](http://github.com/markstory/mini-asset/issues) on github.
 
 ## License
 
