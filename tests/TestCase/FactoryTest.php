@@ -56,6 +56,70 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->filterRegistry();
     }
 
+
+    public function testCallbackProvider()
+    {
+        $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
+        $config = AssetConfig::buildFromIniFile($callbacksFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('callbacks.js');
+
+        $result = $target->files();
+        $this->assertCount(2, $result);
+
+        $this->assertEquals(
+            APP . 'js/classes/base_class.js',
+            $result[0]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/nested_class.js',
+            $result[1]->path()
+        );
+    }
+
+    public function testCallbackProviderAssetOrdering()
+    {
+        $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
+        $config = AssetConfig::buildFromIniFile($callbacksFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('callbacks_ordering.js');
+
+        $result = $target->files();
+        $this->assertCount(4, $result);
+
+        $this->assertEquals(
+            APP . 'js/library_file.js',
+            $result[0]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/base_class.js',
+            $result[1]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/classes/nested_class.js',
+            $result[2]->path()
+        );
+        $this->assertEquals(
+            APP . 'js/local_script.js',
+            $result[3]->path()
+        );
+    }
+
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Callback MiniAsset\Test\Helpers\MyCallbackProvider::invalid() is not callable
+     */
+    public function testCallbackProviderNotCallable()
+    {
+        $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
+        $config = AssetConfig::buildFromIniFile($callbacksFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('callbacks_not_callable.js');
+    }
+
     public function testAssetCollection()
     {
         $config = AssetConfig::buildFromIniFile($this->integrationFile, [
