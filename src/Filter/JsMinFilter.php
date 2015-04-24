@@ -13,8 +13,8 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
 use JSMin;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * JsMin filter.
@@ -33,8 +33,8 @@ class JsMinFilter extends AssetFilter
     /**
      * Apply JsMin to $content.
      *
-     * @param string $filename
-     * @param string $content Content to filter.
+     * @param string $filename Name of the file being generated.
+     * @param string $content The uncompress contents of $filename.
      * @throws Exception
      * @return string
      */
