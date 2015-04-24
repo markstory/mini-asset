@@ -17,6 +17,7 @@ use MiniAsset\AssetCollection;
 use MiniAsset\AssetCompiler;
 use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
+use MiniAsset\File\Callback;
 use MiniAsset\File\Local;
 use MiniAsset\File\Remote;
 use MiniAsset\File\Glob;
@@ -138,11 +139,9 @@ class Factory
         $filters = $this->config->targetFilters($name);
         $target = $this->config->cachePath($ext) . $name;
 
-        $configFileList = $this->_applyCallbackProviders($this->config->files($name));
-
         $files = [];
         $scanner = $this->scanner($paths);
-        foreach ($configFileList as $file) {
+        foreach ($this->config->files($name) as $file) {
             if (preg_match('#^https?://#', $file)) {
                 $files[] = new Remote($file);
             } else {
@@ -151,9 +150,11 @@ class Factory
                     if ($path === false) {
                         throw new RuntimeException("Could not locate folder $file for $name in any configured path.");
                     }
-
                     $glob = new Glob($path, $matches[2]);
                     $files = array_merge($files, $glob->files());
+                } elseif (preg_match(static::CALLBACK_PATTERN, $file, $matches)) {
+                    $callback = new Callback($matches[1], $matches[2], $scanner);
+                    $files = array_merge($files, $callback->files());
                 } else {
                     $path = $scanner->find($file);
                     if ($path === false) {
@@ -165,37 +166,6 @@ class Factory
         }
 
         return new AssetTarget($target, $files, $filters, $paths, $themed);
-    }
-
-    /**
-     * Check the files list for any callbacks strings, executes them and replaces their
-     * position with the return array of the callback
-     *
-     * @param array $files files[] list from the config file
-     * @return array expanded files[] list
-     * @throws \RuntimeException
-     */
-    protected function _applyCallbackProviders(array $files)
-    {
-        foreach ($files as $i => $file) {
-            if (preg_match(self::CALLBACK_PATTERN, $file, $matches)) {
-                $className = $matches[1];
-                $method = $matches[2];
-                $callable = $className . '::' . $method;
-
-                if (!is_callable($callable)) {
-                    throw new \RuntimeException("Callback {$callable}() is not callable");
-                }
-
-                $callbackFiles = call_user_func($callable);
-                if (is_array($callbackFiles)) {
-                    // Make sure we insert the files at the correct position, replacing
-                    // the callback string
-                    array_splice($files, $i, 1, $callbackFiles);
-                }
-            }
-        }
-        return $files;
     }
 
     /**
