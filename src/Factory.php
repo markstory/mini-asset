@@ -19,6 +19,7 @@ use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\File\Remote;
+use MiniAsset\File\Glob;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
@@ -141,13 +142,24 @@ class Factory
             if (preg_match('#^https?://#', $file)) {
                 $files[] = new Remote($file);
             } else {
-                $path = $scanner->find($file);
-                if ($path === false) {
-                    throw new RuntimeException("Could not locate $file for $name in any configured path.");
+                if (preg_match('/(.*\/)(\*.*?)$/U', $file, $matches)) {
+                    $path = $scanner->find($matches[1]);
+                    if ($path === false) {
+                        throw new RuntimeException("Could not locate folder $file for $name in any configured path.");
+                    }
+
+                    $glob = new Glob($path, $matches[2]);
+                    $files = array_merge($files, $glob->files());
+                } else {
+                    $path = $scanner->find($file);
+                    if ($path === false) {
+                        throw new RuntimeException("Could not locate $file for $name in any configured path.");
+                    }
+                    $files[] = new Local($path);
                 }
-                $files[] = new Local($path);
             }
         }
+
         return new AssetTarget($target, $files, $filters, $paths, $themed);
     }
 
