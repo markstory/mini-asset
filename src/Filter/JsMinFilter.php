@@ -13,15 +13,19 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
 use JSMin;
+use MiniAsset\Filter\AssetFilter;
 
 /**
  * JsMin filter.
  *
- * Allows you to filter Javascript files through JsMin. You need to put JsMin in your application's
- * vendors directories. You can get it from http://github.com/rgrove/jsmin-php/
+ * Allows you to filter Javascript files through JSMin. You need either the
+ * `jsmin` PHP extension installed, or a copy of `linkorb/jsmin-php` installed
+ * via Composer.
  *
+ * @link https://github.com/sqmk/pecl-jsmin PHP extension
+ * @link https://github.com/linkorb/jsmin-php Composer version
+ * @link https://github.com/rgrove/jsmin-php Original version
  */
 class JsMinFilter extends AssetFilter
 {
@@ -29,13 +33,16 @@ class JsMinFilter extends AssetFilter
     /**
      * Apply JsMin to $content.
      *
-     * @param string $filename
-     * @param string $content Content to filter.
+     * @param string $filename Name of the file being generated.
+     * @param string $content The uncompress contents of $filename.
      * @throws Exception
      * @return string
      */
     public function output($filename, $content)
     {
+        if (function_exists('jsmin')) {
+            return jsmin($content);
+        }
         if (!class_exists('JSMin')) {
             throw new \Exception(sprintf('Cannot not load filter class "%s".', 'JsMin'));
         }
