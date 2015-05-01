@@ -28,6 +28,7 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->_testFiles = APP;
         $this->testConfig = $this->_testFiles . 'config' . DS . 'config.ini';
+        $this->extendConfig = $this->_testFiles . 'config' . DS . 'extended.ini';
         $this->_themeConfig = $this->_testFiles . 'config' . DS . 'themed.ini';
 
         $this->config = AssetConfig::buildFromIniFile($this->testConfig);
@@ -62,14 +63,13 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(filemtime($this->_themeConfig), $config->modifiedTime());
     }
 
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Configuration file "/bogus" was not found.
+     */
     public function testExceptionOnBogusFile()
     {
-        try {
-            $config = AssetConfig::buildFromIniFile('/bogus');
-            $this->assertFalse(true, 'Exception not thrown.');
-        } catch (\RuntimeException $e) {
-            $this->assertEquals('Configuration file "/bogus" was not found.', $e->getMessage());
-        }
+        AssetConfig::buildFromIniFile('/bogus');
     }
 
     public function testFilters()
@@ -276,5 +276,42 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
 
         $config = AssetConfig::buildFromIniFile($this->_themeConfig);
         $this->assertTrue($config->isThemed('themed.css'));
+    }
+
+    public function testExtendedConfig()
+    {
+        $config = new AssetConfig();
+        $config->load($this->extendConfig);
+        $expected = [
+            'classes/base_class.js',
+            'classes/template.js',
+            'library_file.js',
+        ];
+        $this->assertEquals($expected, $config->files('extended.js'));
+
+        $expected = [
+            'classes/base_class.js',
+            'classes/template.js',
+            'library_file.js',
+            'local_script.js',
+        ];
+        $this->assertEquals($expected, $config->files('more.js'));
+
+        $expected = [
+            'classes/base_class.js',
+            'classes/template.js',
+            'library_file.js',
+            'lots_of_comments.js',
+        ];
+        $this->assertEquals($expected, $config->files('second.js'));
+
+        $expected = [
+            'Sprockets',
+            'JsMinFilter',
+        ];
+        $this->assertEquals($expected, $config->targetFilters('extended.js'));
+        $this->assertEquals($expected, $config->targetFilters('more.js'));
+
+        $this->assertTrue($config->isThemed('theme.js'));
     }
 }

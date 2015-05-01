@@ -59,6 +59,7 @@ class AssetConfig
 
     /**
      * Names of normal extensions that MiniAsset could
+     *
      * handle.
      *
      * @var array
@@ -162,7 +163,7 @@ class AssetConfig
      */
     public function load($path, $prefix = '')
     {
-        $config = $this->_readConfig($path);
+        $config = $this->readConfig($path);
 
         foreach ($config as $section => $values) {
             if (in_array($section, self::$_extensionTypes)) {
@@ -191,6 +192,8 @@ class AssetConfig
             }
         }
 
+        $this->resolveExtends();
+
         return $this;
     }
 
@@ -201,7 +204,7 @@ class AssetConfig
      * @return array Inifile contents
      * @throws RuntimeException
      */
-    protected function _readConfig($filename)
+    protected function readConfig($filename)
     {
         if (empty($filename) || !is_string($filename) || !file_exists($filename)) {
             throw new RuntimeException(sprintf('Configuration file "%s" was not found.', $filename));
@@ -212,6 +215,48 @@ class AssetConfig
             return parse_ini_file($filename, true);
         } else {
             return parse_ini_string(file_get_contents($filename), true);
+        }
+    }
+
+    /**
+     * Once all targets have been built, resolve extend options.
+     *
+     * @return void
+     * @throws RuntimeException
+     */
+    protected function resolveExtends()
+    {
+        $extend = [];
+        foreach ($this->_targets as $name => $target) {
+            if (empty($target['extend'])) {
+                continue;
+            }
+            $parent = $target['extend'];
+            if (empty($this->_targets[$parent])) {
+                throw new RuntimeException("Invalid extend in '$name'. There is no '$parent' target defined.");
+            }
+            $extend[] = $name;
+        }
+
+        $expander = function ($target) use (&$expander, $extend) {
+            $config = $this->_targets[$target];
+            $parentConfig = false;
+
+            // Recurse through parents to collect all config.
+            if (in_array($target, $extend)) {
+                $parentConfig = $expander($config['extend']);
+            }
+            if (!$parentConfig) {
+                return $config;
+            }
+            $config['files'] = array_merge($parentConfig['files'], $config['files']);
+            $config['filters'] = array_merge($parentConfig['filters'], $config['filters']);
+            $config['theme'] = $parentConfig['theme'] || $config['theme'];
+            return $config;
+        };
+
+        foreach ($extend as $target) {
+            $this->_targets[$target] = $expander($target);
         }
     }
 
@@ -517,6 +562,7 @@ class AssetConfig
             'files' => [],
             'filters' => [],
             'theme' => false,
+            'extend' => false,
         ];
         if (!empty($config['paths'])) {
             $config['paths'] = array_map(array($this, '_replacePathConstants'), (array)$config['paths']);
