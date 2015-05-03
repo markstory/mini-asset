@@ -14,6 +14,7 @@
 namespace MiniAsset\File;
 
 use MiniAsset\AssetScanner;
+use RuntimeException;
 
 /**
  * Wrapper for callback functions that return file lists
