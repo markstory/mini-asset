@@ -87,7 +87,7 @@ class TimestampImage extends AssetFilter
         if ($path[0] === '/') {
             $imagePath = $webroot . rtrim($path, '/');
         } else {
-            $imagePath = realpath(dirname($this->_filename) . DS . $path);
+            $imagePath = realpath(dirname($this->_filename) . DIRECTORY_SEPARATOR . $path);
         }
         if (file_exists($imagePath)) {
             $path = $this->_timestamp($imagePath, $path);

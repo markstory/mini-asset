@@ -70,7 +70,7 @@ trait FreshTrait
     public function isFresh(AssetTarget $target)
     {
         $buildName = $this->buildFileName($target);
-        $buildFile = $this->outputDir($target) . DS . $buildName;
+        $buildFile = $this->outputDir($target) . DIRECTORY_SEPARATOR . $buildName;
 
         if (!file_exists($buildFile)) {
             return false;

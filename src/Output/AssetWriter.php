@@ -84,7 +84,7 @@ class AssetWriter
             throw new RuntimeException('Cannot write cache file. Unable to write to ' . $path);
         }
         $filename = $this->buildFileName($build);
-        $success = file_put_contents($path . DS . $filename, $content) !== false;
+        $success = file_put_contents($path . DIRECTORY_SEPARATOR . $filename, $content) !== false;
         $this->finalize($build);
         return $success;
     }

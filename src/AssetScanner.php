@@ -44,7 +44,7 @@ class AssetScanner
     }
 
     /**
-     * Ensure all paths end in a DS and expand any APP/WEBROOT constants.
+     * Ensure all paths end in a directory separator and expand any APP/WEBROOT constants.
      * Normalizes the Directory Separator as well.
      *
      * @return void
