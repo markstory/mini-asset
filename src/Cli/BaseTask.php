@@ -73,7 +73,7 @@ abstract class BaseTask
     {
         if (!$this->cli->arguments->defined('verbose')) {
             if (strlen($short)) {
-                $this->cli->out($short);
+                $this->cli->inline($short);
             }
             return;
         }
