@@ -55,9 +55,8 @@ class Hogan extends AssetFilter
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $input;
         }
-        $tmpfile = tempnam(sys_get_temp_dir(), 'asset_compress_hogan');
-        $id = str_replace($this->_settings['ext'], '', basename($filename));
-        $this->_generateScript($tmpfile, $id, $input);
+        $tmpfile = tempnam(sys_get_temp_dir(), 'mini_asset_hogan');
+        $this->_generateScript($tmpfile, $filename, $input);
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         $return = $this->_runCmd($bin, '', $env);
@@ -74,30 +73,41 @@ class Hogan extends AssetFilter
      * @param string input The mustache template content.
      * @return void
      */
-    protected function _generateScript($file, $id, $input)
+    protected function _generateScript($file, $filename, $input)
     {
-        $config = array(
-        'asString' => true,
-        );
+        $id = str_replace($this->_settings['ext'], '', basename($filename));
+        $filepath = str_replace($this->_settings['ext'], '', $filename);
+
+        foreach ($this->_settings['paths'] as $path) {
+            $path = rtrim($path, '/') . '/';
+            if (strpos($filepath, $path) === 0) {
+                $filepath = str_replace($path, '', $filepath);
+            }
+        }
+
+        $config = [
+            'asString' => true,
+        ];
 
         $text = <<<JS
 var hogan = require('hogan.js'),
-	util = require('util');
+    util = require('util');
 
 try {
-	var template = hogan.compile(%s, %s);
-	util.print('\\nwindow.JST["%s"] = ' + template + ';');
-	process.exit(0);
+    var template = hogan.compile(%s, %s);
+    util.print('\\nwindow.JST["%s"] = window.JST["%s"] = ' + template + ';');
+    process.exit(0);
 } catch (e) {
-	console.error(e);
-	process.exit(1);
+    console.error(e);
+    process.exit(1);
 }
 JS;
         $contents = sprintf(
             $text,
             json_encode($input),
             json_encode($config),
-            $id
+            $id,
+            $filepath
         );
         file_put_contents($file, $contents);
     }
