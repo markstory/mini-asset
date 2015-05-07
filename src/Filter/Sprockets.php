@@ -89,7 +89,7 @@ class Sprockets extends AssetFilter
         $file = $this->_currentFile;
         if ($matches[1] === '"') {
             // Same directory include
-            $file = $this->_findFile($matches[2], dirname($file) . DS);
+            $file = $this->_findFile($matches[2], dirname($file) . DIRECTORY_SEPARATOR);
         } else {
             // scan all paths
             $file = $this->_findFile($matches[2]);
@@ -146,7 +146,7 @@ class Sprockets extends AssetFilter
 
             if ($matches[1] === '"') {
                 // Same directory include
-                $path = $this->_findFile($matches[2], dirname($file->path()) . DS);
+                $path = $this->_findFile($matches[2], dirname($file->path()) . DIRECTORY_SEPARATOR);
             } else {
                 // scan all paths
                 $path = $this->_findFile($matches[2]);

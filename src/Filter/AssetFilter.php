@@ -111,14 +111,14 @@ class AssetFilter implements FilterInterface
      */
     protected function _findExecutable($search, $file)
     {
-        $file = str_replace('/', DS, $file);
+        $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
         if (file_exists($file)) {
             return $file;
         }
         foreach ($search as $path) {
-            $path = rtrim($path, DS);
-            if (file_exists($path . DS . $file)) {
-                return $path . DS . $file;
+            $path = rtrim($path, DIRECTORY_SEPARATOR);
+            if (file_exists($path . DIRECTORY_SEPARATOR . $file)) {
+                return $path . DIRECTORY_SEPARATOR . $file;
             }
         }
         return null;

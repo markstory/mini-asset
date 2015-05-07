@@ -79,6 +79,7 @@ class BuildTask extends BaseTask
         foreach ($factory->assetCollection() as $target) {
             $this->_buildTarget($factory, $target);
         }
+        $this->cli->out('<green>Complete</green>');
         return 0;
     }
 

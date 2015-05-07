@@ -75,6 +75,7 @@ class ClearTask extends BaseTask
 
         $this->_clearPath($config->cachePath('js'), $targets);
         $this->_clearPath($config->cachePath('css'), $targets);
+        $this->cli->out('<green>Complete</green>');
     }
 
     /**
@@ -102,7 +103,7 @@ class ClearTask extends BaseTask
                 $base = $matches[1] . $matches[2];
             }
             if (in_array($base, $targets)) {
-                $this->verbose(' - Deleting ' . $path . $name);
+                $this->verbose(' - Deleting ' . $path . $name, '.');
                 unlink($path . $name);
                 continue;
             }

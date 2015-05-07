@@ -440,7 +440,10 @@ class AssetConfig
                 return $result;
             }
         }
-        $this->_filters[$filter] = $settings;
+        $this->_filters[$filter] = array_map(
+            [$this, '_replacePathConstants'],
+            $settings
+        );
     }
 
     /**
