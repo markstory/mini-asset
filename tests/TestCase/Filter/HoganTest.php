@@ -26,7 +26,8 @@ class HoganTest extends \PHPUnit_Framework_TestCase
         $this->filter = new Hogan();
         $settings = array(
             'node' => trim(`which node`),
-            'node_path' => getenv('NODE_PATH')
+            'node_path' => getenv('NODE_PATH'),
+            'paths' => [],
         );
         $this->filter->settings($settings);
 
