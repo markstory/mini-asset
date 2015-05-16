@@ -77,6 +77,7 @@ trait CssDependencyTrait
     protected function _findFile($file)
     {
         foreach ($this->_settings['paths'] as $path) {
+            $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
             if (file_exists($path . $file)) {
                 return $path . $file;
             }
