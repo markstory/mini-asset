@@ -16,7 +16,7 @@ namespace MiniAsset\Filter;
 use MiniAsset\Filter\AssetFilter;
 
 /**
- * Output minifier for uglify-j
+ * Output minifier for uglify-js
  *
  * Requires nodejs and uglify-js to be installed.
  *
@@ -28,7 +28,8 @@ class Uglifyjs extends AssetFilter
     protected $_settings = array(
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
-        'node_path' => '/usr/local/lib/node_modules'
+        'node_path' => '/usr/local/lib/node_modules',
+        'options' => '',
     );
 
     /**
@@ -40,7 +41,7 @@ class Uglifyjs extends AssetFilter
      */
     public function output($filename, $input)
     {
-        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ';
+        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         return $this->_runCmd($cmd, $input, $env);
     }
