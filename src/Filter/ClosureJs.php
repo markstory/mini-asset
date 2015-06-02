@@ -47,7 +47,8 @@ class ClosureJs extends AssetFilter
     public function output($filename, $input)
     {
         $output = null;
-        $jar = $this->_findExecutable([ROOT . 'vendor'], $this->_settings['path']);
+        $paths = [getcwd(), dirname(dirname(dirname(dirname(__DIR__))))];
+        $jar = $this->_findExecutable($paths, $this->_settings['path']);
 
         // Closure works better if you specify an input file. Also supress warnings by default
         $tmpFile = tempnam(TMP, 'CLOSURE');
