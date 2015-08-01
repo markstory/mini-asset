@@ -29,7 +29,7 @@ class AssetScanner
      *
      * @var array
      */
-    protected $_paths = array();
+    protected $_paths = [];
 
     /**
      * Constructor.
