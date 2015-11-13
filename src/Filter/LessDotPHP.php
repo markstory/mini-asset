@@ -39,9 +39,7 @@ class LessDotPHP extends AssetFilter
      */
     public function input($filename, $input)
     {
-        if (substr($filename,
-                strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']
-        ) {
+        if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $input;
         }
         if (!class_exists('\Less_Parser')) {
@@ -53,4 +51,3 @@ class LessDotPHP extends AssetFilter
         return $parser->parseFile($filename)->getCss();
     }
 }
-
