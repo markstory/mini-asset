@@ -39,6 +39,6 @@
     "tedivm/jshrink": "For using the JShrink filter.",
     "linkorb/jsmin-php": "For using the JSMin filter.",
     "leafo/scssphp": "For using the ScssPHP filter.",
-    "leafo/lessphp": "For using the LessPHP filter."
+    "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php"
   }
 }
