@@ -101,7 +101,11 @@ class AssetScanner
         if (!$paths) {
             $paths = array();
         }
-        array_unshift($paths, dirname($path));
+        $basepath = dirname($path);
+        if (pathinfo($basepath, PATHINFO_BASENAME) === '**') {
+            $basepath = dirname($basepath);
+        }
+        array_unshift($paths, $basepath);
         return $paths;
     }
 
