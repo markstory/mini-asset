@@ -81,13 +81,17 @@ class ScssFilter extends AssetFilter
                     continue;
                 }
                 $pathinfo = pathinfo($name);
+                $nameAlt = '';
                 if (substr($pathinfo['basename'], 0, 1) !== '_') {
                     $name = $pathinfo['dirname'] . '/_' . $pathinfo['basename'];
+                    $nameAlt = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
                 }
                 if ($ext !== substr($name, -$extLength)) {
                     $name .= $ext;
+                    $nameAlt .= $ext;
                 }
                 $deps[] = $name;
+                if ($nameAlt !== '') $deps[] = $nameAlt;
             }
             foreach ($deps as $import) {
                 $path = $this->_findFile($import);
