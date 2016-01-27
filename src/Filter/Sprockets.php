@@ -139,21 +139,23 @@ class Sprockets extends AssetFilter
         $children = [];
         foreach ($target->files() as $file) {
             $contents = $file->contents();
-            preg_match($this->_pattern, $contents, $matches);
+            $count = preg_match_all($this->_pattern, $contents, $matches);
             if (empty($matches)) {
                 continue;
             }
 
-            if ($matches[1] === '"') {
-                // Same directory include
-                $path = $this->_findFile($matches[2], dirname($file->path()) . DIRECTORY_SEPARATOR);
-            } else {
-                // scan all paths
-                $path = $this->_findFile($matches[2]);
+            for ($i = 0; $i < $count; $i ++) {
+                if ($matches[1][$i] === '"') {
+                    // Same directory include
+                    $path = $this->_findFile($matches[2][$i], dirname($file->path()) . DIRECTORY_SEPARATOR);
+                } else {
+                    // scan all paths
+                    $path = $this->_findFile($matches[2][$i]);
+                }
+                $dep = new Local($path);
+                $children[] = $dep;
             }
-            $dep = new Local($path);
-            $children[] = $dep;
-            $newTarget = new AssetTarget('phony.js', [$dep]);
+            $newTarget = new AssetTarget('phony.js', $children);
             $children = array_merge($children, $this->getDependencies($newTarget));
         }
         return $children;

@@ -126,6 +126,7 @@ class ScssFilter extends AssetFilter
         }
         $basepath = dirname($path);
         if (pathinfo($basepath, PATHINFO_BASENAME) === '**') {
+            $paths = array_merge($paths, glob($basepath, GLOB_ONLYDIR));
             $basepath = dirname($basepath);
         }
         array_unshift($paths, $basepath);

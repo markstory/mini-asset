@@ -80,7 +80,12 @@ class AssetScanner
         $expanded = array();
         foreach ($this->_paths as $path) {
             if (preg_match('/[*.\[\]]/', $path)) {
-                $tree = $this->_generateTree($path);
+                $path = dirname($path);
+                if (pathinfo($path, PATHINFO_BASENAME) === '**') {
+                    $path = dirname($path);
+                }
+                $tree = [];
+                $this->_dirToArray($path, $tree);
                 $expanded = array_merge($expanded, $tree);
             } else {
                 $expanded[] = $path;
@@ -90,23 +95,24 @@ class AssetScanner
     }
 
     /**
-     * Discover all the sub directories for a given path.
+     * Get an array of all the folders inside directory structure recursively.
      *
-     * @param string $path The path to search
-     * @return array Array of subdirectories.
+     * @param string $dir The path of root directory to look through.
+     * @param array $result The array of folder paths.
+     * @return void
      */
-    protected function _generateTree($path)
+    protected function _dirToArray($dir, &$result)
     {
-        $paths = glob($path, GLOB_ONLYDIR);
-        if (!$paths) {
-            $paths = array();
+        $result[] = $dir;
+        $cdir = scandir($dir);
+        foreach ($cdir as $key => $value) {
+            if (in_array($value, ['.', '..'])) {
+                continue;
+            }
+            if (is_dir($dir . '/' . $value)) {
+                $this->_dirToArray($dir . '/' . $value, $result);
+            }
         }
-        $basepath = dirname($path);
-        if (pathinfo($basepath, PATHINFO_BASENAME) === '**') {
-            $basepath = dirname($basepath);
-        }
-        array_unshift($paths, $basepath);
-        return $paths;
     }
 
     /**

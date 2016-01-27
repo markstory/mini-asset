@@ -1,20 +1,25 @@
 {
-  "name": "markstory/mini-asset",
+  "name": "clthck/mini-asset",
   "description": "An asset compression library. Provides file concatenation and a flexible filter system for preprocessing and minification.",
   "type": "cakephp-plugin",
-  "keywords": ["cakephp", "assets", "minifier", "less", "coffee-script", "sass"],
-  "homepage": "https://github.com/markstory/mini-asset",
+  "keywords": ["cakephp", "assets", "minifier", "less", "coffee-script", "sass", "postcss"],
+  "homepage": "https://github.com/clthck/mini-asset",
   "license": "MIT",
   "authors": [
     {
       "name": "Mark Story",
       "homepage": "http://mark-story.com",
       "role": "Author"
+    },
+    {
+      "name": "clthck",
+      "homepage": "http://github.com/clthck",
+      "role": "Contributor"
     }
   ],
   "support": {
-    "issues": "https://github.com/markstory/mini-asset/issues",
-    "source": "https://github.com/markstory/mini-asset"
+    "issues": "https://github.com/clthck/mini-asset/issues",
+    "source": "https://github.com/clthck/mini-asset"
   },
   "require": {
     "league/climate": "~3.0"
