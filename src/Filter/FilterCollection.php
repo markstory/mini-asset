@@ -23,9 +23,12 @@ class FilterCollection implements Countable
 {
     protected $filters = [];
 
-    public function __construct(array $filters)
+    protected $debug = false;
+
+    public function __construct(array $filters, $debug)
     {
         $this->filters = $filters;
+        $this->debug = $debug;
     }
 
     /**
@@ -62,8 +65,12 @@ class FilterCollection implements Countable
      */
     public function output($target, $content)
     {
+        $shouldApplyFilterGeneral = (!$this->debug || php_sapi_name() === 'cli');
         foreach ($this->filters as $filter) {
-            $content = $filter->output($target, $content);
+            $settings = $filter->settings();
+            if ((array_key_exists('allowDebugMode', $settings) && !!$settings['allowDebugMode']) || $shouldApplyFilterGeneral) {
+                $content = $filter->output($target, $content);
+            }
         }
         return $content;
     }

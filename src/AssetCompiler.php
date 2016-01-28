@@ -60,16 +60,14 @@ class AssetCompiler
      */
     public function generate(AssetTarget $build)
     {
-        $filters = $this->filterRegistry->collection($build);
+        $filters = $this->filterRegistry->collection($build, $this->debug);
         $output = '';
         foreach ($build->files() as $file) {
             $content = $file->contents();
             $content = $filters->input($file->path(), $content);
             $output .= $content . "\n";
         }
-        if (!$this->debug || php_sapi_name() === 'cli') {
-            $output = $filters->output($build->path(), $output);
-        }
+        $output = $filters->output($build->path(), $output);
         return trim($output);
     }
 }

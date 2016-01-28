@@ -97,9 +97,10 @@ class FilterRegistry
      * Get a filter collection for a specific target.
      *
      * @param MiniAsset\AssetTarget $target The target to get a filter collection for.
+     * @param boolean $debug Indicates whether it is in debug or production mode
      * @return MiniAsset\Filter\FilterCollection
      */
-    public function collection(AssetTarget $target)
+    public function collection(AssetTarget $target, $debug = false)
     {
         $filters = [];
         foreach ($target->filterNames() as $name) {
@@ -115,6 +116,6 @@ class FilterRegistry
             ]);
             $filters[] = $copy;
         }
-        return new FilterCollection($filters);
+        return new FilterCollection($filters, $debug);
     }
 }

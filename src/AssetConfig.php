@@ -180,7 +180,7 @@ class AssetConfig
             } elseif (strpos($section, self::FILTER_PREFIX) === 0) {
                 // filter section.
                 $name = str_replace(self::FILTER_PREFIX, '', $section);
-                $this->filterConfig($name, $values);
+                $this->filterConfig($name, array_merge($this->filterConfig($name), $values));
 
             } else {
                 $lastDot = strrpos($section, '.') + 1;
