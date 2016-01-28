@@ -169,7 +169,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGetDependencies()
+    public function testGetDependenciesRecursive()
     {
         $files = [
             new Local($this->_jsDir . 'classes/nested_class.js')
@@ -179,6 +179,23 @@ TEXT;
         $this->assertCount(2, $result, 'Should find 2 files.');
         $this->assertEquals('base_class_two.js', $result[0]->name());
         $this->assertEquals('base_class.js', $result[1]->name());
+    }
+
+    /**
+     * Test that getDependencies() grabs all files included in a file
+     *
+     * @return void
+     */
+    public function testGetDependenciesMultiple()
+    {
+        $files = [
+            new Local($this->_jsDir . 'classes/slideshow.js')
+        ];
+        $target = new AssetTarget('test.js', $files);
+        $result = $this->filter->getDependencies($target);
+        $this->assertCount(2, $result, 'Should find 2 files.');
+        $this->assertEquals('library_file.js', $result[0]->name());
+        $this->assertEquals('another_class.js', $result[1]->name());
     }
 
     protected function assertTextEquals($expected, $result, $message = '')
