@@ -17,6 +17,16 @@ use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Utility\CssUtils;
 
+/**
+ * CSS dependency location trait.
+ *
+ * Implementing classes can define the $optionalDependencyPrefix property to indicate
+ * that dependency files could also have an optional prefix.
+ *
+ * For example in scss `@import 'utilities'` will resolve to `_utilities.scss`.
+ *
+ * @var string
+ */
 trait CssDependencyTrait
 {
     /**
@@ -25,6 +35,8 @@ trait CssDependencyTrait
     public function getDependencies(AssetTarget $target)
     {
         $children = [];
+        $hasPrefix = (property_exists($this, 'optionalDependencyPrefix') &&
+            !empty($this->optionalDependencyPrefix));
         foreach ($target->files() as $file) {
             $imports = CssUtils::extractImports($file->contents());
             if (empty($imports)) {
@@ -44,6 +56,9 @@ trait CssDependencyTrait
                     $name .= $ext;
                 }
                 $deps[] = $name;
+                if ($hasPrefix) {
+                    $deps[] = $this->optionalDependencyPrefix . $name;
+                }
             }
             foreach ($deps as $import) {
                 $path = $this->_findFile($import);

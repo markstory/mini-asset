@@ -35,6 +35,13 @@ class ScssFilter extends AssetFilter
     );
 
     /**
+     * SCSS will use `_` prefixed files if they exist.
+     *
+     * @var string
+     */
+    protected $optionalDependencyPrefix = '_';
+
+    /**
      * Runs SCSS compiler against any files that match the configured extension.
      *
      * @param string $filename The name of the input file.
