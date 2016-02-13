@@ -60,7 +60,11 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(filemtime($this->testConfig), $config->modifiedTime());
 
         $config->load($this->_themeConfig);
-        $this->assertEquals(filemtime($this->testConfig), $config->modifiedTime());
+        $this->assertEquals(
+            filemtime($this->_themeConfig),
+            $config->modifiedTime(),
+            'Reflects last updated config file'
+        );
     }
 
     /**

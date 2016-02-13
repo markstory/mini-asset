@@ -137,7 +137,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $asset->files(), 'Not enough files');
         $paths = [
             APP . 'js',
-            APP . 'js/**'
+            APP . 'js/other_path',
         ];
         $this->assertEquals($paths, $asset->paths(), 'Paths are incorrect');
         $this->assertEquals(['Sprockets'], $asset->filterNames(), 'Filters are incorrect');
