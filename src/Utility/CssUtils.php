@@ -18,7 +18,7 @@ namespace MiniAsset\Utility;
  */
 class CssUtils
 {
-    const IMPORT_PATTERN = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)));/m';
+    const IMPORT_PATTERN = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)))(\s.*)?;/m';
 
     /**
      * Extract the urls in import directives.

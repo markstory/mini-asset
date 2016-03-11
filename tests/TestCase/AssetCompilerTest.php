@@ -103,8 +103,8 @@ TEXT;
         $compiler = $this->instance();
         $result = $compiler->generate($target);
         $expected = <<<TEXT
-@import 'base';
-@import 'nav.css';
+@import 'base' screen;
+@import 'nav.css' screen and (orientation: landscape);
 #footer {
     color: blue;
 }
