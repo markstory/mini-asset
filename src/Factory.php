@@ -141,6 +141,8 @@ class Factory
 
         $files = [];
         $scanner = $this->scanner($paths);
+        $paths = $scanner->paths();
+
         foreach ($this->config->files($name) as $file) {
             if (preg_match('#^https?://#', $file)) {
                 $files[] = new Remote($file);
