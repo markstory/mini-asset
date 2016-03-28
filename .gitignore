@@ -1,5 +1,6 @@
 .DS_Store
 /tags
 /vendor
+/coverage
 /composer.lock
 /.sass-cache
