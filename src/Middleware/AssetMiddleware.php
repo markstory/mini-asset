@@ -1,6 +1,7 @@
 <?php
 namespace MiniAsset\Middleware;
 
+use Exception;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
 use Zend\Diactoros\Stream;
@@ -32,7 +33,7 @@ class AssetMiddleware
     public function __construct(AssetConfig $config, $outputDir = null, $urlPrefix = '/asset/')
     {
         $this->config = $config;
-        $this->outputDir = $outputDir ?: sys_get_temp_dir();
+        $this->outputDir = $outputDir ?: sys_get_temp_dir() . DIRECTORY_SEPARATOR;
         $this->urlPrefix = $urlPrefix;
     }
 
@@ -59,9 +60,9 @@ class AssetMiddleware
             // Unknown build.
             return $next($request, $response);
         }
-        $build = $assets->get($targetName);
 
         try {
+            $build = $assets->get($targetName);
             $compiler = $factory->compiler();
             $cacher = $factory->cacher($this->outputDir);
             if ($cacher->isFresh($build)) {
