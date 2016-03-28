@@ -137,10 +137,6 @@ class AssetConfig
      */
     public static function buildFromIniFile($iniFile = null, $constants = array())
     {
-        // TODO remove this. This constant is likely to not exist.
-        if (empty($iniFile)) {
-            $iniFile = CONFIG . 'asset_compress.ini';
-        }
         $config = new static([], $constants);
         return $config->load($iniFile);
     }
