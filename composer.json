@@ -41,6 +41,6 @@
     "linkorb/jsmin-php": "For using the JSMin filter.",
     "leafo/scssphp": "For using the ScssPHP filter.",
     "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php",
-    "psr/http-message": "A PSR7 implementation is required for middleware usage."
+    "zendframework/diactoros": "The middleware layer relies on zendframework/diactoros."
   }
 }
