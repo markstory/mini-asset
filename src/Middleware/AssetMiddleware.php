@@ -3,6 +3,7 @@ namespace MiniAsset\Middleware;
 
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
+use Zend\Diactoros\Stream;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\TextResponse;
 
@@ -73,7 +74,28 @@ class AssetMiddleware
             // Could not build the asset.
             return new TextResponse($e->getMessage(), 400);
         }
+        return $this->respond($contents, $build->ext());
+    }
+
+    private function respond($contents, $ext)
+    {
         // Deliver built asset.
-        return new Response($stream, 200, $headers);
+        $body = new Stream('php://temp', 'wb+');
+        $body->write($contents);
+        $body->rewind();
+
+        $headers = [
+            'Content-Type' => $this->mapType($ext)
+        ];
+        return new Response($body, 200, $headers);
+    }
+
+    private function mapType($ext)
+    {
+        $types = [
+            'css' => 'application/css',
+            'js' => 'application/javascript'
+        ];
+        return isset($types[$ext]) ? $types[$ext] : 'application/octet-stream';
     }
 }
