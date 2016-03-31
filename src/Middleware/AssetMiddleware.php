@@ -4,9 +4,6 @@ namespace MiniAsset\Middleware;
 use Exception;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
-use Zend\Diactoros\Stream;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\TextResponse;
 
 /**
  * A PSR7 middleware for serving assets from mini-asset.
@@ -73,22 +70,21 @@ class AssetMiddleware
             }
         } catch (Exception $e) {
             // Could not build the asset.
-            return new TextResponse($e->getMessage(), 400);
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'text/plain');
         }
-        return $this->respond($contents, $build->ext());
+        return $this->respond($response, $contents, $build->ext());
     }
 
-    private function respond($contents, $ext)
+    private function respond($response, $contents, $ext)
     {
         // Deliver built asset.
-        $body = new Stream('php://temp', 'wb+');
+        $body = $response->getBody();
         $body->write($contents);
         $body->rewind();
 
-        $headers = [
-            'Content-Type' => $this->mapType($ext)
-        ];
-        return new Response($body, 200, $headers);
+        return $response->withHeader('Content-Type', $this->mapType($ext));
     }
 
     private function mapType($ext)
