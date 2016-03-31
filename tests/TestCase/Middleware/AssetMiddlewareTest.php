@@ -76,6 +76,7 @@ class AssetMiddlewareTest extends PHPUnit_Framework_TestCase
         $res = $this->middleware->__invoke($request, $response, $next);
         $this->assertNotSame($res, $response, 'Should be a new response');
         $this->assertSame(400, $res->getStatusCode(), 'Is 400 on failure');
+        $this->assertSame('text/plain', $res->getHeaderLine('Content-Type'));
     }
 
     public function testInvokeCacheRead()
@@ -91,6 +92,7 @@ class AssetMiddlewareTest extends PHPUnit_Framework_TestCase
         $res = $this->middleware->__invoke($request, $response, $next);
         $this->assertNotSame($res, $response, 'Should be a new response');
         $this->assertSame(200, $res->getStatusCode(), 'Is 200 on success');
+        $this->assertSame('application/css', $res->getHeaderLine('Content-Type'));
         $this->assertContains('cached data', '' . $res->getBody(), 'Is cached data.');
 
         unlink(sys_get_temp_dir() . '/all.css');
