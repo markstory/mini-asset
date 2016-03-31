@@ -91,9 +91,22 @@ You can also use the `mini_asset` CLI tool to clear targets:
 vendor/bin/mini_asset clear --config /path/to/assets.ini
 ```
 
-### Integrating a live development builder
+### PSR7 Middleware
 
-:warning: Not done - Use CakePHP plugin as an example.
+Mini-asset provides a PSR7 middleware adapter that implements the pattern found in
+zendframework/zend-stratagility and SlimPHP. Before you can use the middleware provided by
+mini-asset be sure to setup a config file with your assets. Next, integrate mini-asset into your
+middleware stack. For example in a SlimPHP app you would do:
+
+```php
+use MiniAsset\AssetConfig;
+use MiniAsset\Middleware\AssetMiddleware;
+
+$assetConfig = AssetConfig::buildFromIniFile(__DIR__ . '../config/assets.ini');
+$assets = new AssetMiddleware($assetConfig);
+
+$app->add($assets);
+```
 
 ## Framework Integrations
 
