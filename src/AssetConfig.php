@@ -137,9 +137,6 @@ class AssetConfig
      */
     public static function buildFromIniFile($iniFile = null, $constants = array())
     {
-        if (empty($iniFile)) {
-            $iniFile = CONFIG . 'asset_compress.ini';
-        }
         $config = new static([], $constants);
         return $config->load($iniFile);
     }

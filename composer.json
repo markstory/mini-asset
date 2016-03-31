@@ -2,7 +2,7 @@
   "name": "markstory/mini-asset",
   "description": "An asset compression library. Provides file concatenation and a flexible filter system for preprocessing and minification.",
   "type": "cakephp-plugin",
-  "keywords": ["cakephp", "assets", "minifier", "less", "coffee-script", "sass"],
+  "keywords": ["cakephp", "assets", "minifier", "less", "coffee-script", "sass", "psr7"],
   "homepage": "https://github.com/markstory/mini-asset",
   "license": "MIT",
   "authors": [
@@ -21,6 +21,7 @@
   },
   "require-dev": {
     "squizlabs/PHP_CodeSniffer": "*",
+    "zendframework/zend-diactoros": "~1.0",
     "phpunit/phpunit": "4.1.*"
   },
   "autoload": {
@@ -39,6 +40,7 @@
     "tedivm/jshrink": "For using the JShrink filter.",
     "linkorb/jsmin-php": "For using the JSMin filter.",
     "leafo/scssphp": "For using the ScssPHP filter.",
-    "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php"
+    "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php",
+    "zendframework/diactoros": "The middleware layer relies on zendframework/diactoros."
   }
 }
