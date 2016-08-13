@@ -26,6 +26,7 @@ use MiniAsset\Filter\AssetFilter;
  * @link https://github.com/sqmk/pecl-jsmin PHP extension
  * @link https://github.com/linkorb/jsmin-php Composer version
  * @link https://github.com/rgrove/jsmin-php Original version
+ * @deprecated 1.2.0 Use JSqueeze, JShrink, Uglify, or ClosureJs instead.
  */
 class JsMinFilter extends AssetFilter
 {
