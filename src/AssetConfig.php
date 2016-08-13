@@ -170,15 +170,12 @@ class AssetConfig
                     $values = array_merge($defaults, $values);
                 }
                 $this->addExtension($section, $values);
-
             } elseif (strtolower($section) === self::GENERAL) {
                 $this->set(self::GENERAL, $values);
-
             } elseif (strpos($section, self::FILTER_PREFIX) === 0) {
                 // filter section.
                 $name = str_replace(self::FILTER_PREFIX, '', $section);
                 $this->filterConfig($name, $values);
-
             } else {
                 $lastDot = strrpos($section, '.') + 1;
                 $extension = substr($section, $lastDot);
