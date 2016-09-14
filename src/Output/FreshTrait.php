@@ -28,7 +28,7 @@ trait FreshTrait
     /**
      * The filter registry to use.
      *
-     * @var MiniAsset\Filter\FilterRegistry
+     * @var \MiniAsset\Filter\FilterRegistry
      */
     protected $filterRegistry;
 
@@ -51,7 +51,7 @@ trait FreshTrait
     /**
      * Set the filter registry
      *
-     * @param MiniAsset\Filter\FilterRegistry $filters The filter set to use.
+     * @param \MiniAsset\Filter\FilterRegistry $filters The filter set to use.
      * @return void
      */
     public function filterRegistry(FilterRegistry $filters)
@@ -105,7 +105,7 @@ trait FreshTrait
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param MiniAsset\AssetTarget $target
+     * @param \MiniAsset\AssetTarget $target
      * @return string The path
      */
     abstract public function outputDir(AssetTarget $target);

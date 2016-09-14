@@ -53,7 +53,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * A factory instance that can be used to lazily build targets.
      *
-     * @var MiniAsset\Factory
+     * @var \MiniAsset\Factory
      */
     protected $factory;
 

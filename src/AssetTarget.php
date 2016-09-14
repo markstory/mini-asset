@@ -21,10 +21,29 @@ namespace MiniAsset;
  */
 class AssetTarget
 {
+    /**
+     * @var string
+     */
     protected $path;
+
+    /**
+     * @var array
+     */
     protected $files = [];
+
+    /**
+     * @var array
+     */
     protected $filters = [];
+
+    /**
+     * @var array
+     */
     protected $paths = [];
+
+    /**
+     * @var bool
+     */
     protected $themed;
 
     /**
@@ -44,47 +63,74 @@ class AssetTarget
         $this->themed = $themed;
     }
 
+    /**
+     * @return bool
+     */
     public function isThemed()
     {
         return $this->themed;
     }
 
+    /**
+     * @return array
+     */
     public function paths()
     {
         return $this->paths;
     }
 
+    /**
+     * @return array
+     */
     public function files()
     {
         return $this->files;
     }
 
+    /**
+     * @return string
+     */
     public function path()
     {
         return $this->path;
     }
 
+    /**
+     * @return string
+     */
     public function outputDir()
     {
         return dirname($this->path);
     }
 
+    /**
+     * @return string
+     */
     public function name()
     {
         return basename($this->path);
     }
 
+    /**
+     * @return string
+     */
     public function ext()
     {
         $parts = explode('.', $this->name());
         return array_pop($parts);
     }
 
+    /**
+     * @return array
+     */
     public function filterNames()
     {
         return $this->filters;
     }
 
+    /**
+     * @return int
+     */
     public function modifiedTime()
     {
         if (file_exists($this->path)) {

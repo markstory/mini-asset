@@ -44,7 +44,7 @@ class ScssPHP extends AssetFilter
      *
      * @param string $filename The name of the input file.
      * @param string $input The content of the file.
-     * @throws Exception
+     * @throws \Exception
      * @return string
      */
     public function input($filename, $input)

@@ -277,7 +277,7 @@ class AssetWriter
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param MiniAsset\AssetTarget $target
+     * @param \MiniAsset\AssetTarget $target
      * @return string The path
      */
     public function outputDir(AssetTarget $target)

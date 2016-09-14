@@ -108,8 +108,8 @@ class ClosureCompiler extends AssetFilter
      *
      * @param string $content Javascript to compile.
      * @param array $args API parameters.
-     * @throws Exception If curl extension is missing.
-     * @throws Exception If curl triggers an error.
+     * @throws \Exception If curl extension is missing.
+     * @throws \Exception If curl triggers an error.
      * @return string
      */
     protected function _query($content, $args = array())

@@ -29,7 +29,7 @@ abstract class BaseTask
     /**
      * Get the injected config or build a config object from the CLI option.
      *
-     * @return MiniAsset\AssetConfig
+     * @return \MiniAsset\AssetConfig
      */
     public function config()
     {

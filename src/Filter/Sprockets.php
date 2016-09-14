@@ -114,7 +114,7 @@ class Sprockets extends AssetFilter
      * @param string $filename The basename of the file needing to be found.
      * @param string $path The path for same directory includes.
      * @return string Path to file.
-     * @throws Exception when files can't be located.
+     * @throws \Exception when files can't be located.
      */
     protected function _findFile($filename, $path = null)
     {
