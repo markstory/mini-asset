@@ -86,8 +86,8 @@ class BuildTask extends BaseTask
     /**
      * Generate and save the cached file for a build target.
      *
-     * @param MiniAsset\Factory $factory The factory class.
-     * @param MiniAsset\AssetTarget $build The build target.
+     * @param \MiniAsset\Factory $factory The factory class.
+     * @param \MiniAsset\AssetTarget $build The build target.
      * @return void
      */
     protected function _buildTarget($factory, $build)

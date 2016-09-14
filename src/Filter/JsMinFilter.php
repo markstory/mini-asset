@@ -36,7 +36,7 @@ class JsMinFilter extends AssetFilter
      *
      * @param string $filename Name of the file being generated.
      * @param string $content The uncompress contents of $filename.
-     * @throws Exception
+     * @throws \Exception
      * @return string
      */
     public function output($filename, $content)

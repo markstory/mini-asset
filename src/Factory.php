@@ -37,7 +37,7 @@ class Factory
     /**
      * The config instance to make objects based on.
      *
-     * @var MiniAsset\AssetConfig
+     * @var \MiniAsset\AssetConfig
      */
     protected $config;
 
@@ -46,7 +46,7 @@ class Factory
     /**
      * Constructor
      *
-     * @param MiniAsset\AssetConfig $config
+     * @param \MiniAsset\AssetConfig $config
      */
     public function __construct(AssetConfig $config)
     {
@@ -57,7 +57,7 @@ class Factory
      * Create an AssetCompiler
      *
      * @param bool $debug Whether or not to enable debugging mode for the compiler.
-     * @return MiniAsset\AssetCompiler
+     * @return \MiniAsset\AssetCompiler
      */
     public function compiler($debug = false)
     {
@@ -68,7 +68,7 @@ class Factory
      * Create an AssetWriter
      *
      * @param string $tmpPath The path where the build timestamp lookup should be stored.
-     * @return MiniAsset\AssetWriter
+     * @return \MiniAsset\AssetWriter
      */
     public function writer($tmpPath = '')
     {
@@ -89,7 +89,7 @@ class Factory
      * Create an AssetCacher
      *
      * @param string $path The path to cache assets into.
-     * @return MiniAsset\AssetCacher
+     * @return \MiniAsset\AssetCacher
      */
     public function cacher($path = '')
     {
@@ -105,7 +105,7 @@ class Factory
     /**
      * Create an AssetCollection with all the configured assets.
      *
-     * @return MiniAsset\AssetCollection
+     * @return \MiniAsset\AssetCollection
      */
     public function assetCollection()
     {
@@ -117,7 +117,7 @@ class Factory
      * Create a new scanner instance for the provided paths.
      *
      * @param array $paths The paths to scan.
-     * @return MiniAsset\AssetScanner
+     * @return \MiniAsset\AssetScanner
      */
     public function scanner($paths)
     {
@@ -128,7 +128,7 @@ class Factory
      * Create a single build target
      *
      * @param string $name The name of the target to build
-     * @return MiniAsset\AssetTarget
+     * @return \MiniAsset\AssetTarget
      */
     public function target($name)
     {
@@ -173,7 +173,7 @@ class Factory
     /**
      * Create a filter registry containing all the configured filters.
      *
-     * @return MiniAsset\Filter\FilterRegistry
+     * @return \MiniAsset\Filter\FilterRegistry
      */
     public function filterRegistry()
     {
@@ -189,7 +189,7 @@ class Factory
      *
      * @param string $name The name of the filter to build.
      * @param array $config The configuration for the filter.
-     * @return MiniAsset\Filter\AssetFilterInterface
+     * @return \MiniAsset\Filter\AssetFilterInterface
      */
     protected function buildFilter($name, $config)
     {

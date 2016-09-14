@@ -26,7 +26,7 @@ class AssetCompiler
     /**
      * The filter registry to use.
      *
-     * @var MiniAsset\FilterRegistry
+     * @var \MiniAsset\FilterRegistry
      */
     protected $filterRegistry;
 

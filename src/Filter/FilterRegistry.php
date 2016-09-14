@@ -60,7 +60,7 @@ class FilterRegistry
      * Add a filter to the registry
      *
      * @param string $name The filter name to load.
-     * @param MiniAsset\Filter\FilterInterface $filter The filter to load.
+     * @param \MiniAsset\Filter\FilterInterface $filter The filter to load.
      * @return void
      */
     public function add($name, FilterInterface $filter)
@@ -72,7 +72,7 @@ class FilterRegistry
      * Get a filter from the registry
      *
      * @param string $name The filter name to fetch.
-     * @return MiniAsset\Filter\FilterInterface|null
+     * @return \MiniAsset\Filter\FilterInterface|null
      */
     public function get($name)
     {
@@ -96,8 +96,8 @@ class FilterRegistry
     /**
      * Get a filter collection for a specific target.
      *
-     * @param MiniAsset\AssetTarget $target The target to get a filter collection for.
-     * @return MiniAsset\Filter\FilterCollection
+     * @param \MiniAsset\AssetTarget $target The target to get a filter collection for.
+     * @return \MiniAsset\Filter\FilterCollection
      */
     public function collection(AssetTarget $target)
     {
