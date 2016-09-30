@@ -52,9 +52,10 @@ class ScssFilterTest extends \PHPUnit_Framework_TestCase
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);
 
-        $this->assertCount(2, $result);
+        $this->assertCount(3, $result);
         $this->assertEquals('colors.scss', $result[0]->name());
         $this->assertEquals('_utilities.scss', $result[1]->name());
+        $this->assertEquals('_reset.scss', $result[2]->name());
     }
 
     public function testGetDependenciesMissingDependency()
