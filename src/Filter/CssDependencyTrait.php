@@ -57,7 +57,7 @@ trait CssDependencyTrait
                 }
                 $deps[] = $name;
                 if ($hasPrefix) {
-                    $deps[] = $this->optionalDependencyPrefix . $name;
+                    $deps[] = $this->_prependPrefixToFilename($name);
                 }
             }
             foreach ($deps as $import) {
@@ -98,5 +98,29 @@ trait CssDependencyTrait
             }
         }
         return $file;
+    }
+
+    /**
+     * Prepends filenames with defined prefix if not already defined.
+     *
+     * @param string $name The file name.
+     * @param string The prefixed filename.
+     */
+    protected function _prependPrefixToFilename($name)
+    {
+        $ds = DIRECTORY_SEPARATOR;
+        $parts = explode($ds, $name);
+        $filename = end($parts);
+
+        if ($name === $filename
+            || $filename[0] === $this->optionalDependencyPrefix) {
+            return $this->optionalDependencyPrefix . $name;
+        }
+
+        return str_replace(
+            $ds . $filename,
+            $ds . $this->optionalDependencyPrefix . $filename,
+            $name
+        );
     }
 }
