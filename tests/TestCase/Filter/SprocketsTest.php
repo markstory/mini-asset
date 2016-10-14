@@ -112,6 +112,8 @@ TEXT;
 /*!
  this comment will stay
 */
+// Local script
+
 // this comment should be removed
 function test(thing) {
     /* this comment will be removed */
@@ -193,9 +195,10 @@ TEXT;
         ];
         $target = new AssetTarget('test.js', $files);
         $result = $this->filter->getDependencies($target);
-        $this->assertCount(2, $result, 'Should find 2 files.');
+        $this->assertCount(3, $result, 'Should find 3 files.');
         $this->assertEquals('library_file.js', $result[0]->name());
-        $this->assertEquals('another_class.js', $result[1]->name());
+        $this->assertEquals('local_script.js', $result[1]->name());
+        $this->assertEquals('another_class.js', $result[2]->name());
     }
 
     protected function assertTextEquals($expected, $result, $message = '')
