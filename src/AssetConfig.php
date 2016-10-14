@@ -441,7 +441,7 @@ class AssetConfig
     }
 
     /**
-     * Get/set the list of files that match the given build file.
+     * Get the list of files that match the given build file.
      *
      * @param string $target The build file with extension.
      * @return array An array of files for the chosen build.
@@ -450,6 +450,24 @@ class AssetConfig
     {
         if (isset($this->_targets[$target]['files'])) {
             return (array)$this->_targets[$target]['files'];
+        }
+        return [];
+    }
+
+    /**
+     * Get the required build targets for this target.
+     *
+     * Required builds differ from extends in that the compiled
+     * asset is merged into the named target. In extends, the
+     * source files & filter for an asset are merged into a target.
+     *
+     * @param string $target The target to get requirements for.
+     * @return array A list of required builds.
+     */
+    public function requires($target)
+    {
+        if (isset($this->_targets[$target]['require'])) {
+            return (array)$this->_targets[$target]['require'];
         }
         return [];
     }
@@ -560,6 +578,7 @@ class AssetConfig
             'filters' => [],
             'theme' => false,
             'extend' => false,
+            'require' => [],
         ];
         if (!empty($config['paths'])) {
             $config['paths'] = array_map(array($this, '_replacePathConstants'), (array)$config['paths']);

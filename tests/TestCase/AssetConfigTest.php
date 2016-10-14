@@ -91,14 +91,6 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('Uglifyjs'), $this->config->filters('js'));
     }
 
-    public function testTargetFilters()
-    {
-        $this->config->addTarget('libs.js', [
-            'filters' => ['Uglifyjs']
-        ]);
-        $this->assertEquals(['Sprockets', 'YuiJs', 'Uglifyjs'], $this->config->targetFilters('libs.js'));
-    }
-
     public function testFiles()
     {
         $result = $this->config->files('libs.js');
@@ -154,6 +146,19 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
             $this->config->files('testing-two.js')
         );
         $this->assertTrue($this->config->isThemed('testing-two.js'));
+    }
+
+    public function testRequires()
+    {
+        $this->config->addTarget('testing.js', array(
+            'files' => array('one.js', 'two.js'),
+        ));
+        $this->config->addTarget('child.js', array(
+            'files' => array('one.js', 'two.js'),
+            'require' => 'base.js'
+        ));
+        $this->assertEquals([], $this->config->requires('testing.js'));
+        $this->assertEquals(['base.js'], $this->config->requires('child.js'));
     }
 
     public function testGetExt()
