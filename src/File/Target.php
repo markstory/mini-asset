@@ -43,7 +43,7 @@ class Target implements FileInterface
 
     public function contents()
     {
-        return $this->compiler->build($this->target);
+        return $this->compiler->generate($this->target);
     }
 
     public function modifiedTime()

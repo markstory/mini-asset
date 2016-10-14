@@ -56,6 +56,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->filterRegistry();
     }
 
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage The target named 'not-there.js' does not exist.
+     */
+    public function testTargetMissing()
+    {
+        $factory = new Factory($this->config);
+        $factory->target('not-there.js');
+    }
+
     public function testTargetCallbackProvider()
     {
         $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
@@ -119,14 +129,58 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $target = $factory->target('callbacks_not_callable.js');
     }
 
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage The target named 'nope.js' does not exist.
+     */
     public function testTargetWithRequiredTargetMissingDependency()
     {
-        $this->markTestIncomplete();
+        $requireFile = APP . 'config' . DS . 'require.ini';
+        $config = AssetConfig::buildFromIniFile($requireFile);
+
+        $factory = new Factory($config);
+        $factory->target('invalid-require.js');
     }
 
     public function testTargetWithRequiredTarget()
     {
-        $this->markTestIncomplete();
+        $requireFile = APP . 'config' . DS . 'require.ini';
+        $config = AssetConfig::buildFromIniFile($requireFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('second.js');
+        $files = $target->files();
+
+        // Check the top level target
+        $this->assertCount(2, $files);
+        $this->assertInstanceOf('MiniAsset\File\Target', $files[0]);
+        $this->assertInstanceOf('MiniAsset\File\Local', $files[1]);
+        $this->assertEquals('middle.js', $files[0]->name());
+    }
+
+    public function testTargetWithRequireIntegration()
+    {
+        $requireFile = APP . 'config' . DS . 'require.ini';
+        $config = AssetConfig::buildFromIniFile($requireFile);
+
+        $factory = new Factory($config);
+        $target = $factory->target('second.js');
+        $files = $target->files();
+
+        // Check the top level target
+        $this->assertCount(2, $files);
+        $middle = $files[0];
+        $this->assertInstanceOf('MiniAsset\File\Target', $middle);
+        $this->assertEquals('middle.js', $middle->name());
+
+        $contents = $middle->contents();
+        $this->assertContains('var BaseClass', $contents, 'No baseclass, sprockets not applied');
+        $this->assertContains('var Template', $contents);
+        $this->assertContains(
+            '//= require "local_script"',
+            $contents,
+            'Sprockets should not be applied to intermediate build files'
+        );
     }
 
     public function testAssetCollection()

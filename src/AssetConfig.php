@@ -565,6 +565,17 @@ class AssetConfig
     }
 
     /**
+     * Check if the named target exists.
+     *
+     * @param string $name The name of the target to check.
+     * @return bool
+     */
+    public function hasTarget($name)
+    {
+        return isset($this->_targets[$name]);
+    }
+
+    /**
      * Create a new build target.
      *
      * @param string $target Name of the target file. The extension will be inferred based on the last extension.

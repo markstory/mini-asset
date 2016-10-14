@@ -29,9 +29,10 @@ class GlobTest extends \PHPUnit_Framework_TestCase
     {
         $glob = new Glob(dirname(__FILE__) . DS, '*');
         $files = $glob->files();
-        $this->assertCount(3, $files);
+        $this->assertCount(4, $files);
         $this->assertEquals('GlobTest.php', $files[0]->name());
         $this->assertEquals('LocalTest.php', $files[1]->name());
         $this->assertEquals('RemoteTest.php', $files[2]->name());
+        $this->assertEquals('TargetTest.php', $files[3]->name());
     }
 }
