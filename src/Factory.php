@@ -20,6 +20,7 @@ use MiniAsset\File\Callback;
 use MiniAsset\File\Local;
 use MiniAsset\File\Remote;
 use MiniAsset\File\Glob;
+use MiniAsset\File\Target;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
@@ -181,7 +182,13 @@ class Factory
                 }
             }
         }
-
+        $required = $this->config->requires($name);
+        if ($required) {
+            $compiler = $this->compiler();
+            foreach ($required as $dependency) {
+                $files[] = new Target($this->target($dependency), $compiler);
+            }
+        }
         return new AssetTarget($target, $files, $filters, $paths, $themed);
     }
 

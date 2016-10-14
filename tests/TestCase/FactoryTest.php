@@ -56,8 +56,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->filterRegistry();
     }
 
-
-    public function testCallbackProvider()
+    public function testTargetCallbackProvider()
     {
         $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
         $config = AssetConfig::buildFromIniFile($callbacksFile);
@@ -78,7 +77,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCallbackProviderAssetOrdering()
+    public function testTargetCallbackProviderAssetOrdering()
     {
         $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
         $config = AssetConfig::buildFromIniFile($callbacksFile);
@@ -111,13 +110,23 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      * @expectedException RuntimeException
      * @expectedExceptionMessage Callback MiniAsset\Test\Helpers\MyCallbackProvider::invalid() is not callable
      */
-    public function testCallbackProviderNotCallable()
+    public function testTargetCallbackProviderNotCallable()
     {
         $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
         $config = AssetConfig::buildFromIniFile($callbacksFile);
 
         $factory = new Factory($config);
         $target = $factory->target('callbacks_not_callable.js');
+    }
+
+    public function testTargetWithRequiredTargetMissingDependency()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testTargetWithRequiredTarget()
+    {
+        $this->markTestIncomplete();
     }
 
     public function testAssetCollection()
