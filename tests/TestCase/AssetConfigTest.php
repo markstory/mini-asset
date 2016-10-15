@@ -140,13 +140,20 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
             'files' => ['one.js', 'two.js']
         ]);
         $this->assertEquals(array('one.js', 'two.js'), $this->config->files('testing.js'));
+    }
 
+    public function testAddTargetThemed()
+    {
         $this->config->addTarget('testing-two.js', array(
             'files' => array('one.js', 'two.js'),
             'filters' => array('uglify'),
             'theme' => true
         ));
-        $this->assertEquals(array('one.js', 'two.js'), $this->config->files('testing-two.js'));
+        $this->assertEquals(
+            array('one.js', 'two.js'),
+            $this->config->files('testing-two.js')
+        );
+        $this->assertTrue($this->config->isThemed('testing-two.js'));
     }
 
     public function testGetExt()
@@ -322,7 +329,6 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertEquals($expected, $config->targetFilters('extended.js'));
         $this->assertEquals($expected, $config->targetFilters('more.js'));
-
         $this->assertTrue($config->isThemed('theme.js'));
     }
 }
