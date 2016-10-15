@@ -22,8 +22,9 @@ use MiniAsset\File\Remote;
 use MiniAsset\File\Glob;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
-use MiniAsset\Output\Compiler;
 use MiniAsset\Output\AssetWriter;
+use MiniAsset\Output\CachedCompiler;
+use MiniAsset\Output\Compiler;
 use RuntimeException;
 
 /**
@@ -62,6 +63,20 @@ class Factory
     public function compiler($debug = false)
     {
         return new Compiler($this->filterRegistry(), $debug);
+    }
+
+    /**
+     * Create a Caching Compiler
+     *
+     * @param bool $debug Whether or not to enable debugging mode for the compiler.
+     * @return \MiniAsset\Output\CachedCompiler
+     */
+    public function cachedCompiler($outputDir = '', $debug = false)
+    {
+        return new CachedCompiler(
+            $this->cacher($outputDir),
+            $this->compiler($debug)
+        );
     }
 
     /**
