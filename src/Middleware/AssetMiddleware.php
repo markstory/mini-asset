@@ -60,14 +60,8 @@ class AssetMiddleware
 
         try {
             $build = $assets->get($targetName);
-            $compiler = $factory->compiler();
-            $cacher = $factory->cacher($this->outputDir);
-            if ($cacher->isFresh($build)) {
-                $contents = $cacher->read($build);
-            } else {
-                $contents = $compiler->generate($build);
-                $cacher->write($build, $contents);
-            }
+            $compiler = $factory->cachedCompiler($this->outputDir);
+            $contents = $compiler->generate($build);
         } catch (Exception $e) {
             // Could not build the asset.
             $response->getBody()->write($e->getMessage());
