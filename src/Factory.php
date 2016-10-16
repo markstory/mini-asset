@@ -14,7 +14,6 @@
 namespace MiniAsset;
 
 use MiniAsset\AssetCollection;
-use MiniAsset\AssetCompiler;
 use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Callback;
@@ -24,6 +23,8 @@ use MiniAsset\File\Glob;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
+use MiniAsset\Output\CachedCompiler;
+use MiniAsset\Output\Compiler;
 use RuntimeException;
 
 /**
@@ -54,14 +55,28 @@ class Factory
     }
 
     /**
-     * Create an AssetCompiler
+     * Create an Compiler
      *
      * @param bool $debug Whether or not to enable debugging mode for the compiler.
-     * @return \MiniAsset\AssetCompiler
+     * @return \MiniAsset\Output\Compiler
      */
     public function compiler($debug = false)
     {
-        return new AssetCompiler($this->filterRegistry(), $debug);
+        return new Compiler($this->filterRegistry(), $debug);
+    }
+
+    /**
+     * Create a Caching Compiler
+     *
+     * @param bool $debug Whether or not to enable debugging mode for the compiler.
+     * @return \MiniAsset\Output\CachedCompiler
+     */
+    public function cachedCompiler($outputDir = '', $debug = false)
+    {
+        return new CachedCompiler(
+            $this->cacher($outputDir),
+            $this->compiler($debug)
+        );
     }
 
     /**

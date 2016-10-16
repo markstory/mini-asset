@@ -13,13 +13,13 @@
  */
 namespace MiniAsset\Test\TestCase;
 
-use MiniAsset\AssetCompiler;
 use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\Factory;
 use MiniAsset\File\Local;
+use MiniAsset\Output\Compiler;
 
-class AssetCompilerTest extends \PHPUnit_Framework_TestCase
+class CompilerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
