@@ -15,6 +15,7 @@ namespace MiniAsset\File;
 
 use MiniAsset\AssetTarget;
 use MiniAsset\File\FileInterface;
+use MiniAsset\Output\CompilerInterface;
 
 /**
  * Wrapper for targets that are adding to the file list of
@@ -25,7 +26,7 @@ class Target implements FileInterface
     private $target;
     private $compiler;
 
-    public function __construct(AssetTarget $target, $compiler)
+    public function __construct(AssetTarget $target, CompilerInterface $compiler)
     {
         $this->target = $target;
         $this->compiler = $compiler;
