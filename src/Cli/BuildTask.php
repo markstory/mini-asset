@@ -93,7 +93,7 @@ class BuildTask extends BaseTask
     protected function _buildTarget($factory, $build)
     {
         $writer = $factory->writer();
-        $compiler = $factory->compiler();
+        $compiler = $factory->cachedCompiler();
 
         $name = $writer->buildFileName($build);
         if ($writer->isFresh($build) && !$this->cli->arguments->defined('force')) {

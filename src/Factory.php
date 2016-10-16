@@ -164,7 +164,7 @@ class Factory
 
         $required = $this->config->requires($name);
         if ($required) {
-            $compiler = $this->compiler();
+            $compiler = $this->cachedCompiler();
             foreach ($required as $dependency) {
                 $files[] = new Target($this->target($dependency), $compiler);
             }
