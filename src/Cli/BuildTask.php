@@ -15,6 +15,7 @@ namespace MiniAsset\Cli;
 
 use MiniAsset\Cli\BaseTask;
 use MiniAsset\Factory;
+use \Exception;
 
 /**
  * Provides the `mini_asset build` command.
@@ -93,7 +94,7 @@ class BuildTask extends BaseTask
     protected function _buildTarget($factory, $build)
     {
         $writer = $factory->writer();
-        $compiler = $factory->compiler();
+        $compiler = $factory->cachedCompiler();
 
         $name = $writer->buildFileName($build);
         if ($writer->isFresh($build) && !$this->cli->arguments->defined('force')) {
@@ -104,11 +105,11 @@ class BuildTask extends BaseTask
         $writer->invalidate($build);
         $name = $writer->buildFileName($build);
         try {
-            $this->verbose('<green>Saving file</green> for ' . $name, '.');
             $contents = $compiler->generate($build);
             $writer->write($build, $contents);
+            $this->verbose('<green>Saved file</green> for ' . $name, '.');
         } catch (Exception $e) {
-            $this->cli->err('Error: ' . $e->getMessage());
+            $this->cli->err('<red>Error:</red> ' . $e->getMessage());
         }
     }
 }

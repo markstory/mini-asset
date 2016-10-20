@@ -20,6 +20,7 @@ use MiniAsset\File\Callback;
 use MiniAsset\File\Local;
 use MiniAsset\File\Remote;
 use MiniAsset\File\Glob;
+use MiniAsset\File\Target;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
@@ -144,19 +145,30 @@ class Factory
      *
      * @param string $name The name of the target to build
      * @return \MiniAsset\AssetTarget
+     * @throws \RuntimeException
      */
     public function target($name)
     {
+        if (!$this->config->hasTarget($name)) {
+            throw new RuntimeException("The target named '$name' does not exist.");
+        }
         $ext = $this->config->getExt($name);
 
-        $paths = $this->config->paths($ext, $name);
         $themed = $this->config->isThemed($name);
         $filters = $this->config->targetFilters($name);
         $target = $this->config->cachePath($ext) . $name;
 
         $files = [];
-        $scanner = $this->scanner($paths);
+        $scanner = $this->scanner($this->config->paths($ext, $name));
         $paths = $scanner->paths();
+
+        $required = $this->config->requires($name);
+        if ($required) {
+            $compiler = $this->cachedCompiler();
+            foreach ($required as $dependency) {
+                $files[] = new Target($this->target($dependency), $compiler);
+            }
+        }
 
         foreach ($this->config->files($name) as $file) {
             if (preg_match('#^https?://#', $file)) {
@@ -181,7 +193,6 @@ class Factory
                 }
             }
         }
-
         return new AssetTarget($target, $files, $filters, $paths, $themed);
     }
 

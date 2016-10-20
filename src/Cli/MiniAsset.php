@@ -44,6 +44,9 @@ class MiniAsset
                 return $this->build->main($argv);
             case 'clear':
                 return $this->clear->main($argv);
+            default:
+                $this->help();
+                return 1;
         }
     }
 

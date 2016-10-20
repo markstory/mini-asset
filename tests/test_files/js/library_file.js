@@ -1,6 +1,7 @@
 /*!
  this comment will stay
 */
+//= require "local_script"
 // this comment should be removed
 function test(thing) {
     /* this comment will be removed */
