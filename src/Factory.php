@@ -69,6 +69,7 @@ class Factory
     /**
      * Create a Caching Compiler
      *
+     * @param string $outputDir The directory to output cached files to.
      * @param bool $debug Whether or not to enable debugging mode for the compiler.
      * @return \MiniAsset\Output\CachedCompiler
      */
