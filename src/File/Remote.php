@@ -27,16 +27,25 @@ class Remote implements FileInterface
         $this->url = $url;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function path()
     {
         return $this->url;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function name()
     {
         return $this->url;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function contents()
     {
         $handle = fopen($this->url, 'rb');
@@ -47,6 +56,9 @@ class Remote implements FileInterface
         return $content;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function modifiedTime()
     {
         return $this->_getLastModified($this->url);

@@ -32,21 +32,33 @@ class Target implements FileInterface
         $this->compiler = $compiler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function path()
     {
         return $this->target->path();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function name()
     {
         return $this->target->name();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function contents()
     {
         return $this->compiler->generate($this->target);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function modifiedTime()
     {
         return $this->target->modifiedTime();

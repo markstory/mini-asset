@@ -13,6 +13,12 @@
  */
 namespace MiniAsset\File;
 
+/**
+ * Interface for build 'files' or components work.
+ *
+ * Various implementations of this interface allow different
+ * file sources to be used.
+ */
 interface FileInterface
 {
     /**

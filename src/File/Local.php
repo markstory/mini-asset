@@ -30,21 +30,33 @@ class Local implements FileInterface
         $this->path = $path;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function path()
     {
         return $this->path;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function name()
     {
         return basename($this->path);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function contents()
     {
         return file_get_contents($this->path);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function modifiedTime()
     {
         return filemtime($this->path);
