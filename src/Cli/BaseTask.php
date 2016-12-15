@@ -20,6 +20,12 @@ abstract class BaseTask
     protected $cli;
     protected $config;
 
+    /**
+     * Constructor
+     *
+     * @param \League\CLImate\CLImate $cli The CLImate instance.
+     * @param array $config Configuration data.
+     */
     public function __construct($cli, $config = null)
     {
         $this->cli = $cli;

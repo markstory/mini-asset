@@ -24,6 +24,13 @@ class Callback
 {
     protected $callable;
 
+    /**
+     * Constructor
+     *
+     * @param string $class The class name to invoke.
+     * @param string $method The method to invoke.
+     * @param \MiniAsset\AssetScanner $scanner The asset scanner.
+     */
     public function __construct($class, $method, AssetScanner $scanner)
     {
         $callable = $class . '::' . $method;
