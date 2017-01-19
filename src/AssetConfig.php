@@ -116,7 +116,7 @@ class AssetConfig
     protected function _addConstants($constants)
     {
         foreach ($constants as $key => $value) {
-            if (strpos($value, DIRECTORY_SEPARATOR) === false) {
+            if (is_array($value) || strpos($value, DIRECTORY_SEPARATOR) === false) {
                 continue;
             }
             if ($value !== DIRECTORY_SEPARATOR && !@file_exists($value)) {
