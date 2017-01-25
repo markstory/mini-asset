@@ -33,6 +33,17 @@ class Uglifyjs extends AssetFilter
     );
 
     /**
+     * Input filter.
+     *
+     * @param string $filename Name of the file
+     * @param string $content Content of the file.
+     * @return string
+     */
+    public function input($filename, $content) {
+        $this->files[] = $filename;
+        return $content;
+    }
+    /**
      * Run `uglifyjs` against the output and compress it.
      *
      * @param string $filename Name of the file being generated.
@@ -41,8 +52,19 @@ class Uglifyjs extends AssetFilter
      */
     public function output($filename, $input)
     {
-        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
+        $files = implode(' ', $this->files);
+        $cmd =
+            $this->_settings['node'] . ' ' .
+            $this->_settings['uglify'] . ' ' .
+            $files . ' ' .
+            $this->_settings['options'];
+
+        if ($this->_settings['create_map']) {
+            $cmd .= ' ' . $this->_settings['source_map'];
+        }
+
+        // $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
-        return $this->_runCmd($cmd, $input, $env);
+        return $this->_runCmd($cmd, '', $env);
     }
 }
