@@ -39,7 +39,8 @@ class Uglifyjs extends AssetFilter
      * @param string $content Content of the file.
      * @return string
      */
-    public function input($filename, $content) {
+    public function input($filename, $content)
+    {
         $this->files[] = $filename;
         return $content;
     }
@@ -58,10 +59,6 @@ class Uglifyjs extends AssetFilter
             $this->_settings['uglify'] . ' ' .
             $files . ' ' .
             $this->_settings['options'];
-
-        if ($this->_settings['create_map']) {
-            $cmd .= ' ' . $this->_settings['source_map'];
-        }
 
         // $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
