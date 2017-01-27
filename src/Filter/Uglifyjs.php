@@ -60,7 +60,6 @@ class Uglifyjs extends AssetFilter
             $files . ' ' .
             $this->_settings['options'];
 
-        // $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         return $this->_runCmd($cmd, '', $env);
     }
