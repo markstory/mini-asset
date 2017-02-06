@@ -21,7 +21,9 @@ class ClearTaskTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $cli = $this->getMock('League\CLImate\CLImate', ['usage', 'out', 'err']);
+        $cli = $this->getMockBuilder('League\CLImate\CLImate')
+            ->setMethods(['usage', 'out', 'err'])
+            ->getMock();
         $cli->expects($this->any())
             ->method('out')
             ->will($this->returnSelf());

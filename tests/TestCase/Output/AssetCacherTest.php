@@ -35,7 +35,7 @@ class AssetCacherTest extends \PHPUnit_Framework_TestCase
             [],
             true
         );
-        $filter = $this->getMock('MiniAsset\Filter\FilterInterface');
+        $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')
             ->will($this->returnValue([]));
         $registry = new FilterRegistry([$filter]);

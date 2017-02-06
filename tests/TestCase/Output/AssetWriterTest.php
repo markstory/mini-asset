@@ -29,7 +29,7 @@ class AssetWriterTest extends \PHPUnit_Framework_TestCase
             new Local(APP . 'js/library_file.js'),
             new Local(APP . 'js/bad_comments.js'),
         ];
-        $filter = $this->getMock('MiniAsset\Filter\FilterInterface');
+        $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')
             ->will($this->returnValue([]));
         $registry = new FilterRegistry([$filter]);
