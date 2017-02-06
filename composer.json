@@ -22,7 +22,7 @@
   "require-dev": {
     "squizlabs/PHP_CodeSniffer": "*",
     "zendframework/zend-diactoros": "~1.0",
-    "phpunit/phpunit": "4.1.*"
+    "phpunit/phpunit": "5.*"
   },
   "autoload": {
     "psr-4": {
