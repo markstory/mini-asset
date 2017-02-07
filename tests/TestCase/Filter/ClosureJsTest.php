@@ -20,23 +20,25 @@ class ClosureJsTest extends \PHPUnit_Framework_TestCase
 
     public function testCommand()
     {
-        $Filter = $this->getMock('MiniAsset\Filter\ClosureJs', array('_findExecutable', '_runCmd'));
+        $filter = $this->getMockBuilder('MiniAsset\Filter\ClosureJs')
+            ->setMethods(['_findExecutable', '_runCmd'])
+            ->getMock();
 
-        $Filter->expects($this->at(0))
+        $filter->expects($this->at(0))
             ->method('_findExecutable')
             ->will($this->returnValue('closure/compiler.jar'));
-        $Filter->expects($this->at(1))
+        $filter->expects($this->at(1))
             ->method('_runCmd')
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET"/'));
-        $Filter->output('file.js', 'var a = 1;');
+        $filter->output('file.js', 'var a = 1;');
 
-        $Filter->expects($this->at(0))
+        $filter->expects($this->at(0))
             ->method('_findExecutable')
             ->will($this->returnValue('closure/compiler.jar'));
-        $Filter->expects($this->at(1))
+        $filter->expects($this->at(1))
             ->method('_runCmd')
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET" --language_in="ECMASCRIPT5"/'));
-        $Filter->settings(array('language_in' => 'ECMASCRIPT5'));
-        $Filter->output('file.js', 'var a = 1;');
+        $filter->settings(array('language_in' => 'ECMASCRIPT5'));
+        $filter->output('file.js', 'var a = 1;');
     }
 }

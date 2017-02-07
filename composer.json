@@ -17,12 +17,13 @@
     "source": "https://github.com/markstory/mini-asset"
   },
   "require": {
+    "php": ">=5.6.0",
     "league/climate": "~3.0"
   },
   "require-dev": {
     "squizlabs/PHP_CodeSniffer": "*",
     "zendframework/zend-diactoros": "~1.0",
-    "phpunit/phpunit": "4.1.*"
+    "phpunit/phpunit": "5.*"
   },
   "autoload": {
     "psr-4": {
