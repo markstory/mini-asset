@@ -30,6 +30,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->pluginFile = APP . 'config' . DS . 'plugins.ini';
         $this->overrideFile = APP . 'config' . DS . 'overridable.local.ini';
         $this->globFile = APP . 'config' . DS . 'glob.ini';
+        $this->timestampFile = APP . 'config' . DS . 'timestamp.ini';
     }
 
     public function testFilterRegistry()
@@ -281,6 +282,23 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ],
             'path' => TMP,
             'theme' => 'Red'
+        ];
+        $this->assertEquals($expected, $writer->config());
+    }
+
+    public function testWriterWithTimestampPath()
+    {
+        $config = AssetConfig::buildFromIniFile($this->timestampFile);
+        $factory = new Factory($config);
+        $writer = $factory->writer();
+
+        $expected = [
+            'timestamp' => [
+                'js' => true,
+                'css' => false
+            ],
+            'path' => WEBROOT . 'timestamp' . DIRECTORY_SEPARATOR,
+            'theme' => '',
         ];
         $this->assertEquals($expected, $writer->config());
     }

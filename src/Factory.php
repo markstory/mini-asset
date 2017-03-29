@@ -89,6 +89,7 @@ class Factory
      */
     public function writer($tmpPath = '')
     {
+        $tmpPath = $tmpPath ?: $this->config->get('general.timestampPath');
         if (!$tmpPath) {
             $tmpPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
         }

@@ -171,6 +171,10 @@ class AssetConfig
                 }
                 $this->addExtension($section, $values);
             } elseif (strtolower($section) === self::GENERAL) {
+                if (!empty($values['timestampPath'])) {
+                    $path = $this->_replacePathConstants($values['timestampPath']);
+                    $values['timestampPath'] = rtrim($path, '/') . '/';
+                }
                 $this->set(self::GENERAL, $values);
             } elseif (strpos($section, self::FILTER_PREFIX) === 0) {
                 // filter section.
