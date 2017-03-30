@@ -30,6 +30,7 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
         $this->testConfig = $this->_testFiles . 'config' . DS . 'config.ini';
         $this->extendConfig = $this->_testFiles . 'config' . DS . 'extended.ini';
         $this->_themeConfig = $this->_testFiles . 'config' . DS . 'themed.ini';
+        $this->timestampConfig = $this->_testFiles . 'config' . DS . 'timestamp.ini';
 
         $this->config = AssetConfig::buildFromIniFile($this->testConfig);
     }
@@ -263,6 +264,13 @@ class AssetConfigTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->config->general('non-existant');
         $this->assertNull($result);
+    }
+
+    public function testGeneralTimestampPath()
+    {
+        $config = AssetConfig::buildFromIniFile($this->timestampConfig);
+
+        $this->assertSame(WEBROOT . 'timestamp' . DIRECTORY_SEPARATOR, $config->get('general.timestampPath'));
     }
 
     /**
