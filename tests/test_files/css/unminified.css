@@ -66,5 +66,5 @@ screen
 }
 
 .hoverable :hover span {
-    padding: 0px 0px;
+    padding: 1px ;
 }
