@@ -65,3 +65,6 @@ screen
     }
 }
 
+.hoverable :hover span {
+    padding: 1px ;
+}

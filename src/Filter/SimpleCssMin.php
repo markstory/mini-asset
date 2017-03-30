@@ -46,8 +46,11 @@ class SimpleCssMin extends AssetFilter
         // Replace consecutive whitespaces by single one
         $content = preg_replace('/\s{2,}/', ' ', $content);
 
-        // Remove spaces before and after any of { } , : >
-        $content = preg_replace('/\s*({|}|,|\:|;|>)\s*/', '$1', $content);
+        // Remove spaces before : if it isn't in a pseudo selector
+        $content = preg_replace('/\s*(\:)(?!checked|disabled|hover|active|focus|before|after)\s*/', '$1', $content);
+
+        // Remove spaces before and after any of { } , >
+        $content = preg_replace('/\s*({|}|,|;|>)\s*/', '$1', $content);
 
         // Remove spaces left parenthesis or before right parenthesis
         $content = preg_replace('/(\()\s*|\s*(\))/', '$1$2', $content);
