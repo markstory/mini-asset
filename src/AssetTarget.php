@@ -27,7 +27,7 @@ class AssetTarget
     protected $path;
 
     /**
-     * @var array
+     * @var \MiniAsset\File\FileInterface[]
      */
     protected $files = [];
 
@@ -80,7 +80,7 @@ class AssetTarget
     }
 
     /**
-     * @return array
+     * @return \MiniAsset\File\FileInterface[]
      */
     public function files()
     {
