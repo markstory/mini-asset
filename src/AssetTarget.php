@@ -27,7 +27,7 @@ class AssetTarget
     protected $path;
 
     /**
-     * @var array
+     * @var \MiniAsset\File\FileInterface[]
      */
     protected $files = [];
 
@@ -48,7 +48,7 @@ class AssetTarget
 
     /**
      * @param string $path The output path or the asset target.
-     * @param array $files An array of MiniAsset\File\FileInterface
+     * @param \MiniAsset\File\FileInterface[] $files An array of MiniAsset\File\FileInterface
      * @param array $filters An array of filter names for this target.
      * @param array $paths A list of search paths for this asset. These paths
      *   are used by filters that allow additional resources to be included e.g. Sprockets
@@ -80,7 +80,7 @@ class AssetTarget
     }
 
     /**
-     * @return array
+     * @return \MiniAsset\File\FileInterface[]
      */
     public function files()
     {
