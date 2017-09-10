@@ -37,7 +37,7 @@ class Uglifyjs extends AssetFilter
      * Run `uglifyjs` against the output and compress it.
      *
      * @param string $filename Name of the file being generated.
-     * @param string $input Th4 uncompressed contents for $filename.
+     * @param string $input The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
     public function output($filename, $input)
