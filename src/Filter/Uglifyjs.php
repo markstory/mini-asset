@@ -29,6 +29,7 @@ class Uglifyjs extends AssetFilter
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
         'node_path' => '/usr/local/lib/node_modules',
+        'version' => 1,
         'options' => '',
     );
 
@@ -41,7 +42,8 @@ class Uglifyjs extends AssetFilter
      */
     public function output($filename, $input)
     {
-        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
+        $cmdSeparator = $this->_settings['version'] <= 1 ? ' - ' : '';
+        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSeparator . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         return $this->_runCmd($cmd, $input, $env);
     }
