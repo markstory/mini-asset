@@ -42,8 +42,8 @@ class Uglifyjs extends AssetFilter
      */
     public function output($filename, $input)
     {
-        $cmdSeparator = $this->_settings['version'] <= 1 ? ' - ' : '';
-        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSeparator . $this->_settings['options'];
+        $cmdSep = $this->_settings['version'] <= 1 ? ' - ' : '';
+        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSep . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         return $this->_runCmd($cmd, $input, $env);
     }
