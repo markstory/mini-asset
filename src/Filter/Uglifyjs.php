@@ -29,6 +29,7 @@ class Uglifyjs extends AssetFilter
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
         'node_path' => '/usr/local/lib/node_modules',
+        'version' => 1,
         'options' => '',
     );
 
@@ -36,12 +37,13 @@ class Uglifyjs extends AssetFilter
      * Run `uglifyjs` against the output and compress it.
      *
      * @param string $filename Name of the file being generated.
-     * @param string $input Th4 uncompressed contents for $filename.
+     * @param string $input The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
     public function output($filename, $input)
     {
-        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . ' - ' . $this->_settings['options'];
+        $cmdSep = $this->_settings['version'] <= 1 ? ' - ' : '';
+        $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSep . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         return $this->_runCmd($cmd, $input, $env);
     }
