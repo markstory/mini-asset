@@ -25,6 +25,13 @@ use MiniAsset\Filter\AssetFilter;
 class Uglifyjs extends AssetFilter
 {
 
+    /**
+     * Settings for Uglify
+     *
+     * - `node` Path to nodejs on your machine
+     * - `node_path` The path to the node_modules directory where uglify is installed.
+     * - `version` Which version of uglify you have installed.
+     */
     protected $_settings = array(
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
