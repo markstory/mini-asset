@@ -73,10 +73,16 @@ class Uglifyjs extends AssetFilter
         if ($this->_settings['create_map']) {
             $files = implode(' ', $this->files);
             $path_parts = pathinfo($filename);
-            $this->_settings['options'] = str_replace('{{FILENAME}}', $path_parts['filename'],
-                $this->_settings['options']);
-            $this->_settings['source_map'] = str_replace('{{FILENAME}}', $path_parts['filename'],
-                $this->_settings['source_map']);
+            $this->_settings['options'] = str_replace(
+                '{{FILENAME}}',
+                $path_parts['filename'],
+                $this->_settings['options']
+            );
+            $this->_settings['source_map'] = str_replace(
+                '{{FILENAME}}',
+                $path_parts['filename'],
+                $this->_settings['source_map']
+            );
             $cmd =
                 $this->_settings['node'] . ' ' .
                 $this->_settings['uglify'] . ' ' .
