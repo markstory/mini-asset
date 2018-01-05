@@ -1,6 +1,7 @@
 linters:
   phpcs:
     standard: PSR2
+    fixer: true
   csslint: {  }
 ignore:
   files:
@@ -8,3 +9,7 @@ ignore:
     - 'bower_components/*'
     - 'bower_components/*'
     - 'node_modules/*'
+
+fixers:
+  enable: true
+  workflow: 'commit'
