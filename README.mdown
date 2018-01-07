@@ -123,7 +123,7 @@ Mini Asset is offered under an [MIT license](http://www.opensource.org/licenses/
 
 ## Copyright
 
-2010-2017 Mark Story (http://mark-story.com)
+2010-2018 Mark Story (http://mark-story.com)
 
 ### Authors
 
