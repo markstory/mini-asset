@@ -37,6 +37,7 @@
   },
   "bin": ["bin/mini_asset"],
   "suggest": {
+    "matthiasmullie/minify": "For using Minify filter.",
     "natxet/CssMin": "For using the CssMin filter.",
     "tchwork/jsqueeze": "For using the JSqueeze filter.",
     "tedivm/jshrink": "For using the JShrink filter.",
