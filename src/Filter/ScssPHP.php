@@ -22,7 +22,7 @@ use ScssPhp\ScssPhp\Compiler;
  *
  * Requires scssphp to be installed via composer.
  *
- * @see http://leafo.net/scssphp
+ * @see https://github.com/scssphp/scssphp
  */
 class ScssPHP extends AssetFilter
 {
