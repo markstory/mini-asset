@@ -15,7 +15,7 @@ namespace MiniAsset\Filter;
 
 use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\CssDependencyTrait;
-use Leafo\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Compiler;
 
 /**
  * Pre-processing filter that adds support for SCSS files.
@@ -40,8 +40,6 @@ class ScssPHP extends AssetFilter
     protected $optionalDependencyPrefix = '_';
 
     /**
-     * Runs `scssc` against any files that match the configured extension.
-     *
      * @param string $filename The name of the input file.
      * @param string $input The content of the file.
      * @throws \Exception
@@ -52,8 +50,8 @@ class ScssPHP extends AssetFilter
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $input;
         }
-        if (!class_exists('Leafo\\ScssPhp\\Compiler')) {
-            throw new \Exception(sprintf('Cannot not load filter class "%s".', 'Leafo\\ScssPhp\\Compiler'));
+        if (!class_exists('ScssPhp\\ScssPhp\\Compiler')) {
+            throw new \Exception(sprintf('Cannot not load filter class "%s".', 'ScssPhp\\ScssPhp\\Compiler'));
         }
         $sc = new Compiler();
         $sc->addImportPath(dirname($filename));
