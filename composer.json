@@ -41,7 +41,7 @@
     "natxet/CssMin": "For using the CssMin filter.",
     "tchwork/jsqueeze": "For using the JSqueeze filter.",
     "tedivm/jshrink": "For using the JShrink filter.",
-    "leafo/scssphp": "For using the ScssPHP filter.",
+    "scssphp/scssphp": "For using the ScssPHP filter.",
     "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php",
     "zendframework/diactoros": "The middleware layer relies on zendframework/diactoros."
   }
