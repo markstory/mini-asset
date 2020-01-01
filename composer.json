@@ -21,7 +21,7 @@
     "league/climate": "~3.0"
   },
   "require-dev": {
-    "squizlabs/PHP_CodeSniffer": "*",
+    "squizlabs/php_codesniffer": "*",
     "zendframework/zend-diactoros": "~1.0",
     "phpunit/phpunit": "^5.7 | ^6.0"
   },
