@@ -1,7 +1,7 @@
 {
   "name": "markstory/mini-asset",
   "description": "An asset compression library. Provides file concatenation and a flexible filter system for preprocessing and minification.",
-  "type": "cakephp-plugin",
+  "type": "library",
   "keywords": ["cakephp", "assets", "minifier", "less", "coffee-script", "sass", "psr7"],
   "homepage": "https://github.com/markstory/mini-asset",
   "license": "MIT",
