@@ -89,13 +89,14 @@ class AssetProcess
      *
      * @param string $input STDIN for the command.
      * @param string Output from the command.
+     * @return string
      */
     public function run($input = null)
     {
         $descriptorSpec = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
-            2 => array('pipe', 'w')
+            2 => array('pipe', 'r')
         );
         $process = proc_open(
             $this->_command,
