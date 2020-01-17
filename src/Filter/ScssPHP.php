@@ -55,6 +55,9 @@ class ScssPHP extends AssetFilter
         }
         $sc = new Compiler();
         $sc->addImportPath(dirname($filename));
+        foreach ($this->_settings['paths'] as $path) {
+            $sc->addImportPath($path);
+        }
         return $sc->compile($input);
     }
 }
