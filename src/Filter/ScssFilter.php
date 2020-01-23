@@ -31,7 +31,7 @@ class ScssFilter extends AssetFilter
         'ext' => '.scss',
         'sass' => '/usr/bin/sass',
         'path' => '/usr/bin',
-        'paths' => [],
+        'imports' => [],
     );
 
     /**
@@ -54,7 +54,11 @@ class ScssFilter extends AssetFilter
             return $input;
         }
         $filename = preg_replace('/ /', '\\ ', $filename);
-        $bin = $this->_settings['sass'] . ' ' . $filename;
+        $cmd = $this->_settings['sass'];
+        foreach ($this->_settings['imports'] as $path) {
+            $cmd .= " -I \"{$path}\"";
+        }
+        $bin = $cmd . ' ' . $filename;
         $return = $this->_runCmd($bin, '', array('PATH' => $this->_settings['path']));
         return $return;
     }

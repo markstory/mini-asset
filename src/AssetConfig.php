@@ -442,10 +442,9 @@ class AssetConfig
                 return $result;
             }
         }
-        $this->_filters[$filter] = array_map(
-            [$this, '_replacePathConstants'],
-            $settings
-        );
+
+        // array_map_recursive
+        $this->_filters[$filter] = filter_var($settings, \FILTER_CALLBACK, ['options' => [$this, '_replacePathConstants']]);
     }
 
     /**
