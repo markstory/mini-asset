@@ -74,7 +74,7 @@ class AssetFilter implements FilterInterface
      * Preprocessor filters can use this hook method to find a list of dependent
      * files.
      *
-     * @param AssetTarget $target The target to find dependencies for this filter.
+     * @param \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
      * @return array An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $file)
@@ -87,8 +87,8 @@ class AssetFilter implements FilterInterface
      *
      * @param string $cmd The command to run.
      * @param string $content The content to run through the command.
-     * @return The result of the command.
-     * @throws RuntimeException
+     * @return string The result of the command.
+     * @throws \RuntimeException
      */
     protected function _runCmd($cmd, $content, $environment = null)
     {

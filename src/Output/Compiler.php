@@ -16,7 +16,6 @@ namespace MiniAsset\Output;
 use MiniAsset\AssetTarget;
 use MiniAsset\Output\CompilerInterface;
 use MiniAsset\Filter\FilterRegistry;
-use Cake\Core\Configure;
 use RuntimeException;
 
 /**
@@ -28,7 +27,7 @@ class Compiler implements CompilerInterface
     /**
      * The filter registry to use.
      *
-     * @var \MiniAsset\FilterRegistry
+     * @var \MiniAsset\Filter\FilterRegistry
      */
     protected $filterRegistry;
 
@@ -44,7 +43,7 @@ class Compiler implements CompilerInterface
     /**
      * Constructor.
      *
-     * @param FilterRegistry $filters The filter registry
+     * @param \MiniAsset\Filter\FilterRegistry $filters The filter registry
      * @return void
      */
     public function __construct(FilterRegistry $filters, $debug)
@@ -56,9 +55,9 @@ class Compiler implements CompilerInterface
     /**
      * Generate a compiled asset, with all the configured filters applied.
      *
-     * @param AssetTarget $target The target to build
+     * @param \MiniAsset\AssetTarget $target The target to build
      * @return string The processed result of $target and it dependencies.
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function generate(AssetTarget $build)
     {

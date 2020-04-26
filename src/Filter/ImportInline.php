@@ -47,7 +47,7 @@ class ImportInline extends AssetFilter
      *
      * @param string $filename
      * @param string $content
-     * @return The processed file.
+     * @return string The processed file.
      */
     public function input($filename, $content)
     {
@@ -62,7 +62,7 @@ class ImportInline extends AssetFilter
      * Does file replacements.
      *
      * @param array $matches
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     protected function _replace($matches)
     {

@@ -38,7 +38,7 @@ class YuiJs extends AssetFilter
      *
      * @param string $filename Filename being generated.
      * @param string $input Contents of file
-     * @return Compressed file
+     * @return string Compressed file
      */
     public function output($filename, $input)
     {

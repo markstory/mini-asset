@@ -62,7 +62,7 @@ class AssetScanner
      * Normalize a file path to the specified Directory Separator ($ds)
      *
      * @param string $name Path to normalize
-     * @param type $ds Directory Separator to be used
+     * @param string $ds Directory Separator to be used
      * @return string Normalized path
      */
     protected function _normalizePath($name, $ds)
@@ -109,7 +109,7 @@ class AssetScanner
      * Find a file in the connected paths, and check for its existance.
      *
      * @param string $file The file you want to find.
-     * @return mixed Either false on a miss, or the full path of the file.
+     * @return false|string Either false on a miss, or the full path of the file.
      */
     public function find($file)
     {

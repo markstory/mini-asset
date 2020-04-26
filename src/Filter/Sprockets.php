@@ -31,7 +31,7 @@ class Sprockets extends AssetFilter
     /**
      * Regex pattern for finding //= require <file> and //= require "file" style inclusions
      *
-     * @var stgin
+     * @var string
      */
     protected $_pattern = '/^\s?\/\/\=\s+require\s+([\"\<])([^\"\>]+)[\"\>](?:[\r\n]+|[\n]+)/m';
 

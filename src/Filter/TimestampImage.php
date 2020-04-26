@@ -51,7 +51,7 @@ class TimestampImage extends AssetFilter
      *
      * @param string $filename The file being processed
      * @param string $content The file content
-     * @return The content with images timestamped.
+     * @return string The content with images timestamped.
      */
     public function input($filename, $content)
     {
