@@ -2,18 +2,14 @@
 <phpunit bootstrap="./tests/bootstrap.php">
 
     <testsuites>
-        <testsuite name="MiniAsset Test Cases">
+        <testsuite name="mini-asset">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
-    <!-- Prevent coverage reports from looking in tests, vendors, config folders -->
     <filter>
-        <blacklist>
-            <directory suffix=".php">./vendor/</directory>
-            <directory suffix=".php">./tests/</directory>
-            <directory suffix=".php">./config/</directory>
-            <directory suffix=".php">./bin/</directory>
-        </blacklist>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
     </filter>
 </phpunit>

@@ -11,8 +11,8 @@ matrix:
     - php: 7.4
       env: COVERAGE=1
 
-    - php: 7.4
-      env: PHPCS=1
+    - php: 7.3
+      env: CHECKS=1 DEFAULT=0
 
 before_script:
   - phpenv rehash
@@ -20,15 +20,18 @@ before_script:
 install:
   - composer self-update
   - composer install --prefer-dist --no-interaction --dev
+  - if [[ $CHECKS = 1 ]]; then composer stan-setup; fi
 
 script:
-  - sh -c "if [ '$PHPCS' != '1' & '$COVERAGE' != '1' ]; then phpunit; fi"
+  - if [[ $CHECKS != 1 & $COVERAGE != 1 ]]; then phpunit; fi"
 
-  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -p -n --extensions=php --standard=PSR2 ./src ./tests; fi"
+  - if [[ $COVERAGE = 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml || true; fi"
 
-  - sh -c "if [ '$COVERAGE' = '1' ]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml || true; fi"
-  - sh -c "if [ '$COVERAGE' = '1' ]; then wget -O codecov.sh https://codecov.io/bash; fi"
-  - sh -c "if [ '$COVERAGE' = '1' ]; then bash codecov.sh; fi"
+  - if [[ $CHECKS = 1 ]]; then composer cs-check; fi
+  - if [[ $CHECKS = 1 ]]; then composer stan; fi
+
+after_success:
+  - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
 
 notifications:
   email: false

@@ -23,7 +23,9 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "^7.0",
+    "phpstan/phpstan": "^0.12",
+    "vimeo/psalm": "^3.0"
   },
   "autoload": {
     "psr-4": {
@@ -51,8 +53,8 @@
         "@test",
         "@stan"
     ],
-    "cs-check": "phpcs -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/TestCase/",
-    "cs-fix": "phpcbf --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/TestCase/",
+    "cs-check": "phpcs -p --standard=PSR2 src/ tests/TestCase/",
+    "cs-fix": "phpcbf --standard=PSR2 src/ tests/TestCase/",
     "test": "phpunit --stderr",
     "stan": "phpstan analyse src/ && psalm --show-info=false",
     "stan-test": "phpstan analyse tests/",
