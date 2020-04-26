@@ -23,7 +23,7 @@ install:
   - if [[ $CHECKS = 1 ]]; then composer stan-setup; fi
 
 script:
-  - if [[ $CHECKS != 1 && $COVERAGE != 1 ]]; then phpunit; fi
+  - if [[ $CHECKS != 1 && $COVERAGE != 1 ]]; then vendor/bin/phpunit; fi
 
   - if [[ $COVERAGE = 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml || true; fi
 
