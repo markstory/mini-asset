@@ -15,8 +15,9 @@ namespace MiniAsset\Test\Cli;
 
 use MiniAsset\AssetConfig;
 use MiniAsset\Cli\BuildTask;
+use PHPUnit\Framework\TestCase;
 
-class BuildTaskTest extends \PHPUnit_Framework_TestCase
+class BuildTaskTest extends TestCase
 {
     public function setUp()
     {

@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\ImportInline;
+use PHPUnit\Framework\TestCase;
 
-class ImportInlineTest extends \PHPUnit_Framework_TestCase
+class ImportInlineTest extends TestCase
 {
 
     public function setUp()

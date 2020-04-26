@@ -17,8 +17,9 @@ use MiniAsset\Output\AssetCacher;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\FilterRegistry;
+use PHPUnit\Framework\TestCase;
 
-class AssetCacherTest extends \PHPUnit_Framework_TestCase
+class AssetCacherTest extends TestCase
 {
 
     public function setUp()

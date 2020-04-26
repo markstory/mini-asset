@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\Hogan;
+use PHPUnit\Framework\TestCase;
 
-class HoganTest extends \PHPUnit_Framework_TestCase
+class HoganTest extends TestCase
 {
 
     public function setUp()

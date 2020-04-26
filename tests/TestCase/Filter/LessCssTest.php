@@ -16,8 +16,9 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\LessCss;
+use PHPUnit\Framework\TestCase;
 
-class LessCssTest extends \PHPUnit_Framework_TestCase
+class LessCssTest extends TestCase
 {
 
     public function setUp()

@@ -85,7 +85,7 @@ class Factory
      * Create an AssetWriter
      *
      * @param string $tmpPath The path where the build timestamp lookup should be stored.
-     * @return \MiniAsset\AssetWriter
+     * @return \MiniAsset\Output\AssetWriter
      */
     public function writer($tmpPath = '')
     {
@@ -107,7 +107,7 @@ class Factory
      * Create an AssetCacher
      *
      * @param string $path The path to cache assets into.
-     * @return \MiniAsset\AssetCacher
+     * @return \MiniAsset\Output\AssetCacher
      */
     public function cacher($path = '')
     {
@@ -217,7 +217,7 @@ class Factory
      *
      * @param string $name The name of the filter to build.
      * @param array $config The configuration for the filter.
-     * @return \MiniAsset\Filter\AssetFilterInterface
+     * @return \MiniAsset\Filter\FilterInterface
      */
     protected function buildFilter($name, $config)
     {

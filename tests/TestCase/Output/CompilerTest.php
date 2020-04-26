@@ -17,9 +17,9 @@ use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\Factory;
 use MiniAsset\File\Local;
-use MiniAsset\Output\Compiler;
+use PHPUnit\Framework\TestCase;
 
-class CompilerTest extends \PHPUnit_Framework_TestCase
+class CompilerTest extends TestCase
 {
 
     public function setUp()

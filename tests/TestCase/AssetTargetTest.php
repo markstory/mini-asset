@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetTarget;
+use PHPUnit\Framework\TestCase;
 
-class AssetTargetTest extends \PHPUnit_Framework_TestCase
+class AssetTargetTest extends TestCase
 {
     public function setUp()
     {

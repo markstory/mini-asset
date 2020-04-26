@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Glob;
+use PHPUnit\Framework\TestCase;
 
-class GlobTest extends \PHPUnit_Framework_TestCase
+class GlobTest extends TestCase
 {
     /**
      * @expectedException RuntimeException

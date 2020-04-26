@@ -17,8 +17,9 @@ use MiniAsset\AssetTarget;
 use MiniAsset\AssetCollection;
 use MiniAsset\Factory;
 use MiniAsset\AssetConfig;
+use PHPUnit\Framework\TestCase;
 
-class AssetCollectionTest extends \PHPUnit_Framework_TestCase
+class AssetCollectionTest extends TestCase
 {
     public function setUp()
     {

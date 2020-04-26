@@ -16,8 +16,9 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\FilterRegistry;
+use PHPUnit\Framework\TestCase;
 
-class FilterRegistryTest extends \PHPUnit_Framework_TestCase
+class FilterRegistryTest extends TestCase
 {
     public function setUp()
     {

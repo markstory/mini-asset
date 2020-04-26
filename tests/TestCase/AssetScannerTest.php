@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetScanner;
+use PHPUnit\Framework\TestCase;
 
-class AssetScannerTest extends \PHPUnit_Framework_TestCase
+class AssetScannerTest extends TestCase
 {
 
     public function setUp()

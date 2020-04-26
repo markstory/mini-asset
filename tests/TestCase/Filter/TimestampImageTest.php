@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\TimestampImage;
+use PHPUnit\Framework\TestCase;
 
-class TimestampImageTest extends \PHPUnit_Framework_TestCase
+class TimestampImageTest extends TestCase
 {
 
     public function setUp()

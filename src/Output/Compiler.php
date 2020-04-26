@@ -57,7 +57,7 @@ class Compiler implements CompilerInterface
      * Generate a compiled asset, with all the configured filters applied.
      *
      * @param AssetTarget $target The target to build
-     * @return The processed result of $target and it dependencies.
+     * @return string The processed result of $target and it dependencies.
      * @throws RuntimeException
      */
     public function generate(AssetTarget $build)
