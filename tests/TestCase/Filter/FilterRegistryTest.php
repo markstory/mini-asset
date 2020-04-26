@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class FilterRegistryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->filters = [

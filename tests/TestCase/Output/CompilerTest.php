@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class CompilerTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->_testFiles = APP;

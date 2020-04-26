@@ -21,7 +21,7 @@ use Laminas\Diactoros\Response;
 
 class AssetMiddlewareTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $configFile = APP . 'config/integration.ini';

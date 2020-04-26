@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class BuildTaskTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $cli = $this->getMockBuilder('League\CLImate\CLImate')
@@ -40,7 +40,7 @@ class BuildTaskTest extends TestCase
         mkdir(TMP . 'cache_css');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->rmdir(TMP . 'cache_js');

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class RemoteTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $file = file_get_contents('http://google.com');

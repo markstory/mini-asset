@@ -23,7 +23,7 @@ class AssetWriterTest extends TestCase
 {
     protected $files = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->files = [
