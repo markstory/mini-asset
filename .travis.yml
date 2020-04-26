@@ -25,7 +25,7 @@ install:
 script:
   - if [[ $CHECKS != 1 && $COVERAGE != 1 ]]; then phpunit; fi"
 
-  - if [[ $COVERAGE = 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml || true; fi"
+  - if [[ $COVERAGE = 1 ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml || true; fi
 
   - if [[ $CHECKS = 1 ]]; then composer cs-check; fi
   - if [[ $CHECKS = 1 ]]; then composer stan; fi
