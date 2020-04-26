@@ -17,9 +17,9 @@ use MiniAsset\AssetConfig;
 use MiniAsset\AssetTarget;
 use MiniAsset\Factory;
 use MiniAsset\File\Local;
-use MiniAsset\Output\Compiler;
+use PHPUnit\Framework\TestCase;
 
-class CachedCompilerTest extends \PHPUnit_Framework_TestCase
+class CachedCompilerTest extends TestCase
 {
 
     public function setUp()

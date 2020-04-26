@@ -15,8 +15,9 @@ namespace MiniAsset\Test\Cli;
 
 use MiniAsset\AssetConfig;
 use MiniAsset\Cli\ClearTask;
+use PHPUnit\Framework\TestCase;
 
-class ClearTaskTest extends \PHPUnit_Framework_TestCase
+class ClearTaskTest extends TestCase
 {
     public function setUp()
     {

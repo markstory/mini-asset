@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\ClosureJs;
+use PHPUnit\Framework\TestCase;
 
-class ClosureJsTest extends \PHPUnit_Framework_TestCase
+class ClosureJsTest extends TestCase
 {
 
     public function testCommand()

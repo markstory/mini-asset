@@ -14,11 +14,12 @@
 namespace MiniAsset\Test\TestCase\Utility;
 
 use MiniAsset\Utility\CssUtils;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for CssUtils
  */
-class CssUtilsTest extends \PHPUnit_Framework_TestCase
+class CssUtilsTest extends TestCase
 {
     public function testExtractImports()
     {

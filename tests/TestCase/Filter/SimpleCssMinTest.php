@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\Filter;
 
 use MiniAsset\Filter\SimpleCssMin;
+use PHPUnit\Framework\TestCase;
 
-class SimpleCssMinTest extends \PHPUnit_Framework_TestCase
+class SimpleCssMinTest extends TestCase
 {
 
     public function setUp()

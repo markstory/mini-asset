@@ -16,8 +16,9 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\Sprockets;
+use PHPUnit\Framework\TestCase;
 
-class SprocketsTest extends \PHPUnit_Framework_TestCase
+class SprocketsTest extends TestCase
 {
 
     public function setUp()

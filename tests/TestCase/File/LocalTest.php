@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Local;
+use PHPUnit\Framework\TestCase;
 
-class LocalTest extends \PHPUnit_Framework_TestCase
+class LocalTest extends TestCase
 {
     /**
      * @expectedException RuntimeException

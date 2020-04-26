@@ -15,11 +15,11 @@ namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetConfig;
 use MiniAsset\Middleware\AssetMiddleware;
-use PHPUnit_Framework_TestCase;
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Response;
+use PHPUnit\Framework\TestCase;
+use Laminas\Diactoros\ServerRequestFactory;
+use Laminas\Diactoros\Response;
 
-class AssetMiddlewareTest extends PHPUnit_Framework_TestCase
+class AssetMiddlewareTest extends TestCase
 {
     public function setUp()
     {

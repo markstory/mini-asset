@@ -16,8 +16,9 @@ namespace MiniAsset\Test\TestCase\Filter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\ScssFilter;
+use PHPUnit\Framework\TestCase;
 
-class ScssFilterTest extends \PHPUnit_Framework_TestCase
+class ScssFilterTest extends TestCase
 {
 
     public function setUp()

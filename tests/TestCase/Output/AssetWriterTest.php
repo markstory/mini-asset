@@ -17,8 +17,9 @@ use MiniAsset\Output\AssetWriter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\FilterRegistry;
+use PHPUnit\Framework\TestCase;
 
-class AssetWriterTest extends \PHPUnit_Framework_TestCase
+class AssetWriterTest extends TestCase
 {
     protected $files = [];
 

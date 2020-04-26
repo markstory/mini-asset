@@ -14,8 +14,9 @@
 namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Remote;
+use PHPUnit\Framework\TestCase;
 
-class RemoteTest extends \PHPUnit_Framework_TestCase
+class RemoteTest extends TestCase
 {
     public function setUp()
     {
