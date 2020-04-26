@@ -68,7 +68,7 @@ class BuildTask extends BaseTask
     /**
      * Build all the files declared in the Configuration object.
      *
-     * @return void
+     * @return int
      */
     protected function execute()
     {

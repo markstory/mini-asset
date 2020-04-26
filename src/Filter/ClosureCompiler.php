@@ -73,18 +73,12 @@ class ClosureCompiler extends AssetFilter
      */
     public function output($filename, $content)
     {
-        $defaults = array('compilation_level' => $this->_settings['level']);
-
         $errors = $this->_query($content, array('output_info' => 'errors'));
         if (!empty($errors)) {
             throw new \Exception(sprintf("%s:\n%s\n", 'Errors', $errors));
         }
 
         $output = $this->_query($content, array('output_info' => 'compiled_code'));
-
-        if (!Configure::read('debug')) {
-            return $output;
-        }
 
         foreach ($this->_settings as $setting => $value) {
             if (!in_array($setting, array('warnings', 'statistics')) || true != $value) {

@@ -110,7 +110,7 @@ abstract class BaseTask
     /**
      * Used by subclasses to execute work.
      *
-     * @return void
+     * @return int
      */
     abstract protected function execute();
 }

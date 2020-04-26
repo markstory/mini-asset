@@ -24,8 +24,6 @@ use MiniAsset\Utility\CssUtils;
  * that dependency files could also have an optional prefix.
  *
  * For example in scss `@import 'utilities'` will resolve to `_utilities.scss`.
- *
- * @var string
  */
 trait CssDependencyTrait
 {
@@ -108,6 +106,9 @@ trait CssDependencyTrait
      */
     protected function _prependPrefixToFilename($name)
     {
+        if (!property_exists($this, 'optionalDependencyPrefix')) {
+            return $name;
+        }
         $ds = DIRECTORY_SEPARATOR;
         $parts = explode($ds, $name);
         $filename = end($parts);

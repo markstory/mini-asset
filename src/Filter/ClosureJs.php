@@ -14,6 +14,7 @@
 namespace MiniAsset\Filter;
 
 use MiniAsset\Filter\AssetFilter;
+use Exception;
 
 /**
  * A Google Closure compressor adapter for compressing Javascript.

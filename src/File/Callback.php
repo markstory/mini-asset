@@ -22,7 +22,15 @@ use RuntimeException;
  */
 class Callback
 {
+    /**
+     * @var callable
+     */
     protected $callable;
+
+    /**
+     * @var \MiniAsset\AssetScanner
+     */
+    protected $scanner;
 
     /**
      * Constructor
