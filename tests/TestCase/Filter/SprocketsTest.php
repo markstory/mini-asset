@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase\Filter;
 
@@ -138,7 +138,6 @@ TEXT;
     /**
      * The unique dependency counter should persist across input() calls. Without that
      * members of the same build will re-include their dependencies if multiple components rely on a single parent.
-     *
      */
     public function testInclusionCounterWorksAcrossCalls()
     {

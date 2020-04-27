@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -60,7 +60,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * Constructor. You can provide an array or any traversable object
      *
-     * @param array $items Items.
+     * @param  array $items Items.
      * @throws InvalidArgumentException If passed incorrect type for items.
      */
     public function __construct(array $targets, Factory $factory)
@@ -75,7 +75,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * Append an asset to the collection.
      *
-     * @param AssetTarget $target The target to append
+     * @param  AssetTarget $target The target to append
      * @return void
      */
     public function append(AssetTarget $target)
@@ -88,7 +88,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * Get an asset from the collection
      *
-     * @param string $name The name of the asset you want.
+     * @param  string $name The name of the asset you want.
      * @return null|AssetTarget Either null or the asset target.
      */
     public function get($name)
@@ -105,7 +105,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * Check whether or not the collection contains the named asset.
      *
-     * @param string $name The name of the asset you want.
+     * @param  string $name The name of the asset you want.
      * @return bool
      */
     public function contains($name)
@@ -116,7 +116,7 @@ class AssetCollection implements Countable, Iterator
     /**
      * Remove an asset from the collection
      *
-     * @param string $name The name of the asset you want to remove
+     * @param  string $name The name of the asset you want to remove
      * @return void
      */
     public function remove($name)

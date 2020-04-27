@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -51,7 +51,7 @@ class AssetProcess
     /**
      * Get/set the environment for the command.
      *
-     * @param array $env Environment variables.
+     * @param  array $env Environment variables.
      * @return string|$this The environment variables that are set, or this.
      */
     public function environment($env = null)
@@ -68,7 +68,7 @@ class AssetProcess
     /**
      * Gets selected variables from the global environment.
      *
-     * @param array $vars An array of variable names to load
+     * @param  array $vars An array of variable names to load
      * @return array The values of selected environment variables if they
      *    are set.
      */
@@ -86,7 +86,7 @@ class AssetProcess
     /**
      * Run the command and capture the output as the return.
      *
-     * @param string $input STDIN for the command.
+     * @param  string $input STDIN for the command.
      * @return string Output from the command.
      */
     public function run($input = null)
@@ -140,7 +140,7 @@ class AssetProcess
     /**
      * Set the command that will be run.
      *
-     * @param string $command Command name to run.
+     * @param  string $command Command name to run.
      * @return $this
      */
     public function command($command)

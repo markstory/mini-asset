@@ -13,8 +13,8 @@ class MinifyFilter extends AssetFilter
     /**
      * Run $content through Minify.
      *
-     * @param string $filename target filename
-     * @param string $content Content to filter.
+     * @param  string $filename target filename
+     * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
      */

@@ -51,8 +51,8 @@
         "@test",
         "@stan"
     ],
-    "cs-check": "phpcs -p --standard=PSR2 src/ tests/TestCase/",
-    "cs-fix": "phpcbf --standard=PSR2 src/ tests/TestCase/",
+    "cs-check": "phpcs -p src/ tests/TestCase/",
+    "cs-fix": "phpcbf src/ tests/TestCase/",
     "test": "phpunit --stderr",
     "stan": "phpstan analyse src/ && psalm --show-info=false",
     "stan-test": "phpstan analyse tests/",

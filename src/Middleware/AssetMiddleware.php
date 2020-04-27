@@ -22,10 +22,10 @@ class AssetMiddleware
     /**
      * Constructor.
      *
-     * @param \MiniAsset\AssetConfig $config The config instance for your application.
-     * @param string $outputDir The directory development build caches should be stored in.
-     *   Defaults to sys_get_temp_dir().
-     * @param string $urlPrefix The URL prefix that assets are under. Defaults to /asset/.
+     * @param \MiniAsset\AssetConfig $config    The config instance for your application.
+     * @param string                 $outputDir The directory development build caches should be stored in.
+     *                                          Defaults to sys_get_temp_dir().
+     * @param string                 $urlPrefix The URL prefix that assets are under. Defaults to /asset/.
      */
     public function __construct(AssetConfig $config, $outputDir = null, $urlPrefix = '/asset/')
     {
@@ -37,9 +37,9 @@ class AssetMiddleware
     /**
      * Apply the asset middleware.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The request.
-     * @param \Psr\Http\Message\ResponseInterface $response The response.
-     * @param callable $next The callable to invoke the next middleware layer.
+     * @param  \Psr\Http\Message\ServerRequestInterface $request  The request.
+     * @param  \Psr\Http\Message\ResponseInterface      $response The response.
+     * @param  callable                                 $next     The callable to invoke the next middleware layer.
      * @return \Psr\Http\Message\ResponseInterface A response.
      */
     public function __invoke($request, $response, $next)

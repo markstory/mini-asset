@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase;
 
@@ -32,14 +32,22 @@ class CompilerTest extends TestCase
         $testFile = $this->_testFiles . 'config' . DS . 'integration.ini';
 
         $this->config = AssetConfig::buildFromIniFile($testFile);
-        $this->config->paths('js', null, array(
+        $this->config->paths(
+            'js',
+            null,
+            array(
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . '*',
-        ));
-        $this->config->paths('css', null, array(
+            )
+        );
+        $this->config->paths(
+            'css',
+            null,
+            array(
             $this->_testFiles . 'css' . DS,
             $this->_testFiles . 'css' . DS . '*',
-        ));
+            )
+        );
     }
 
     protected function instance()

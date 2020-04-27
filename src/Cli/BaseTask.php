@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Cli;
 
@@ -23,8 +23,8 @@ abstract class BaseTask
     /**
      * Constructor
      *
-     * @param \League\CLImate\CLImate $cli The CLImate instance.
-     * @param array $config Configuration data.
+     * @param \League\CLImate\CLImate $cli    The CLImate instance.
+     * @param array                   $config Configuration data.
      */
     public function __construct($cli, $config = null)
     {
@@ -50,7 +50,7 @@ abstract class BaseTask
     /**
      * Execute the task given a set of CLI arguments.
      *
-     * @param array $argv The arguments to use.
+     * @param  array $argv The arguments to use.
      * @return int
      */
     public function main($argv)
@@ -72,7 +72,7 @@ abstract class BaseTask
     /**
      * Output verbose information.
      *
-     * @param string $text The text to output.
+     * @param string $text  The text to output.
      * @param string $short The short alternative.
      */
     public function verbose($text, $short = '')
@@ -96,7 +96,7 @@ abstract class BaseTask
     {
         $files = explode(',', $this->cli->arguments->get('bootstrap'));
         foreach ($files as $file) {
-            require_once $file;
+            include_once $file;
         }
     }
 

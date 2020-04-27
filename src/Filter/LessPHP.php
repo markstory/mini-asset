@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -36,8 +36,8 @@ class LessPHP extends AssetFilter
     /**
      * Runs `lessc` against any files that match the configured extension.
      *
-     * @param string $filename The name of the input file.
-     * @param string $input The content of the file.
+     * @param  string $filename The name of the input file.
+     * @param  string $input    The content of the file.
      * @throws \Exception
      * @return string
      */

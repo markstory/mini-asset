@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -19,6 +19,7 @@ use RuntimeException;
 
 /**
  * A preprocessor that inlines files referenced by
+ *
  * @import() statements in css files.
  */
 class ImportInline extends AssetFilter
@@ -45,8 +46,8 @@ class ImportInline extends AssetFilter
     /**
      * Preprocesses CSS files and replaces @import statements.
      *
-     * @param string $filename
-     * @param string $content
+     * @param  string $filename
+     * @param  string $content
      * @return string The processed file.
      */
     public function input($filename, $content)
@@ -61,7 +62,7 @@ class ImportInline extends AssetFilter
     /**
      * Does file replacements.
      *
-     * @param array $matches
+     * @param  array $matches
      * @throws \RuntimeException
      */
     protected function _replace($matches)

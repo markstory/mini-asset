@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -31,8 +31,8 @@ class TypeScript extends AssetFilter
     /**
      * Runs `tsc` against files that match the configured extension.
      *
-     * @param string $filename Filename being processed.
-     * @param string $content Content of the file being processed.
+     * @param  string $filename Filename being processed.
+     * @param  string $content  Content of the file being processed.
      * @return string
      */
     public function input($filename, $input)

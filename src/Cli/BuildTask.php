@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Cli;
 
@@ -30,7 +30,8 @@ class BuildTask extends BaseTask
      */
     protected function addArguments()
     {
-        $this->cli->arguments->add([
+        $this->cli->arguments->add(
+            [
             'help' => [
                 'prefix' => 'h',
                 'longPrefix' => 'help',
@@ -62,7 +63,8 @@ class BuildTask extends BaseTask
                 'description' => 'The config file to use.',
                 'required' => true,
             ]
-        ]);
+            ]
+        );
     }
 
     /**
@@ -87,8 +89,8 @@ class BuildTask extends BaseTask
     /**
      * Generate and save the cached file for a build target.
      *
-     * @param \MiniAsset\Factory $factory The factory class.
-     * @param \MiniAsset\AssetTarget $build The build target.
+     * @param  \MiniAsset\Factory     $factory The factory class.
+     * @param  \MiniAsset\AssetTarget $build   The build target.
      * @return void
      */
     protected function _buildTarget($factory, $build)

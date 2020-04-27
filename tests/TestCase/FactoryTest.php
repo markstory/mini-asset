@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -47,7 +47,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException        RuntimeException
      * @expectedExceptionMessage Cannot load filter "Derp"
      */
     public function testFilterRegistryMissingFilter()
@@ -59,7 +59,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException        RuntimeException
      * @expectedExceptionMessage The target named 'not-there.js' does not exist.
      */
     public function testTargetMissing()
@@ -119,7 +119,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException        RuntimeException
      * @expectedExceptionMessage Callback MiniAsset\Test\Helpers\MyCallbackProvider::invalid() is not callable
      */
     public function testTargetCallbackProviderNotCallable()
@@ -132,7 +132,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException        RuntimeException
      * @expectedExceptionMessage The target named 'nope.js' does not exist.
      */
     public function testTargetWithRequiredTargetMissingDependency()
@@ -187,9 +187,12 @@ class FactoryTest extends TestCase
 
     public function testAssetCollection()
     {
-        $config = AssetConfig::buildFromIniFile($this->integrationFile, [
+        $config = AssetConfig::buildFromIniFile(
+            $this->integrationFile,
+            [
             'WEBROOT' => TMP
-        ]);
+            ]
+        );
         $factory = new Factory($config);
         $collection = $factory->assetCollection();
 

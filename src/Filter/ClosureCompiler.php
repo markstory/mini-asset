@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -100,8 +100,8 @@ class ClosureCompiler extends AssetFilter
     /**
      * Query the Closure compiler API.
      *
-     * @param string $content Javascript to compile.
-     * @param array $args API parameters.
+     * @param  string $content Javascript to compile.
+     * @param  array  $args    API parameters.
      * @throws \Exception If curl extension is missing.
      * @throws \Exception If curl triggers an error.
      * @return string
@@ -124,14 +124,17 @@ class ClosureCompiler extends AssetFilter
         }
 
         $ch = curl_init();
-        curl_setopt_array($ch, array(
+        curl_setopt_array(
+            $ch,
+            array(
             CURLOPT_URL => 'https://closure-compiler.appspot.com/compile',
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => 'js_code=' . urlencode($content) . '&' . http_build_query($args),
             CURLOPT_RETURNTRANSFER =>  1,
             CURLOPT_HEADER => 0,
             CURLOPT_FOLLOWLOCATION => 0
-        ));
+            )
+        );
 
         $output = curl_exec($ch);
 

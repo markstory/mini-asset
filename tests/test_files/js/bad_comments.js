@@ -3,16 +3,21 @@ MORE
 MORE WITH NO *
 MORE
 MORE*/
-(function($){function Foo(){this.bar = [];}})
+(function ($) {
+    function Foo()
+    {
+        this.bar = [];}})
 
 //    COMMENT
-function something() {
+function something()
+{
     return 1 + 1;
 }
                /*
 the next
 valid
 close */
-function two() {
+function two()
+{
     return 1 + 1;
 }

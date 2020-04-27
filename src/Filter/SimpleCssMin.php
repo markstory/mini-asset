@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -30,8 +30,8 @@ class SimpleCssMin extends AssetFilter
      * Copyright (c) 2009 and onwards, Manas Tungare.
      * Creative Commons Attribution, Share-Alike.
      *
-     * @param string $filename target filename
-     * @param string $content Content to filter.
+     * @param  string $filename target filename
+     * @param  string $content  Content to filter.
      * @return string
      */
     public function output($filename, $content)
