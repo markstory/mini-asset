@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -35,7 +35,7 @@ class AssetFilter implements FilterInterface
      * Gets settings for this filter. Will always include 'paths'
      * key which points at paths available for the type of asset being generated.
      *
-     * @param array $settings Array of settings.
+     * @param  array $settings Array of settings.
      * @return array Array of updated settings.
      */
     public function settings(array $settings = null)
@@ -50,7 +50,7 @@ class AssetFilter implements FilterInterface
      * Input filter.
      *
      * @param string $filename Name of the file
-     * @param string $content Content of the file.
+     * @param string $content  Content of the file.
      */
     public function input($filename, $content)
     {
@@ -60,7 +60,7 @@ class AssetFilter implements FilterInterface
     /**
      * Output filter.
      *
-     * @param string $target The build target being made.
+     * @param string $target  The build target being made.
      * @param string $content The content to filter.
      */
     public function output($target, $content)
@@ -74,7 +74,7 @@ class AssetFilter implements FilterInterface
      * Preprocessor filters can use this hook method to find a list of dependent
      * files.
      *
-     * @param AssetTarget $target The target to find dependencies for this filter.
+     * @param  \MiniAsset\AssetTarget $file The target to find dependencies for this filter.
      * @return array An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $file)
@@ -85,10 +85,10 @@ class AssetFilter implements FilterInterface
     /**
      * Run the compressor command and get the output
      *
-     * @param string $cmd The command to run.
-     * @param string $content The content to run through the command.
-     * @return The result of the command.
-     * @throws RuntimeException
+     * @param  string $cmd     The command to run.
+     * @param  string $content The content to run through the command.
+     * @return string The result of the command.
+     * @throws \RuntimeException
      */
     protected function _runCmd($cmd, $content, $environment = null)
     {
@@ -106,8 +106,8 @@ class AssetFilter implements FilterInterface
      * Find the command executable. If $file is an absolute path
      * to a file that exists $search will not be looked at.
      *
-     * @param array $search Paths to search.
-     * @param string $file The executable to find.
+     * @param array  $search Paths to search.
+     * @param string $file   The executable to find.
      */
     protected function _findExecutable($search, $file)
     {

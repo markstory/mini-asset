@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase;
 
@@ -24,7 +24,7 @@ class AssetConfigTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->_testFiles = APP;
@@ -70,7 +70,7 @@ class AssetConfigTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException        RuntimeException
      * @expectedExceptionMessage Configuration file "/bogus" was not found.
      */
     public function testExceptionOnBogusFile()
@@ -130,19 +130,25 @@ class AssetConfigTest extends TestCase
 
     public function testAddTarget()
     {
-        $this->config->addTarget('testing.js', [
+        $this->config->addTarget(
+            'testing.js',
+            [
             'files' => ['one.js', 'two.js']
-        ]);
+            ]
+        );
         $this->assertEquals(array('one.js', 'two.js'), $this->config->files('testing.js'));
     }
 
     public function testAddTargetThemed()
     {
-        $this->config->addTarget('testing-two.js', array(
+        $this->config->addTarget(
+            'testing-two.js',
+            array(
             'files' => array('one.js', 'two.js'),
             'filters' => array('uglify'),
             'theme' => true
-        ));
+            )
+        );
         $this->assertEquals(
             array('one.js', 'two.js'),
             $this->config->files('testing-two.js')
@@ -152,13 +158,19 @@ class AssetConfigTest extends TestCase
 
     public function testRequires()
     {
-        $this->config->addTarget('testing.js', array(
+        $this->config->addTarget(
+            'testing.js',
+            array(
             'files' => array('one.js', 'two.js'),
-        ));
-        $this->config->addTarget('child.js', array(
+            )
+        );
+        $this->config->addTarget(
+            'child.js',
+            array(
             'files' => array('one.js', 'two.js'),
             'require' => 'base.js'
-        ));
+            )
+        );
         $this->assertEquals([], $this->config->requires('testing.js'));
         $this->assertEquals(['base.js'], $this->config->requires('child.js'));
     }
@@ -276,7 +288,6 @@ class AssetConfigTest extends TestCase
 
     /**
      * Test that the default paths work.
-     *
      */
     public function testDefaultConventions()
     {

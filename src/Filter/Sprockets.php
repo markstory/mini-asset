@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -21,7 +21,6 @@ use MiniAsset\Filter\AssetFilter;
 /**
  * Implements directive replacement similar to sprockets <http://getsprockets.org>
  * Does not implement the //= provides syntax.
- *
  */
 class Sprockets extends AssetFilter
 {
@@ -31,7 +30,7 @@ class Sprockets extends AssetFilter
     /**
      * Regex pattern for finding //= require <file> and //= require "file" style inclusions
      *
-     * @var stgin
+     * @var string
      */
     protected $_pattern = '/^\s?\/\/\=\s+require\s+([\"\<])([^\"\>]+)[\"\>](?:[\r\n]+|[\n]+)/m';
 
@@ -54,18 +53,15 @@ class Sprockets extends AssetFilter
         if (isset($this->_scanner)) {
             return $this->_scanner;
         }
-        $this->_scanner = new AssetScanner(
-            $this->_settings['paths'],
-            isset($this->_settings['theme']) ? $this->_settings['theme'] : null
-        );
+        $this->_scanner = new AssetScanner($this->_settings['paths']);
         return $this->_scanner;
     }
 
     /**
      * Input filter - preprocesses //=require statements
      *
-     * @param string $filename
-     * @param string $content
+     * @param  string $filename
+     * @param  string $content
      * @return string content
      */
     public function input($filename, $content)
@@ -81,7 +77,7 @@ class Sprockets extends AssetFilter
     /**
      * Performs the replacements and inlines dependencies.
      *
-     * @param array $matches
+     * @param  array $matches
      * @return string content
      */
     protected function _replace($matches)
@@ -111,8 +107,8 @@ class Sprockets extends AssetFilter
     /**
      * Locates sibling files, or uses AssetScanner to locate <> style dependencies.
      *
-     * @param string $filename The basename of the file needing to be found.
-     * @param string $path The path for same directory includes.
+     * @param  string $filename The basename of the file needing to be found.
+     * @param  string $path     The path for same directory includes.
      * @return string Path to file.
      * @throws \Exception when files can't be located.
      */

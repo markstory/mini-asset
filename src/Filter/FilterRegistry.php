@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -48,7 +48,7 @@ class FilterRegistry
     /**
      * Check if the registry contains a named filter.
      *
-     * @param string $name The filter name to check.
+     * @param  string $name The filter name to check.
      * @return bool
      */
     public function contains($name)
@@ -59,8 +59,8 @@ class FilterRegistry
     /**
      * Add a filter to the registry
      *
-     * @param string $name The filter name to load.
-     * @param \MiniAsset\Filter\FilterInterface $filter The filter to load.
+     * @param  string                            $name   The filter name to load.
+     * @param  \MiniAsset\Filter\FilterInterface $filter The filter to load.
      * @return void
      */
     public function add($name, FilterInterface $filter)
@@ -71,7 +71,7 @@ class FilterRegistry
     /**
      * Get a filter from the registry
      *
-     * @param string $name The filter name to fetch.
+     * @param  string $name The filter name to fetch.
      * @return \MiniAsset\Filter\FilterInterface|null
      */
     public function get($name)
@@ -85,7 +85,7 @@ class FilterRegistry
     /**
      * Remove a filter from the registry
      *
-     * @param string $name The filter name to remove
+     * @param  string $name The filter name to remove
      * @return void
      */
     public function remove($name)
@@ -96,7 +96,7 @@ class FilterRegistry
     /**
      * Get a filter collection for a specific target.
      *
-     * @param \MiniAsset\AssetTarget $target The target to get a filter collection for.
+     * @param  \MiniAsset\AssetTarget $target The target to get a filter collection for.
      * @return \MiniAsset\Filter\FilterCollection
      */
     public function collection(AssetTarget $target)
@@ -109,10 +109,12 @@ class FilterRegistry
             }
             // Clone filters so the registry is not polluted.
             $copy = clone $filter;
-            $copy->settings([
+            $copy->settings(
+                [
                 'target' => $target->name(),
                 'paths' => $target->paths()
-            ]);
+                ]
+            );
             $filters[] = $copy;
         }
         return new FilterCollection($filters);

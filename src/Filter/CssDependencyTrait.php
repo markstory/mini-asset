@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -24,8 +24,6 @@ use MiniAsset\Utility\CssUtils;
  * that dependency files could also have an optional prefix.
  *
  * For example in scss `@import 'utilities'` will resolve to `_utilities.scss`.
- *
- * @var string
  */
 trait CssDependencyTrait
 {
@@ -86,7 +84,7 @@ trait CssDependencyTrait
     /**
      * Attempt to locate a file in the configured paths.
      *
-     * @param string $file The file to find.
+     * @param  string $file The file to find.
      * @return string The resolved file.
      */
     protected function _findFile($file)
@@ -103,17 +101,21 @@ trait CssDependencyTrait
     /**
      * Prepends filenames with defined prefix if not already defined.
      *
-     * @param string $name The file name.
-     * @param string The prefixed filename.
+     * @param  string $name The file name.
+     * @return string The prefixed filename.
      */
     protected function _prependPrefixToFilename($name)
     {
+        if (!property_exists($this, 'optionalDependencyPrefix')) {
+            return $name;
+        }
         $ds = DIRECTORY_SEPARATOR;
         $parts = explode($ds, $name);
         $filename = end($parts);
 
         if ($name === $filename
-            || $filename[0] === $this->optionalDependencyPrefix) {
+            || $filename[0] === $this->optionalDependencyPrefix
+        ) {
             return $this->optionalDependencyPrefix . $name;
         }
 

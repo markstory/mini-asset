@@ -1,0 +1,21 @@
+parameters:
+    level: 2
+    autoload_files:
+        - tests/bootstrap.php
+    ignoreErrors:
+        -
+            message: "#^Function jsmin not found.#"
+            count: 1
+            path: src/Filter/JsMinFilter.php
+        -
+            message: "#^Call to method minify\\(\\) on an unknown class.*#"
+            count: 2
+            path: src/Filter/MinifyFilter.php
+        -
+            message: "#Instantiated class .*? not found.#"
+            count: 2
+            path: src/Filter/MinifyFilter.php
+        -
+            message: "#^Unsafe usage of new static#"
+            count: 1
+            path: src/AssetConfig.php

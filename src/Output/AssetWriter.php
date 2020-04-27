@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Output;
 
@@ -43,9 +43,9 @@ class AssetWriter
     /**
      * Constructor.
      *
-     * @param array $timestamp The map of extensions and timestamps
+     * @param array  $timestamp     The map of extensions and timestamps
      * @param string $timestampPath The path to the timestamp file for assets.
-     * @param string $theme The the theme being assets are being built for.
+     * @param string $theme         The the theme being assets are being built for.
      */
     public function __construct(array $timestamp, $timestampPath, $theme = null)
     {
@@ -71,13 +71,12 @@ class AssetWriter
     /**
      * Writes content into a file
      *
-     * @param AssetTarget $build The filename to write.
-     * @param string $content The contents to write.
+     * @param  \MiniAsset\AssetTarget $build   The filename to write.
+     * @param  string                 $content The contents to write.
      * @throws RuntimeException
      */
     public function write(AssetTarget $build, $content)
     {
-        $ext = $build->ext();
         $path = $build->outputDir();
 
         if (!is_writable($path)) {
@@ -92,7 +91,7 @@ class AssetWriter
     /**
      * Invalidate a build before re-generating the file.
      *
-     * @param string $build The build to invalidate.
+     * @param  \MiniAsset\AssetTarget $build The build to invalidate.
      * @return void
      */
     public function invalidate(AssetTarget $build)
@@ -108,7 +107,7 @@ class AssetWriter
     /**
      * Finalize a build after written to filesystem.
      *
-     * @param AssetTarget $build The build to finalize.
+     * @param  \MiniAsset\AssetTarget $build The build to finalize.
      * @return void
      */
     public function finalize(AssetTarget $build)
@@ -133,8 +132,8 @@ class AssetWriter
     /**
      * Set the timestamp for a build file.
      *
-     * @param AssetTarget $build The name of the build to set a timestamp for.
-     * @param int $time The timestamp.
+     * @param  \MiniAsset\AssetTarget $build The name of the build to set a timestamp for.
+     * @param  int                    $time  The timestamp.
      * @return void
      */
     public function setTimestamp(AssetTarget $build, $time)
@@ -157,7 +156,7 @@ class AssetWriter
      *
      * If timestamps are disabled, false will be returned.
      *
-     * @param AssetTarget $build The build to get a timestamp for.
+     * @param  \MiniAsset\AssetTarget $build The build to get a timestamp for.
      * @return mixed The last build time, or false.
      */
     public function getTimestamp(AssetTarget $build)
@@ -196,7 +195,7 @@ class AssetWriter
     /**
      * Write timestamps to either the fast cache, or the serialized file.
      *
-     * @param array $data An array of timestamps for build files.
+     * @param  array $data An array of timestamps for build files.
      * @return void
      */
     protected function _writeTimestamp($data)
@@ -210,7 +209,7 @@ class AssetWriter
      * Get the final filename for a build. Resolves
      * theme prefixes and timestamps.
      *
-     * @param AssetTarget $target The build target name.
+     * @param  \MiniAsset\AssetTarget $target The build target name.
      * @return string The build filename to cache on disk.
      */
     public function buildFileName(AssetTarget $target, $timestamp = true)
@@ -229,7 +228,7 @@ class AssetWriter
     /**
      * Get the cache name a build.
      *
-     * @param string $build The build target name.
+     * @param  \MiniAsset\AssetTarget $build The build target name.
      * @return string The build cache name.
      */
     public function buildCacheName($build)
@@ -257,8 +256,8 @@ class AssetWriter
     /**
      * Modify a file name and append in the timestamp
      *
-     * @param string $file The filename.
-     * @param int $time The timestamp.
+     * @param  string $file The filename.
+     * @param  int    $time The timestamp.
      * @return string The build filename to cache on disk.
      */
     protected function _timestampFile($file, $time)
@@ -277,7 +276,7 @@ class AssetWriter
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param \MiniAsset\AssetTarget $target
+     * @param  \MiniAsset\AssetTarget $target
      * @return string The path
      */
     public function outputDir(AssetTarget $target)

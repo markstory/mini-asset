@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -20,7 +20,6 @@ use MiniAsset\Filter\AssetFilter;
  * This helps with cachebusting CSS sprites. This is useful in
  * development, and deployment to ensure you always have the most recent
  * images.
- *
  */
 class TimestampImage extends AssetFilter
 {
@@ -49,9 +48,9 @@ class TimestampImage extends AssetFilter
      * Input filter. Locates CSS background images relative to the
      * filename and gets the filemtime for the images.
      *
-     * @param string $filename The file being processed
-     * @param string $content The file content
-     * @return The content with images timestamped.
+     * @param  string $filename The file being processed
+     * @param  string $content  The file content
+     * @return string The content with images timestamped.
      */
     public function input($filename, $content)
     {
@@ -70,7 +69,7 @@ class TimestampImage extends AssetFilter
      * If the image path starts with / its assumed to be an absolute path
      * which will be prepended with settings[webroot] or WWW_ROOT
      *
-     * @param array $matches Array of matches
+     * @param  array $matches Array of matches
      * @return string Replaced code.
      */
     protected function _replace($matches)
@@ -100,8 +99,8 @@ class TimestampImage extends AssetFilter
      * querystrings, as they could have anything in them or be customized
      * already.
      *
-     * @param string $filepath The absolute path to the file for timestamping
-     * @param string $path The path to append a timestamp to.
+     * @param  string $filepath The absolute path to the file for timestamping
+     * @param  string $path     The path to append a timestamp to.
      * @return string Path with a timestamp.
      */
     protected function _timestamp($filepath, $path)

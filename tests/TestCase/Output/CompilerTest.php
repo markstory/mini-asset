@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase;
 
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class CompilerTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->_testFiles = APP;
@@ -32,14 +32,22 @@ class CompilerTest extends TestCase
         $testFile = $this->_testFiles . 'config' . DS . 'integration.ini';
 
         $this->config = AssetConfig::buildFromIniFile($testFile);
-        $this->config->paths('js', null, array(
+        $this->config->paths(
+            'js',
+            null,
+            array(
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . '*',
-        ));
-        $this->config->paths('css', null, array(
+            )
+        );
+        $this->config->paths(
+            'css',
+            null,
+            array(
             $this->_testFiles . 'css' . DS,
             $this->_testFiles . 'css' . DS . '*',
-        ));
+            )
+        );
     }
 
     protected function instance()
@@ -58,14 +66,10 @@ class CompilerTest extends TestCase
         $compiler = $this->instance();
         $result = $compiler->generate($target);
         $expected = <<<TEXT
-var BaseClass = new Class({
-
-});
+var BaseClass = new Class({});
 
 //= require "base_class"
-var Template = new Class({
-
-});
+var Template = new Class({});
 TEXT;
         $this->assertEquals($expected, $result);
     }
@@ -127,13 +131,9 @@ TEXT;
 
         $result = $compiler->generate($target);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
-
-var BaseClassTwo = BaseClass.extend({
-
-});
+var BaseClassTwo = BaseClass.extend({});
 TEXT;
         $this->assertEquals($expected, $result);
     }

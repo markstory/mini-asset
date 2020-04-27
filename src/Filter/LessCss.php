@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -37,8 +37,8 @@ class LessCss extends AssetFilter
     /**
      * Runs `lessc` against any files that match the configured extension.
      *
-     * @param string $filename The name of the input file.
-     * @param string $input The content of the file.
+     * @param  string $filename The name of the input file.
+     * @param  string $input    The content of the file.
      * @return string
      */
     public function input($filename, $input)
@@ -47,7 +47,7 @@ class LessCss extends AssetFilter
             return $input;
         }
 
-        $tmpfile = tempnam(TMP, 'asset_compress_less');
+        $tmpfile = tempnam(sys_get_temp_dir(), 'asset_compress_less');
         $this->_generateScript($tmpfile, $input);
 
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
@@ -73,6 +73,9 @@ parser.parse(%s, function (e, tree) {
     process.exit(0);
 });
 JS;
-        file_put_contents($file, sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($input)));
+        file_put_contents(
+            $file,
+            sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($input))
+        );
     }
 }

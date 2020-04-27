@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Output;
 
@@ -50,7 +50,7 @@ class AssetCacher
     /**
      * Get the final build file name for a target.
      *
-     * @param AssetTarget $target The target to get a name for.
+     * @param  AssetTarget $target The target to get a name for.
      * @return string
      */
     public function buildFileName(AssetTarget $target)
@@ -84,7 +84,7 @@ class AssetCacher
     /**
      * Get the cached result for a build target.
      *
-     * @param AssetTarget $target The target to get content for.
+     * @param  AssetTarget $target The target to get content for.
      * @return string
      */
     public function read(AssetTarget $target)
@@ -98,7 +98,7 @@ class AssetCacher
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param \MiniAsset\AssetTarget $target
+     * @param  \MiniAsset\AssetTarget $target
      * @return string The path
      */
     public function outputDir(AssetTarget $target)

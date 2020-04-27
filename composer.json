@@ -17,13 +17,13 @@
     "source": "https://github.com/markstory/mini-asset"
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2",
     "league/climate": "~3.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "^7.0"
   },
   "autoload": {
     "psr-4": {
@@ -44,5 +44,19 @@
     "scssphp/scssphp": "For using the ScssPHP filter.",
     "oyejorge/less.php": "For using the LessDotPHP filter, see https://github.com/oyejorge/less.php",
     "zendframework/diactoros": "The middleware layer relies on zendframework/diactoros."
+  },
+  "scripts": {
+    "check": [
+        "@cs-check",
+        "@test",
+        "@stan"
+    ],
+    "cs-check": "phpcs -p src/ tests/TestCase/",
+    "cs-fix": "phpcbf src/ tests/TestCase/",
+    "test": "phpunit --stderr",
+    "stan": "phpstan analyse src/ && psalm --show-info=false",
+    "stan-test": "phpstan analyse tests/",
+    "psalm": "psalm",
+    "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 vimeo/psalm:^3.0 && mv composer.backup composer.json"
   }
 }

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -27,7 +27,6 @@ use MiniAsset\Filter\AssetFilter;
  * `npm install -g hogan.js`
  *
  * Will install hogan.
- *
  */
 class Hogan extends AssetFilter
 {
@@ -46,8 +45,8 @@ class Hogan extends AssetFilter
     /**
      * Runs `hogan.compile` against all template fragments in a file.
      *
-     * @param string $filename The name of the input file.
-     * @param string $input The content of the file.
+     * @param  string $filename The name of the input file.
+     * @param  string $input    The content of the file.
      * @return string
      */
     public function input($filename, $input)
@@ -68,9 +67,9 @@ class Hogan extends AssetFilter
      * Generates the javascript passed into node to precompile the
      * the mustache template.
      *
-     * @param string $file The tempfile to put the script in.
-     * @param string $id The template id in window.JST
-     * @param string input The mustache template content.
+     * @param  string $file The tempfile to put the script in.
+     * @param  string $filename The template filename. Used to create a key in window.JST
+     * @param  string $input The mustache template content.
      * @return void
      */
     protected function _generateScript($file, $filename, $input)

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Output;
 
@@ -39,8 +39,8 @@ trait FreshTrait
      * This value is used to determine if a build
      * output is still 'fresh'.
      *
-     * @param int $time The timestamp the configuration files
-     *  were modified at.
+     * @param  int $time The timestamp the configuration files
+     *                   were modified at.
      * @return void
      */
     public function configTimestamp($time)
@@ -51,7 +51,7 @@ trait FreshTrait
     /**
      * Set the filter registry
      *
-     * @param \MiniAsset\Filter\FilterRegistry $filters The filter set to use.
+     * @param  \MiniAsset\Filter\FilterRegistry $filters The filter set to use.
      * @return void
      */
     public function filterRegistry(FilterRegistry $filters)
@@ -64,7 +64,7 @@ trait FreshTrait
      * Fresh cached files have timestamps newer than all of the component
      * files.
      *
-     * @param AssetTarget $target The target file being built.
+     * @param  AssetTarget $target The target file being built.
      * @return boolean
      */
     public function isFresh(AssetTarget $target)
@@ -105,7 +105,7 @@ trait FreshTrait
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param \MiniAsset\AssetTarget $target
+     * @param  \MiniAsset\AssetTarget $target
      * @return string The path
      */
     abstract public function outputDir(AssetTarget $target);

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -43,8 +43,8 @@ class Uglifyjs extends AssetFilter
     /**
      * Run `uglifyjs` against the output and compress it.
      *
-     * @param string $filename Name of the file being generated.
-     * @param string $input The uncompressed contents for $filename.
+     * @param  string $filename Name of the file being generated.
+     * @param  string $input    The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
     public function output($filename, $input)

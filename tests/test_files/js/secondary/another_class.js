@@ -1,3 +1,1 @@
-var AnotherClass = Class.extend({
-
-});
+var AnotherClass = Class.extend({});

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         1.1.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     1.1.0
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase;
 
@@ -21,7 +21,7 @@ use Laminas\Diactoros\Response;
 
 class AssetMiddlewareTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $configFile = APP . 'config/integration.ini';
@@ -35,9 +35,11 @@ class AssetMiddlewareTest extends TestCase
 
     public function testInvokeIncorrectPrefix()
     {
-        $request = ServerRequestFactory::fromGlobals([
+        $request = ServerRequestFactory::fromGlobals(
+            [
             'REQUEST_URI' => '/wrong/assets/path'
-        ]);
+            ]
+        );
         $response = new Response();
         $next = function ($req, $res) {
             return $res;
@@ -48,9 +50,11 @@ class AssetMiddlewareTest extends TestCase
 
     public function testInvokeMissingAssetFile()
     {
-        $request = ServerRequestFactory::fromGlobals([
+        $request = ServerRequestFactory::fromGlobals(
+            [
             'REQUEST_URI' => '/assets/nope.js'
-        ]);
+            ]
+        );
         $response = new Response();
         $next = function ($req, $res) {
             return $res;
@@ -62,13 +66,18 @@ class AssetMiddlewareTest extends TestCase
     public function testInvokeFailedBuild()
     {
         // Add new invalid target.
-        $this->config->addTarget('invalid.css', [
+        $this->config->addTarget(
+            'invalid.css',
+            [
             'files' => [APP . 'invalid.css']
-        ]);
+            ]
+        );
 
-        $request = ServerRequestFactory::fromGlobals([
+        $request = ServerRequestFactory::fromGlobals(
+            [
             'REQUEST_URI' => '/assets/invalid.css'
-        ]);
+            ]
+        );
         $response = new Response();
         $next = function ($req, $res) {
             return $res;
@@ -82,9 +91,11 @@ class AssetMiddlewareTest extends TestCase
     public function testInvokeCacheRead()
     {
         file_put_contents(sys_get_temp_dir() . '/all.css', 'cached data');
-        $request = ServerRequestFactory::fromGlobals([
+        $request = ServerRequestFactory::fromGlobals(
+            [
             'REQUEST_URI' => '/assets/all.css'
-        ]);
+            ]
+        );
         $response = new Response();
         $next = function ($req, $res) {
             return $res;
@@ -100,9 +111,11 @@ class AssetMiddlewareTest extends TestCase
 
     public function testInvokeSuccessfulBuild()
     {
-        $request = ServerRequestFactory::fromGlobals([
+        $request = ServerRequestFactory::fromGlobals(
+            [
             'REQUEST_URI' => '/assets/all.css'
-        ]);
+            ]
+        );
         $response = new Response();
         $next = function ($req, $res) {
             return $res;

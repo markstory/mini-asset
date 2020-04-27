@@ -21,8 +21,8 @@ class CssCompressor extends AssetFilter
     /**
      * Run `cleancss` against the output and compress it.
      *
-     * @param string $filename Name of the file being generated.
-     * @param string $input The uncompressed contents for $filename.
+     * @param  string $filename Name of the file being generated.
+     * @param  string $input    The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
     public function output($filename, $input)

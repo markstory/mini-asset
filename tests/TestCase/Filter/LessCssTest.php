@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\TestCase\Filter;
 
@@ -21,14 +21,16 @@ use PHPUnit\Framework\TestCase;
 class LessCssTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->_cssDir = APP . 'css' . DS;
         $this->filter = new LessCss();
-        $this->filter->settings([
+        $this->filter->settings(
+            [
             'paths' => [$this->_cssDir]
-        ]);
+            ]
+        );
     }
 
     public function testGetDependencies()

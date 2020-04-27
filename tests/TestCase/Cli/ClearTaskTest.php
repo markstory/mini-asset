@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Test\Cli;
 
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClearTaskTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $cli = $this->getMockBuilder('League\CLImate\CLImate')
@@ -40,7 +40,7 @@ class ClearTaskTest extends TestCase
         mkdir(TMP . 'cache_css');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->rmdir(TMP . 'cache_js');
@@ -50,7 +50,7 @@ class ClearTaskTest extends TestCase
     /**
      * Helper to clean up directories.
      *
-     * @param string $path The path to remove files from.
+     * @param  string $path The path to remove files from.
      * @return void
      */
     protected function rmdir($path)

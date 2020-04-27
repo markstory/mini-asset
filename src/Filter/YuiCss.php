@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
@@ -35,9 +35,9 @@ class YuiCss extends AssetFilter
     /**
      * Run $input through YuiCompressor
      *
-     * @param string $filename Filename being generated.
-     * @param string $input Contents of file
-     * @return Compressed file
+     * @param  string $filename Filename being generated.
+     * @param  string $input    Contents of file
+     * @return string Compressed file
      */
     public function output($filename, $input)
     {

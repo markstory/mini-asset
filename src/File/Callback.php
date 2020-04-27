@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.5
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.5
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\File;
 
@@ -22,13 +22,21 @@ use RuntimeException;
  */
 class Callback
 {
+    /**
+     * @var callable
+     */
     protected $callable;
+
+    /**
+     * @var \MiniAsset\AssetScanner
+     */
+    protected $scanner;
 
     /**
      * Constructor
      *
-     * @param string $class The class name to invoke.
-     * @param string $method The method to invoke.
+     * @param string                  $class   The class name to invoke.
+     * @param string                  $method  The method to invoke.
      * @param \MiniAsset\AssetScanner $scanner The asset scanner.
      */
     public function __construct($class, $method, AssetScanner $scanner)
@@ -52,7 +60,7 @@ class Callback
         foreach (call_user_func($this->callable) as $file) {
             $path = $this->scanner->find($file);
             if ($path === false) {
-                throw new RuntimeException("Could not locate {$file} for {$this->callable} in any configured path.");
+                throw new RuntimeException("Could not locate {$file} for callback loader in any configured path.");
             }
             $files[] = new Local($path);
         }

@@ -1,4 +1,2 @@
 //= require "base_class"
-var BaseClassTwo = BaseClass.extend({
-
-});
+var BaseClassTwo = BaseClass.extend({});

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -19,7 +19,6 @@ use RuntimeException;
  * Used for dynamic build files where a set of searchPaths
  * are declared in the config file. This class allows you search through
  * those searchPaths and locate assets.
- *
  */
 class AssetScanner
 {
@@ -61,8 +60,8 @@ class AssetScanner
     /**
      * Normalize a file path to the specified Directory Separator ($ds)
      *
-     * @param string $name Path to normalize
-     * @param type $ds Directory Separator to be used
+     * @param  string $name Path to normalize
+     * @param  string $ds   Directory Separator to be used
      * @return string Normalized path
      */
     protected function _normalizePath($name, $ds)
@@ -92,7 +91,7 @@ class AssetScanner
     /**
      * Discover all the sub directories for a given path.
      *
-     * @param string $path The path to search
+     * @param  string $path The path to search
      * @return array Array of subdirectories.
      */
     protected function _generateTree($path)
@@ -108,8 +107,8 @@ class AssetScanner
     /**
      * Find a file in the connected paths, and check for its existance.
      *
-     * @param string $file The file you want to find.
-     * @return mixed Either false on a miss, or the full path of the file.
+     * @param  string $file The file you want to find.
+     * @return false|string Either false on a miss, or the full path of the file.
      */
     public function find($file)
     {
@@ -134,7 +133,7 @@ class AssetScanner
      * Path resolution hook. Used by framework integrations to add in
      * framework module paths.
      *
-     * @param string $path Path to resolve
+     * @param  string $path Path to resolve
      * @return string resolved path
      */
     protected function _expandPrefix($path)

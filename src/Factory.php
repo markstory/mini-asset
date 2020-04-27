@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -58,7 +58,7 @@ class Factory
     /**
      * Create an Compiler
      *
-     * @param bool $debug Whether or not to enable debugging mode for the compiler.
+     * @param  bool $debug Whether or not to enable debugging mode for the compiler.
      * @return \MiniAsset\Output\Compiler
      */
     public function compiler($debug = false)
@@ -69,8 +69,8 @@ class Factory
     /**
      * Create a Caching Compiler
      *
-     * @param string $outputDir The directory to output cached files to.
-     * @param bool $debug Whether or not to enable debugging mode for the compiler.
+     * @param  string $outputDir The directory to output cached files to.
+     * @param  bool   $debug     Whether or not to enable debugging mode for the compiler.
      * @return \MiniAsset\Output\CachedCompiler
      */
     public function cachedCompiler($outputDir = '', $debug = false)
@@ -84,7 +84,7 @@ class Factory
     /**
      * Create an AssetWriter
      *
-     * @param string $tmpPath The path where the build timestamp lookup should be stored.
+     * @param  string $tmpPath The path where the build timestamp lookup should be stored.
      * @return \MiniAsset\Output\AssetWriter
      */
     public function writer($tmpPath = '')
@@ -106,7 +106,7 @@ class Factory
     /**
      * Create an AssetCacher
      *
-     * @param string $path The path to cache assets into.
+     * @param  string $path The path to cache assets into.
      * @return \MiniAsset\Output\AssetCacher
      */
     public function cacher($path = '')
@@ -134,18 +134,18 @@ class Factory
     /**
      * Create a new scanner instance for the provided paths.
      *
-     * @param array $paths The paths to scan.
+     * @param  array $paths The paths to scan.
      * @return \MiniAsset\AssetScanner
      */
     public function scanner($paths)
     {
-        return new AssetScanner($paths, $this->config->theme());
+        return new AssetScanner($paths);
     }
 
     /**
      * Create a single build target
      *
-     * @param string $name The name of the target to build
+     * @param  string $name The name of the target to build
      * @return \MiniAsset\AssetTarget
      * @throws \RuntimeException
      */
@@ -215,8 +215,8 @@ class Factory
     /**
      * Create a single filter
      *
-     * @param string $name The name of the filter to build.
-     * @param array $config The configuration for the filter.
+     * @param  string $name   The name of the filter to build.
+     * @param  array  $config The configuration for the filter.
      * @return \MiniAsset\Filter\FilterInterface
      */
     protected function buildFilter($name, $config)

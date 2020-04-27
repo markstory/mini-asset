@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -47,12 +47,13 @@ class AssetTarget
     protected $themed;
 
     /**
-     * @param string $path The output path or the asset target.
-     * @param \MiniAsset\File\FileInterface[] $files An array of MiniAsset\File\FileInterface
-     * @param array $filters An array of filter names for this target.
-     * @param array $paths A list of search paths for this asset. These paths
-     *   are used by filters that allow additional resources to be included e.g. Sprockets
-     * @param bool $themed Whether or not this file should be themed.
+     * @param string                          $path    The output path or the asset target.
+     * @param \MiniAsset\File\FileInterface[] $files   An array of MiniAsset\File\FileInterface
+     * @param array                           $filters An array of filter names for this target.
+     * @param array                           $paths   A list of search paths for this asset. These paths
+     *                                                 are used by filters that allow additional
+     *                                                 resources to be included e.g. Sprockets
+     * @param bool                            $themed  Whether or not this file should be themed.
      */
     public function __construct($path, $files = [], $filters = [], $paths = [], $themed = false)
     {

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Cli;
 
@@ -22,7 +22,8 @@ class ClearTask extends BaseTask
 
     protected function addArguments()
     {
-        $this->cli->arguments->add([
+        $this->cli->arguments->add(
+            [
             'help' => [
                 'prefix' => 'h',
                 'longPrefix' => 'help',
@@ -48,7 +49,8 @@ class ClearTask extends BaseTask
                 'description' => 'The config file to use.',
                 'required' => true,
             ]
-        ]);
+            ]
+        );
     }
 
     protected function execute()
@@ -69,20 +71,25 @@ class ClearTask extends BaseTask
             $this->cli->err('<red>No build targets defined</red>.');
             return 1;
         }
-        $targets = array_map(function ($target) {
-            return $target->name();
-        }, iterator_to_array($assets));
+        $targets = array_map(
+            function ($target) {
+                return $target->name();
+            },
+            iterator_to_array($assets)
+        );
 
         $this->_clearPath($config->cachePath('js'), $targets);
         $this->_clearPath($config->cachePath('css'), $targets);
         $this->cli->out('<green>Complete</green>');
+
+        return 0;
     }
 
     /**
      * Clear a path of build targets.
      *
-     * @param string $path The root path to clear.
-     * @param array $targets The build targets to clear.
+     * @param  string $path    The root path to clear.
+     * @param  array  $targets The build targets to clear.
      * @return void
      */
     protected function _clearPath($path, $targets)

@@ -7,9 +7,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset;
 
@@ -93,9 +93,9 @@ class AssetConfig
      * Any userland constants that resolve to file paths will automatically
      * be added to the constants available in configuration files.
      *
-     * @param array $data Initial data set for the object.
-     * @param array $constants  Additional constants that will be translated
-     *    when parsing paths.
+     * @param array $data      Initial data set for the object.
+     * @param array $constants Additional constants that will be translated
+     *                         when parsing paths.
      */
     public function __construct(array $data = [], array $constants = [])
     {
@@ -110,7 +110,7 @@ class AssetConfig
     /**
      * Add path based constants to the mapped constants.
      *
-     * @param array $constants The constants to map
+     * @param  array $constants The constants to map
      * @return void
      */
     protected function _addConstants($constants)
@@ -132,9 +132,9 @@ class AssetConfig
     /**
      * Factory method
      *
-     * @param string $iniFile File path for the ini file to parse.
-     * @param array $additionalConstants  Additional constants that will be translated
-     *    when parsing paths.
+     * @param      string $iniFile             File path for the ini file to parse.
+     * @param      array  $constants Additional constants that will be translated
+     *                                         when parsing paths.
      * @deprecated Use ConfigFinder::loadAll() instead.
      */
     public static function buildFromIniFile($iniFile = null, $constants = array())
@@ -156,8 +156,8 @@ class AssetConfig
     /**
      * Load a config file into the current instance.
      *
-     * @param string $path The config file to load.
-     * @param string $prefix The string to prefix all targets in $path with.
+     * @param  string $path   The config file to load.
+     * @param  string $prefix The string to prefix all targets in $path with.
      * @return $this
      */
     public function load($path, $prefix = '')
@@ -200,7 +200,7 @@ class AssetConfig
     /**
      * Read the configuration file from disk
      *
-     * @param string $filename Name of the inifile to parse
+     * @param  string $filename Name of the inifile to parse
      * @return array Inifile contents
      * @throws RuntimeException
      */
@@ -263,8 +263,8 @@ class AssetConfig
     /**
      * Add/Replace an extension configuration.
      *
-     * @param string $ext Extension name
-     * @param array $config Configuration for the extension
+     * @param  string $ext    Extension name
+     * @param  array  $config Configuration for the extension
      * @return void
      */
     public function addExtension($ext, array $config)
@@ -275,7 +275,7 @@ class AssetConfig
     /**
      * Parses paths in an extension definition
      *
-     * @param array $data Array of extension information.
+     * @param  array $target Array of extension information.
      * @return array Array of build extension information with paths replaced.
      */
     protected function _parseExtensionDef($target)
@@ -296,7 +296,7 @@ class AssetConfig
      * Replaces the file path constants used in Config files.
      * Will replace APP and WEBROOT
      *
-     * @param string $path Path to replace constants on
+     * @param  string $path Path to replace constants on
      * @return string constants replaced
      */
     protected function _replacePathConstants($path)
@@ -308,8 +308,9 @@ class AssetConfig
      * Set values into the config object, You can't modify targets, or filters
      * with this. Use the appropriate methods for those settings.
      *
-     * @param string $path The path to set.
-     * @param string $value The value to set.
+     * @param  string $path  The path to set.
+     * @param  string $value The value to set.
+     * @return void
      * @throws RuntimeException
      */
     public function set($path, $value)
@@ -332,7 +333,8 @@ class AssetConfig
     /**
      * Get values from the config data.
      *
-     * @param string $path The path you want.
+     * @param  string $path The path you want.
+     * @return mixed The configuration value.
      * @throws RuntimeException On invalid paths.
      */
     public function get($path)
@@ -359,9 +361,9 @@ class AssetConfig
     /**
      * Get/set filters for an extension
      *
-     * @param string $ext Name of an extension
-     * @param array $filters Filters to replace either the global or per target filters.
-     * @return array Filters for extension.
+     * @param  string $ext     Name of an extension
+     * @param  array  $filters Filters to replace either the global or per target filters.
+     * @return array|void Filters for extension.
      */
     public function filters($ext, $filters = null)
     {
@@ -377,7 +379,7 @@ class AssetConfig
     /**
      * Get the filters for a build target.
      *
-     * @param string $name The build target to get filters for.
+     * @param  string $name The build target to get filters for.
      * @return array
      */
     public function targetFilters($name)
@@ -422,8 +424,8 @@ class AssetConfig
     /**
      * Get/Set filter Settings.
      *
-     * @param string $filter The filter name
-     * @param array $settings The settings to set, leave null to get
+     * @param  string $filter   The filter name
+     * @param  array  $settings The settings to set, leave null to get
      * @return mixed.
      */
     public function filterConfig($filter, $settings = null)
@@ -449,7 +451,7 @@ class AssetConfig
     /**
      * Get the list of files that match the given build file.
      *
-     * @param string $target The build file with extension.
+     * @param  string $target The build file with extension.
      * @return array An array of files for the chosen build.
      */
     public function files($target)
@@ -467,7 +469,7 @@ class AssetConfig
      * asset is merged into the named target. In extends, the
      * source files & filter for an asset are merged into a target.
      *
-     * @param string $target The target to get requirements for.
+     * @param  string $target The target to get requirements for.
      * @return array A list of required builds.
      */
     public function requires($target)
@@ -481,7 +483,7 @@ class AssetConfig
     /**
      * Get the extension for a filename.
      *
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     public function getExt($file)
@@ -493,11 +495,11 @@ class AssetConfig
      * Get/set paths for an extension. Setting paths will replace
      * global or per target existing paths. Its only intended for testing.
      *
-     * @param string $ext Extension to get paths for.
-     * @param string $target A build target. If provided the target's paths (if any) will also be
-     *     returned.
-     * @param array $paths Paths to replace either the global or per target paths.
-     * @return array An array of paths to search for assets on.
+     * @param  string $ext    Extension to get paths for.
+     * @param  string $target A build target. If provided the target's paths (if any) will also be
+     *                        returned.
+     * @param  array  $paths  Paths to replace either the global or per target paths.
+     * @return array|void An array of paths to search for assets on or null when setting paths.
      */
     public function paths($ext, $target = null, $paths = null)
     {
@@ -525,7 +527,7 @@ class AssetConfig
     /**
      * Accessor for getting the cachePath for a given extension.
      *
-     * @param string $ext Extension to get paths for.
+     * @param string $ext  Extension to get paths for.
      * @param string $path The path to cache files using $ext to.
      */
     public function cachePath($ext, $path = null)
@@ -545,8 +547,8 @@ class AssetConfig
      * to using get()/set() as you don't run the risk of making a
      * mistake in General's casing.
      *
-     * @param string $key The key to read/write
-     * @param mixed $value The value to set.
+     * @param  string $key   The key to read/write
+     * @param  mixed  $value The value to set.
      * @return mixed Null when writing. Either a value or null when reading.
      */
     public function general($key, $value = null)
@@ -573,7 +575,7 @@ class AssetConfig
     /**
      * Check if the named target exists.
      *
-     * @param string $name The name of the target to check.
+     * @param  string $name The name of the target to check.
      * @return bool
      */
     public function hasTarget($name)
@@ -585,7 +587,7 @@ class AssetConfig
      * Create a new build target.
      *
      * @param string $target Name of the target file. The extension will be inferred based on the last extension.
-     * @param array $config Config data for the target. Should contain files, filters and theme key.
+     * @param array  $config Config data for the target. Should contain files, filters and theme key.
      */
     public function addTarget($target, array $config)
     {
@@ -606,7 +608,7 @@ class AssetConfig
     /**
      * Set the active theme for building assets.
      *
-     * @param string $theme The theme name to set. Null to get
+     * @param  string $theme The theme name to set. Null to get
      * @return mixed Either null on set, or theme on get
      */
     public function theme($theme = null)
@@ -620,7 +622,7 @@ class AssetConfig
     /**
      * Check if a build target is themed.
      *
-     * @param string $target A build target.
+     * @param  string $target A build target.
      * @return boolean
      */
     public function isThemed($target)

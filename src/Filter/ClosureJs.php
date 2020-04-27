@@ -7,13 +7,14 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Mark Story (http://mark-story.com)
- * @since         0.0.1
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mark Story (http://mark-story.com)
+ * @since     0.0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
 
 use MiniAsset\Filter\AssetFilter;
+use Exception;
 
 /**
  * A Google Closure compressor adapter for compressing Javascript.
@@ -21,7 +22,6 @@ use MiniAsset\Filter\AssetFilter;
  * via the PATH. It also assumes that the compiler.jar file is located in "vendors/closure" directory.
  *
  * You can get closure here at http://code.google.com/closure/compiler/
- *
  */
 class ClosureJs extends AssetFilter
 {
@@ -39,10 +39,10 @@ class ClosureJs extends AssetFilter
     /**
      * Run $input through Closure compiler
      *
-     * @param string $filename Filename being generated.
-     * @param string $input Contents of file
+     * @param  string $filename Filename being generated.
+     * @param  string $input    Contents of file
      * @throws \Exception $e
-     * @return Compressed file
+     * @return string Compressed file
      */
     public function output($filename, $input)
     {
@@ -51,7 +51,7 @@ class ClosureJs extends AssetFilter
         $jar = $this->_findExecutable($paths, $this->_settings['path']);
 
         // Closure works better if you specify an input file. Also supress warnings by default
-        $tmpFile = tempnam(TMP, 'CLOSURE');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'CLOSURE');
         file_put_contents($tmpFile, $input);
 
         $options = array('js' => $tmpFile) + $this->_settings;
