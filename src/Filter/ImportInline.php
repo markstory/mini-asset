@@ -36,10 +36,7 @@ class ImportInline extends AssetFilter
         if (isset($this->scanner)) {
             return $this->scanner;
         }
-        $this->scanner = new AssetScanner(
-            $this->_settings['paths'],
-            isset($this->_settings['theme']) ? $this->_settings['theme'] : null
-        );
+        $this->scanner = new AssetScanner($this->_settings['paths']);
         return $this->scanner;
     }
 

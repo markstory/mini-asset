@@ -68,7 +68,7 @@ class Hogan extends AssetFilter
      * the mustache template.
      *
      * @param  string $file The tempfile to put the script in.
-     * @param  string $id   The template id in window.JST
+     * @param  string $filename The template filename. Used to create a key in window.JST
      * @param  string $input The mustache template content.
      * @return void
      */

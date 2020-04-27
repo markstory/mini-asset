@@ -49,6 +49,7 @@ class Remote implements FileInterface
     public function contents()
     {
         $handle = fopen($this->url, 'rb');
+        $content = '';
         if ($handle) {
             $content = stream_get_contents($handle);
             fclose($handle);

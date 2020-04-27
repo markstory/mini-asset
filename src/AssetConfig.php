@@ -133,7 +133,7 @@ class AssetConfig
      * Factory method
      *
      * @param      string $iniFile             File path for the ini file to parse.
-     * @param      array  $additionalConstants Additional constants that will be translated
+     * @param      array  $constants Additional constants that will be translated
      *                                         when parsing paths.
      * @deprecated Use ConfigFinder::loadAll() instead.
      */
@@ -275,7 +275,7 @@ class AssetConfig
     /**
      * Parses paths in an extension definition
      *
-     * @param  array $data Array of extension information.
+     * @param  array $target Array of extension information.
      * @return array Array of build extension information with paths replaced.
      */
     protected function _parseExtensionDef($target)
@@ -310,6 +310,7 @@ class AssetConfig
      *
      * @param  string $path  The path to set.
      * @param  string $value The value to set.
+     * @return void
      * @throws RuntimeException
      */
     public function set($path, $value)
@@ -333,6 +334,7 @@ class AssetConfig
      * Get values from the config data.
      *
      * @param  string $path The path you want.
+     * @return mixed The configuration value.
      * @throws RuntimeException On invalid paths.
      */
     public function get($path)
@@ -361,7 +363,7 @@ class AssetConfig
      *
      * @param  string $ext     Name of an extension
      * @param  array  $filters Filters to replace either the global or per target filters.
-     * @return array Filters for extension.
+     * @return array|void Filters for extension.
      */
     public function filters($ext, $filters = null)
     {
@@ -497,7 +499,7 @@ class AssetConfig
      * @param  string $target A build target. If provided the target's paths (if any) will also be
      *                        returned.
      * @param  array  $paths  Paths to replace either the global or per target paths.
-     * @return array An array of paths to search for assets on.
+     * @return array|void An array of paths to search for assets on or null when setting paths.
      */
     public function paths($ext, $target = null, $paths = null)
     {

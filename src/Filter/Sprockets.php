@@ -53,10 +53,7 @@ class Sprockets extends AssetFilter
         if (isset($this->_scanner)) {
             return $this->_scanner;
         }
-        $this->_scanner = new AssetScanner(
-            $this->_settings['paths'],
-            isset($this->_settings['theme']) ? $this->_settings['theme'] : null
-        );
+        $this->_scanner = new AssetScanner($this->_settings['paths']);
         return $this->_scanner;
     }
 

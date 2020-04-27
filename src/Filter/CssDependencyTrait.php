@@ -101,8 +101,8 @@ trait CssDependencyTrait
     /**
      * Prepends filenames with defined prefix if not already defined.
      *
-     * @param string                       $name The file name.
-     * @param string The prefixed filename.
+     * @param  string $name The file name.
+     * @return string The prefixed filename.
      */
     protected function _prependPrefixToFilename($name)
     {

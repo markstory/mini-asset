@@ -60,7 +60,8 @@ class AssetCollection implements Countable, Iterator
     /**
      * Constructor. You can provide an array or any traversable object
      *
-     * @param  array $items Items.
+     * @param  array $targets Items.
+     * @param  \MiniAsset\Factory $factory Factory for other objects.
      * @throws InvalidArgumentException If passed incorrect type for items.
      */
     public function __construct(array $targets, Factory $factory)

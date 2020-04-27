@@ -81,6 +81,8 @@ class ClearTask extends BaseTask
         $this->_clearPath($config->cachePath('js'), $targets);
         $this->_clearPath($config->cachePath('css'), $targets);
         $this->cli->out('<green>Complete</green>');
+
+        return 0;
     }
 
     /**

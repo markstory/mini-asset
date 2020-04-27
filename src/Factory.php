@@ -139,7 +139,7 @@ class Factory
      */
     public function scanner($paths)
     {
-        return new AssetScanner($paths, $this->config->theme());
+        return new AssetScanner($paths);
     }
 
     /**

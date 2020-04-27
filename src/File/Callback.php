@@ -60,7 +60,7 @@ class Callback
         foreach (call_user_func($this->callable) as $file) {
             $path = $this->scanner->find($file);
             if ($path === false) {
-                throw new RuntimeException("Could not locate {$file} for {$this->callable} in any configured path.");
+                throw new RuntimeException("Could not locate {$file} for callback loader in any configured path.");
             }
             $files[] = new Local($path);
         }

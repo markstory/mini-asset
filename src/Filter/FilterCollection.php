@@ -56,7 +56,7 @@ class FilterCollection implements Countable
     /**
      * Apply all the output filters in sequence to the file and content.
      *
-     * @param  string $file    Filename being processed.
+     * @param  string $target    Filename being processed.
      * @param  string $content The content of the file.
      * @return string The content with all output filters applied.
      */

@@ -55,7 +55,7 @@ class Compiler implements CompilerInterface
     /**
      * Generate a compiled asset, with all the configured filters applied.
      *
-     * @param  \MiniAsset\AssetTarget $target The target to build
+     * @param  \MiniAsset\AssetTarget $build The target to build
      * @return string The processed result of $target and it dependencies.
      * @throws \RuntimeException
      */

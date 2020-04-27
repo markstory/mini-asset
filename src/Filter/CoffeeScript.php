@@ -36,7 +36,7 @@ class CoffeeScript extends AssetFilter
      * Runs `coffee` against files that match the configured extension.
      *
      * @param  string $filename Filename being processed.
-     * @param  string $content  Content of the file being processed.
+     * @param  string $input    Content of the file being processed.
      * @return string
      */
     public function input($filename, $input)
