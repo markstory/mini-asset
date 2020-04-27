@@ -41,7 +41,7 @@ class TypeScript extends AssetFilter
             return $input;
         }
 
-        $tmpFile = tempnam(TMP, 'TYPESCRIPT');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'TYPESCRIPT');
         $cmd = $this->_settings['typescript'] . " " . escapeshellarg($filename) . " --out " . $tmpFile;
         $this->_runCmd($cmd, null);
         $output = file_get_contents($tmpFile);

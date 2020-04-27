@@ -51,7 +51,7 @@ class ClosureJs extends AssetFilter
         $jar = $this->_findExecutable($paths, $this->_settings['path']);
 
         // Closure works better if you specify an input file. Also supress warnings by default
-        $tmpFile = tempnam(TMP, 'CLOSURE');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'CLOSURE');
         file_put_contents($tmpFile, $input);
 
         $options = array('js' => $tmpFile) + $this->_settings;
