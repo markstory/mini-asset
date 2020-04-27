@@ -26,11 +26,9 @@ class ScssFilterTest extends TestCase
         parent::setUp();
         $this->_cssDir = APP . 'css' . DS;
         $this->filter = new ScssFilter();
-        $this->filter->settings(
-            [
+        $this->filter->settings([
             'paths' => [$this->_cssDir]
-            ]
-        );
+        ]);
     }
 
     public function testParsing()

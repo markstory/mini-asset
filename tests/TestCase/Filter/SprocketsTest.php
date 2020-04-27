@@ -43,13 +43,9 @@ class SprocketsTest extends TestCase
 
         $result = $this->filter->input('template.js', $content);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
-
-var Template = new Class({
-
-});
+var Template = new Class({});
 
 TEXT;
         $this->assertTextEquals($expected, $result);
@@ -60,19 +56,13 @@ TEXT;
         $content = file_get_contents($this->_jsDir . 'classes' . DS . 'nested_class.js');
         $result = $this->filter->input('nested_class.js', $content);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
-
-var BaseClassTwo = BaseClass.extend({
-
-});
+var BaseClassTwo = BaseClass.extend({});
 
 // Remove me
 // remove me too
-var NestedClass = BaseClassTwo.extend({
-
-});
+var NestedClass = BaseClassTwo.extend({});
 
 TEXT;
         $this->assertTextEquals($expected, $result);
@@ -83,17 +73,11 @@ TEXT;
         $content = file_get_contents($this->_jsDir . 'classes' . DS . 'double_inclusion.js');
         $result = $this->filter->input('double_inclusion.js', $content);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
+var BaseClassTwo = BaseClass.extend({});
 
-var BaseClassTwo = BaseClass.extend({
-
-});
-
-var DoubleInclusion = new Class({
-
-});
+var DoubleInclusion = new Class({});
 
 TEXT;
         $this->assertTextEquals($expected, $result);
@@ -117,19 +101,15 @@ TEXT;
 
 // this comment should be removed
 function test(thing) {
-    /* this comment will be removed */
-    // I'm gone
-    thing.doStuff(); //I get to stay
-    return thing;
+  /* this comment will be removed */
+  // I'm gone
+  thing.doStuff(); //I get to stay
+  return thing;
 }
 
-var AnotherClass = Class.extend({
+var AnotherClass = Class.extend({});
 
-});
-
-var Slideshow = new Class({
-
-});
+var Slideshow = new Class({});
 
 TEXT;
         $this->assertTextEquals($expected, $result);
@@ -147,20 +127,12 @@ TEXT;
         $content = file_get_contents($this->_jsDir . 'classes' . DS . 'double_inclusion.js');
         $result .= $this->filter->input('double_inclusion.js', $content);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
+var Template = new Class({});
+var BaseClassTwo = BaseClass.extend({});
 
-var Template = new Class({
-
-});
-var BaseClassTwo = BaseClass.extend({
-
-});
-
-var DoubleInclusion = new Class({
-
-});
+var DoubleInclusion = new Class({});
 
 TEXT;
         $this->assertTextEquals($expected, $result);

@@ -66,14 +66,10 @@ class CompilerTest extends TestCase
         $compiler = $this->instance();
         $result = $compiler->generate($target);
         $expected = <<<TEXT
-var BaseClass = new Class({
-
-});
+var BaseClass = new Class({});
 
 //= require "base_class"
-var Template = new Class({
-
-});
+var Template = new Class({});
 TEXT;
         $this->assertEquals($expected, $result);
     }
@@ -135,13 +131,9 @@ TEXT;
 
         $result = $compiler->generate($target);
         $expected = <<<TEXT
-var BaseClass = new Class({
+var BaseClass = new Class({});
 
-});
-
-var BaseClassTwo = BaseClass.extend({
-
-});
+var BaseClassTwo = BaseClass.extend({});
 TEXT;
         $this->assertEquals($expected, $result);
     }
