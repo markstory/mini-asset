@@ -637,7 +637,7 @@ class AssetConfig
      */
     public function extensions()
     {
-        return ['css', 'js'];
+        return self::$_extensionTypes;
     }
 
     /**
