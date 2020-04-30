@@ -65,7 +65,7 @@ class AssetConfig
      * @var array
      */
     protected static $_extensionTypes = array(
-        'js', 'css', 'png', 'gif', 'jpeg'
+        'js', 'css', 'png', 'gif', 'jpeg', 'svg'
     );
 
     /**
@@ -637,7 +637,7 @@ class AssetConfig
      */
     public function extensions()
     {
-        return ['css', 'js'];
+        return self::$_extensionTypes;
     }
 
     /**
