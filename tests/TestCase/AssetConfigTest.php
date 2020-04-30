@@ -266,7 +266,7 @@ class AssetConfigTest extends TestCase
     public function testExtensions()
     {
         $result = $this->config->extensions();
-        $this->assertEquals(array('css', 'js'), $result);
+        $this->assertEquals(['js', 'css', 'png', 'gif', 'jpeg', 'svg'], $result);
     }
 
     public function testGeneral()
