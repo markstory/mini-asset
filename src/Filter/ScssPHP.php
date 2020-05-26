@@ -30,6 +30,7 @@ class ScssPHP extends AssetFilter
 
     protected $_settings = array(
         'ext' => '.scss',
+        'paths' => [],
     );
 
     /**
