@@ -56,7 +56,7 @@ class ScssFilter extends AssetFilter
         $filename = preg_replace('/ /', '\\ ', $filename);
         $cmd = $this->_settings['sass'];
         foreach ($this->_settings['imports'] as $path) {
-            $cmd .= " -I \"{$path}\"";
+            $cmd .= ' -I ' . escapeshellarg($path);
         }
         $bin = $cmd . ' ' . $filename;
         $return = $this->_runCmd($bin, '', array('PATH' => $this->_settings['path']));
