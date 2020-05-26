@@ -29,7 +29,7 @@ class PipeInputFilter extends AssetFilter
     protected $_settings = array(
         'ext' => '.css',
         'command' => '/bin/cat',
-        'dependencies' => 'none', // none, css, other
+        'dependencies' => true,
         'optional_dependency_prefix' => false,
         'path' => '/bin',
     );
@@ -41,13 +41,14 @@ class PipeInputFilter extends AssetFilter
      */
     protected $optionalDependencyPrefix = null;
 
+    public function hasDependencies()
+    {
+        return $this->_settings['dependencies'];
+    }
+
     public function getDependencies(AssetTarget $file)
     {
-        if ($this->_settings['dependencies'] !== 'none' && $this->_settings['dependencies'] !== 'css') {
-            return false;
-        }
-
-        if ($this->_settings['dependencies'] === 'css') {
+        if ($this->_settings['dependencies']) {
             $this->optionalDependencyPrefix = $this->_settings['optional_dependency_prefix'];
 
             return $this->getCssDependencies($file);

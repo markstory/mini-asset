@@ -42,10 +42,10 @@ class PipeInputFilterTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testGetDependenciesNone()
+    public function testGetDependenciesFalse()
     {
         $this->filter->settings(array(
-            'dependencies' => 'none',
+            'dependencies' => false,
             'optional_dependency_prefix' => false,
         ));
 
@@ -58,10 +58,10 @@ class PipeInputFilterTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testGetDependencies()
+    public function testGetDependenciesTrue()
     {
         $this->filter->settings(array(
-            'dependencies' => 'css',
+            'dependencies' => true,
             'optional_dependency_prefix' => '_',
         ));
 
@@ -77,26 +77,10 @@ class PipeInputFilterTest extends TestCase
         $this->assertEquals('_reset.scss', $result[2]->name());
     }
 
-    public function testGetDependenciesAlwaysRun()
-    {
-        $this->filter->settings(array(
-            'dependencies' => 'other',
-            'optional_dependency_prefix' => false,
-        ));
-
-        $files = [
-            new Local($this->_cssDir . 'test.scss')
-        ];
-        $target = new AssetTarget('test.css', $files);
-        $result = $this->filter->getDependencies($target);
-
-        $this->assertFalse($result);
-    }
-
     public function testGetDependenciesMissingDependency()
     {
         $this->filter->settings(array(
-            'dependencies' => 'css',
+            'dependencies' => true,
             'optional_dependency_prefix' => '_',
         ));
 

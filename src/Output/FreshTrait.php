@@ -90,11 +90,10 @@ trait FreshTrait
 
         $filters = $this->filterRegistry->collection($target);
         foreach ($filters->filters() as $filter) {
-            $dependencies = $filter->getDependencies($target);
-            if ($dependencies === false) {
+            if (!$filter->hasDependencies()) {
                 return false;
             }
-            foreach ($dependencies as $child) {
+            foreach ($filter->getDependencies($target) as $child) {
                 $time = $child->modifiedTime();
                 if ($time >= $buildTime) {
                     return false;
