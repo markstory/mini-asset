@@ -32,6 +32,7 @@ trait CssDependencyTrait
      */
     public function getDependencies(AssetTarget $target, array $paths = [])
     {
+        $prefixedName = '';
         $children = [];
         $hasPrefix = (property_exists($this, 'optionalDependencyPrefix') &&
             !empty($this->optionalDependencyPrefix));
