@@ -13,6 +13,7 @@
  */
 namespace MiniAsset\Filter;
 
+use MiniAsset\AssetTarget;
 use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\CssDependencyTrait;
 
@@ -40,7 +41,7 @@ class PipeInputFilter extends AssetFilter
      */
     protected $optionalDependencyPrefix = null;
 
-    public function getDependencies(\MiniAsset\AssetTarget $file)
+    public function getDependencies(AssetTarget $file)
     {
         if ($this->_settings['dependencies'] !== 'none' && $this->_settings['dependencies'] !== 'css') {
             return false;
