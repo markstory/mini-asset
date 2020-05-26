@@ -25,7 +25,9 @@ use MiniAsset\Filter\CssDependencyTrait;
  */
 class ScssFilter extends AssetFilter
 {
-    use CssDependencyTrait;
+    use CssDependencyTrait {
+        getDependencies as getCssDependencies;
+    }
 
     protected $_settings = array(
         'ext' => '.scss',
@@ -40,6 +42,11 @@ class ScssFilter extends AssetFilter
      * @var string
      */
     protected $optionalDependencyPrefix = '_';
+
+    public function getDependencies($target)
+    {
+        return $this->getCssDependencies($target, $this->_settings['imports']);
+    }
 
     /**
      * Runs SCSS compiler against any files that match the configured extension.
