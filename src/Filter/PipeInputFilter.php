@@ -68,7 +68,7 @@ class PipeInputFilter extends AssetFilter
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $input;
         }
-        $filename = preg_replace('/ /', '\\ ', $filename);
+        $filename = escapeshellarg($filename);
         $bin = $this->_settings['command'] . ' ' . $filename;
         $return = $this->_runCmd($bin, '', array('PATH' => $this->_settings['path']));
 
