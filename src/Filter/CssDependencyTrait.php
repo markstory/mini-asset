@@ -30,8 +30,9 @@ trait CssDependencyTrait
     /**
      * {@inheritDoc}
      */
-    public function getDependencies(AssetTarget $target)
+    public function getDependencies(AssetTarget $target, array $paths = [])
     {
+        $prefixedName = '';
         $children = [];
         $hasPrefix = (property_exists($this, 'optionalDependencyPrefix') &&
             !empty($this->optionalDependencyPrefix));
@@ -55,7 +56,14 @@ trait CssDependencyTrait
                 }
                 $deps[] = $name;
                 if ($hasPrefix) {
-                    $deps[] = $this->_prependPrefixToFilename($name);
+                    $prefixedName = $this->_prependPrefixToFilename($name);
+                    $deps[] = $prefixedName;
+                }
+                foreach ($paths as $path) {
+                    $deps[] = $path . DIRECTORY_SEPARATOR . $name;
+                    if ($hasPrefix) {
+                        $deps[] = $path . DIRECTORY_SEPARATOR . $prefixedName;
+                    }
                 }
             }
             foreach ($deps as $import) {

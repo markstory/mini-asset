@@ -70,4 +70,22 @@ class ScssFilterTest extends TestCase
         $this->assertCount(1, $result);
         $this->assertEquals('colors.scss', $result[0]->name());
     }
+
+    public function testImports()
+    {
+        $this->filter->settings([
+            'paths' => [$this->_cssDir],
+            'imports' => [$this->_cssDir . DIRECTORY_SEPARATOR . 'reset'],
+        ]);
+        $files = [
+            new Local($this->_cssDir . 'test_imports.scss')
+        ];
+        $target = new AssetTarget('test.css', $files);
+        $result = $this->filter->getDependencies($target);
+
+        $this->assertCount(3, $result);
+        $this->assertEquals('colors.scss', $result[0]->name());
+        $this->assertEquals('_utilities.scss', $result[1]->name());
+        $this->assertEquals('_reset.scss', $result[2]->name());
+    }
 }
