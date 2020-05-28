@@ -26,7 +26,9 @@ use ScssPhp\ScssPhp\Compiler;
  */
 class ScssPHP extends AssetFilter
 {
-    use CssDependencyTrait;
+    use CssDependencyTrait {
+        getDependencies as getCssDependencies;
+    }
 
     protected $_settings = array(
         'ext' => '.scss',
@@ -39,6 +41,11 @@ class ScssPHP extends AssetFilter
      * @var string
      */
     protected $optionalDependencyPrefix = '_';
+
+    public function getDependencies($target)
+    {
+        return $this->getCssDependencies($target, $this->_settings['imports']);
+    }
 
     /**
      * @param  string $filename The name of the input file.
