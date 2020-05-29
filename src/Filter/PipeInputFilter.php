@@ -26,11 +26,20 @@ class PipeInputFilter extends AssetFilter
         getDependencies as getCssDependencies;
     }
 
+    /**
+     * Settings for PipeInputFilter
+     *
+     * - `ext` File extension used by the filter
+     * - `dependencies` Set to true to calculate SCSS/LESS dependencies
+     * - `optional_dependency_prefix` Filename prefix for dependencies or false
+     * - `command` Command to run the file through
+     * - `path` Sets PATH environment variable
+     */
     protected $_settings = array(
         'ext' => '.css',
-        'command' => '/bin/cat',
-        'dependencies' => true,
+        'dependencies' => false,
         'optional_dependency_prefix' => false,
+        'command' => '/bin/cat',
         'path' => '/bin',
     );
 
