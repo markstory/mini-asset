@@ -26,11 +26,13 @@ use ScssPhp\ScssPhp\Compiler;
  */
 class ScssPHP extends AssetFilter
 {
-    use CssDependencyTrait;
+    use CssDependencyTrait {
+        getDependencies as getCssDependencies;
+    }
 
     protected $_settings = array(
         'ext' => '.scss',
-        'paths' => [],
+        'imports' => [],
     );
 
     /**
@@ -39,6 +41,11 @@ class ScssPHP extends AssetFilter
      * @var string
      */
     protected $optionalDependencyPrefix = '_';
+
+    public function getDependencies($target)
+    {
+        return $this->getCssDependencies($target, $this->_settings['imports']);
+    }
 
     /**
      * @param  string $filename The name of the input file.
@@ -56,7 +63,7 @@ class ScssPHP extends AssetFilter
         }
         $sc = new Compiler();
         $sc->addImportPath(dirname($filename));
-        foreach ($this->_settings['paths'] as $path) {
+        foreach ($this->_settings['imports'] as $path) {
             $sc->addImportPath($path);
         }
         return $sc->compile($input);
