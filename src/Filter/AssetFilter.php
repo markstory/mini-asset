@@ -83,6 +83,16 @@ class AssetFilter implements FilterInterface
     }
 
     /**
+     * Overloaded in filters that can't handle dependencies
+     *
+     * @return boolean True when the filter supports dependencies
+     */
+    public function hasDependencies()
+    {
+        return true;
+    }
+
+    /**
      * Run the compressor command and get the output
      *
      * @param  string $cmd     The command to run.

@@ -59,4 +59,11 @@ interface FilterInterface
      * @return array An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $target);
+
+    /**
+     * Returns a boolean whether the filter supports dependencies.
+     *
+     * @return boolean True when the filter supports dependencies
+     */
+    public function hasDependencies();
 }
