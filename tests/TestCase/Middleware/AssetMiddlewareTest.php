@@ -125,4 +125,36 @@ class AssetMiddlewareTest extends TestCase
         $this->assertSame(200, $res->getStatusCode(), 'Is 200 on success');
         $this->assertContains('#nav {', '' . $res->getBody(), 'Looks like CSS.');
     }
+
+    public function contentTypesProvider()
+    {
+        return [
+            ['/assets/libs.js', 'application/javascript'],
+            ['/assets/all.css', 'application/css'],
+            ['/assets/foo.bar.svg', 'image/svg+xml'],
+        ];
+    }
+
+    /**
+     * test returned content types
+     *
+     * @dataProvider contentTypesProvider
+     * @return void
+     */
+    public function testBuildFileContentTypes($uri, $expected)
+    {
+        $request = ServerRequestFactory::fromGlobals(
+            [
+            'REQUEST_URI' => $uri
+            ]
+        );
+
+        $response = new Response();
+        $next = function ($req, $res) {
+            return $res;
+        };
+        $res = $this->middleware->__invoke($request, $response, $next);
+
+        $this->assertEquals($expected, $res->getHeaderLine('Content-Type'));
+    }
 }

@@ -85,7 +85,8 @@ class AssetMiddleware
     {
         $types = [
             'css' => 'application/css',
-            'js' => 'application/javascript'
+            'js' => 'application/javascript',
+            'svg' => 'image/svg+xml',
         ];
         return isset($types[$ext]) ? $types[$ext] : 'application/octet-stream';
     }
