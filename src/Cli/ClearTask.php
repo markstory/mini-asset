@@ -71,15 +71,10 @@ class ClearTask extends BaseTask
             $this->cli->err('<red>No build targets defined</red>.');
             return 1;
         }
-        $targets = array_map(
-            function ($target) {
-                return $target->name();
-            },
-            iterator_to_array($assets)
-        );
 
-        $this->_clearPath($config->cachePath('js'), $targets);
-        $this->_clearPath($config->cachePath('css'), $targets);
+        foreach (iterator_to_array($assets) as $target) {
+            $this->_clearPath($target->outputDir() . DS, [$target->name()]);
+        }
         $this->cli->out('<green>Complete</green>');
 
         return 0;
