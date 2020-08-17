@@ -73,7 +73,7 @@ class ClearTask extends BaseTask
         }
 
         foreach (iterator_to_array($assets) as $target) {
-            $this->_clearPath($target->outputDir() . DS, [$target->name()]);
+            $this->_clearPath($target->outputDir() . DIRECTORY_SEPARATOR, [$target->name()]);
         }
         $this->cli->out('<green>Complete</green>');
 
