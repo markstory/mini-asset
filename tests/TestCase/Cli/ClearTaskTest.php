@@ -38,6 +38,7 @@ class ClearTaskTest extends TestCase
 
         mkdir(TMP . 'cache_js');
         mkdir(TMP . 'cache_css');
+        mkdir(TMP . 'cache_svg');
     }
 
     public function tearDown(): void
@@ -45,6 +46,7 @@ class ClearTaskTest extends TestCase
         parent::tearDown();
         $this->rmdir(TMP . 'cache_js');
         $this->rmdir(TMP . 'cache_css');
+        $this->rmdir(TMP . 'cache_svg');
     }
 
     /**
@@ -84,7 +86,8 @@ class ClearTaskTest extends TestCase
             TMP . 'cache_css/all.css',
             TMP . 'cache_css/all.v12354.css',
             TMP . 'cache_js/libs.js',
-            TMP . 'cache_js/libs.v12354.js'
+            TMP . 'cache_js/libs.v12354.js',
+            TMP . 'cache_svg/foo.bar.svg',
         ];
         foreach ($files as $file) {
             touch($file);
