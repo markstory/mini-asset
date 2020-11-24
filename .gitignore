@@ -4,3 +4,4 @@
 /coverage
 /composer.lock
 /.sass-cache
+.phpunit.result.cache

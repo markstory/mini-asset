@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class LessCssTest extends TestCase
 {
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_cssDir = APP . 'css' . DS;

@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClearTaskTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $cli = $this->getMockBuilder('League\CLImate\CLImate')
@@ -41,7 +41,7 @@ class ClearTaskTest extends TestCase
         mkdir(TMP . 'cache_svg');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->rmdir(TMP . 'cache_js');

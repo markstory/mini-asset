@@ -15,15 +15,15 @@ namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Local;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class LocalTest extends TestCase
 {
-    /**
-     * @expectedException RuntimeException
-     */
     public function testErrorOnInvalidFile()
     {
-        $file = new Local('/invalid');
+        $this->expectException(RuntimeException::class);
+
+        new Local('/invalid');
     }
 
     public function testName()
@@ -35,7 +35,7 @@ class LocalTest extends TestCase
     public function testContents()
     {
         $file = new Local(__FILE__);
-        $this->assertContains('LocalTest extends TestCase', $file->contents());
+        $this->assertStringContainsString('LocalTest extends TestCase', $file->contents());
     }
 
     public function testModifiedTime()

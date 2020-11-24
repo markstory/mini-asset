@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class HoganTest extends TestCase
 {
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_path = APP . '/hogan/';

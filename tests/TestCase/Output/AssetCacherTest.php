@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class AssetCacherTest extends TestCase
 {
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->files = [
@@ -48,7 +48,7 @@ class AssetCacherTest extends TestCase
         $this->themed->filterRegistry($registry);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
         $path = TMP . 'Modern-template.js';

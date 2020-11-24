@@ -15,15 +15,15 @@ namespace MiniAsset\Test\TestCase\File;
 
 use MiniAsset\File\Glob;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class GlobTest extends TestCase
 {
-    /**
-     * @expectedException RuntimeException
-     */
     public function testErrorOnInvalidBasePath()
     {
-        $file = new Glob('/invalid/', '*');
+        $this->expectException(RuntimeException::class);
+
+        new Glob('/invalid/', '*');
     }
 
     public function testFiles()

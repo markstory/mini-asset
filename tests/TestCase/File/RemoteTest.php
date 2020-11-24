@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class RemoteTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $file = file_get_contents('http://google.com');
@@ -36,7 +36,7 @@ class RemoteTest extends TestCase
     public function testContents()
     {
         $file = new Remote('http://google.com');
-        $this->assertContains('html', $file->contents());
+        $this->assertStringContainsString('html', $file->contents());
     }
 
     public function testModifiedTime()

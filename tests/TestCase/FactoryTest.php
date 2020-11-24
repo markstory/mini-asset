@@ -16,10 +16,11 @@ namespace MiniAsset;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class FactoryTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,24 +47,22 @@ class FactoryTest extends TestCase
         $this->assertEquals('/path/to/uglify-js', $filter->settings()['path']);
     }
 
-    /**
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Cannot load filter "Derp"
-     */
     public function testFilterRegistryMissingFilter()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Cannot load filter "Derp"');
+
         $this->config->filters('js', ['Derp']);
         $this->config->filterConfig('Derp', ['path' => '/test']);
         $factory = new Factory($this->config);
         $factory->filterRegistry();
     }
 
-    /**
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage The target named 'not-there.js' does not exist.
-     */
     public function testTargetMissing()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The target named \'not-there.js\' does not exist.');
+
         $factory = new Factory($this->config);
         $factory->target('not-there.js');
     }
@@ -118,25 +117,23 @@ class FactoryTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Callback MiniAsset\Test\Helpers\MyCallbackProvider::invalid() is not callable
-     */
     public function testTargetCallbackProviderNotCallable()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Callback MiniAsset\Test\Helpers\MyCallbackProvider::invalid() is not callable');
+
         $callbacksFile = APP . 'config' . DS . 'callbacks.ini';
         $config = AssetConfig::buildFromIniFile($callbacksFile);
 
         $factory = new Factory($config);
-        $target = $factory->target('callbacks_not_callable.js');
+        $factory->target('callbacks_not_callable.js');
     }
 
-    /**
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage The target named 'nope.js' does not exist.
-     */
     public function testTargetWithRequiredTargetMissingDependency()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The target named \'nope.js\' does not exist.');
+
         $requireFile = APP . 'config' . DS . 'require.ini';
         $config = AssetConfig::buildFromIniFile($requireFile);
 
@@ -176,9 +173,9 @@ class FactoryTest extends TestCase
         $this->assertEquals('middle.js', $middle->name());
 
         $contents = $middle->contents();
-        $this->assertContains('var BaseClass', $contents, 'No baseclass, sprockets not applied');
-        $this->assertContains('var Template', $contents);
-        $this->assertContains(
+        $this->assertStringContainsString('var BaseClass', $contents, 'No baseclass, sprockets not applied');
+        $this->assertStringContainsString('var Template', $contents);
+        $this->assertStringContainsString(
             '//= require "local_script"',
             $contents,
             'Sprockets should not be applied to intermediate build files'

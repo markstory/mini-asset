@@ -15,6 +15,7 @@ namespace MiniAsset\Test\TestCase;
 
 use MiniAsset\AssetConfig;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class AssetConfigTest extends TestCase
 {
@@ -24,7 +25,7 @@ class AssetConfigTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_testFiles = APP;
@@ -51,7 +52,7 @@ class AssetConfigTest extends TestCase
     public function testBuildFromIniFile()
     {
         $config = AssetConfig::buildFromIniFile($this->testConfig);
-        $this->assertEquals(1, $config->get('js.timestamp'));
+        $this->assertSame('1', $config->get('js.timestamp'));
         $this->assertEquals(1, $config->general('writeCache'));
         $this->assertEquals(filemtime($this->testConfig), $config->modifiedTime());
     }
@@ -69,12 +70,11 @@ class AssetConfigTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Configuration file "/bogus" was not found.
-     */
     public function testExceptionOnBogusFile()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Configuration file "/bogus" was not found.');
+
         AssetConfig::buildFromIniFile('/bogus');
     }
 
@@ -307,7 +307,7 @@ class AssetConfigTest extends TestCase
         $this->assertEquals('', $result);
 
         $result = $this->config->theme('red');
-        $this->assertEquals('', $result);
+        $this->assertNull($result);
 
         $result = $this->config->theme();
         $this->assertEquals('red', $result);

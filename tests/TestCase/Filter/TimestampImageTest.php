@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class TimestampImageTest extends TestCase
 {
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_testPath = APP . 'css/';
