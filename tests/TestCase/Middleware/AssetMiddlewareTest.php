@@ -21,7 +21,7 @@ use Laminas\Diactoros\Response;
 
 class AssetMiddlewareTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $configFile = APP . 'config/integration.ini';
@@ -104,7 +104,7 @@ class AssetMiddlewareTest extends TestCase
         $this->assertNotSame($res, $response, 'Should be a new response');
         $this->assertSame(200, $res->getStatusCode(), 'Is 200 on success');
         $this->assertSame('application/css', $res->getHeaderLine('Content-Type'));
-        $this->assertContains('cached data', '' . $res->getBody(), 'Is cached data.');
+        $this->assertStringContainsString('cached data', '' . $res->getBody(), 'Is cached data.');
 
         unlink(sys_get_temp_dir() . '/all.css');
     }
@@ -123,7 +123,7 @@ class AssetMiddlewareTest extends TestCase
         $res = $this->middleware->__invoke($request, $response, $next);
         $this->assertNotSame($res, $response, 'Should be a new response');
         $this->assertSame(200, $res->getStatusCode(), 'Is 200 on success');
-        $this->assertContains('#nav {', '' . $res->getBody(), 'Looks like CSS.');
+        $this->assertStringContainsString('#nav {', '' . $res->getBody(), 'Looks like CSS.');
     }
 
     public function contentTypesProvider()

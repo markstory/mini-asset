@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 class AssetCollectionTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $config = new AssetConfig([]);

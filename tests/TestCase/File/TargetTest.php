@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class TargetTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->compiler = $this->getMockBuilder('MiniAsset\Output\CompilerInterface')->getMock();

@@ -17,10 +17,11 @@ use MiniAsset\AssetTarget;
 use MiniAsset\Filter\AssetFilter;
 use MiniAsset\Filter\FilterRegistry;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class FilterRegistryTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->filters = [
@@ -57,11 +58,10 @@ class FilterRegistryTest extends TestCase
         $this->assertNull($this->registry->get('noop'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testCollectionInvalidFilter()
     {
+        $this->expectException(RuntimeException::class);
+
         $target = new AssetTarget('test.js', [], ['noop', 'missing']);
         $this->registry->collection($target);
     }
