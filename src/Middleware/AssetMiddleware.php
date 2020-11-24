@@ -4,6 +4,7 @@ namespace MiniAsset\Middleware;
 use Exception;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
+use Psr\Http\Message\ResponseInterface 
 
 /**
  * A PSR7 middleware for serving assets from mini-asset.
@@ -71,10 +72,7 @@ class AssetMiddleware
         return $this->respond($response, $contents, $build->ext());
     }
 
-    /**
-     * @return self
-     */
-    private function respond(\Psr\Http\Message\ResponseInterface $response, string $contents, string $ext): self
+    private function respond(ResponseInterface $response, string $contents, string $ext): ResponseInterface
     {
         // Deliver built asset.
         $body = $response->getBody();
