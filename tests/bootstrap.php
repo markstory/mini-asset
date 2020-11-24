@@ -11,10 +11,10 @@
  * @since     0.0.1
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
-/**
- * Test suite bootstrap.
- */
+
+// phpcs:disable
 require_once 'vendor/autoload.php';
+// phpcs:enable
 
 // Path constants to a few helpful things.
 define('DS', DIRECTORY_SEPARATOR);
