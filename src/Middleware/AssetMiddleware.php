@@ -4,7 +4,7 @@ namespace MiniAsset\Middleware;
 use Exception;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
-use Psr\Http\Message\ResponseInterface 
+use Psr\Http\Message\ResponseInterface
 
 /**
  * A PSR7 middleware for serving assets from mini-asset.
