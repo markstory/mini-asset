@@ -71,7 +71,7 @@ class AssetMiddleware
         return $this->respond($response, $contents, $build->ext());
     }
 
-    private function respond($response, $contents, $ext)
+    private function respond(\Psr\Http\Message\ResponseInterface $response, string $contents, string $ext)
     {
         // Deliver built asset.
         $body = $response->getBody();
@@ -81,7 +81,7 @@ class AssetMiddleware
         return $response->withHeader('Content-Type', $this->mapType($ext));
     }
 
-    private function mapType($ext)
+    private function mapType($ext): string
     {
         $types = [
             'css' => 'application/css',

@@ -70,6 +70,8 @@ class ClosureCompiler extends AssetFilter
 
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function output($filename, $content)
     {
@@ -100,11 +102,13 @@ class ClosureCompiler extends AssetFilter
     /**
      * Query the Closure compiler API.
      *
-     * @param  string $content Javascript to compile.
-     * @param  array  $args    API parameters.
+     * @param string $content Javascript to compile.
+     * @param array  $args    API parameters.
+     *
      * @throws \Exception If curl extension is missing.
      * @throws \Exception If curl triggers an error.
-     * @return string
+     *
+     * @return string|true
      */
     protected function _query($content, $args = array())
     {

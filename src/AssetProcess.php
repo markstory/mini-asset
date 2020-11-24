@@ -51,8 +51,9 @@ class AssetProcess
     /**
      * Get/set the environment for the command.
      *
-     * @param  array $env Environment variables.
-     * @return string|$this The environment variables that are set, or this.
+     * @param array $env Environment variables.
+     *
+     * @return array|static The environment variables that are set, or this.
      */
     public function environment($env = null)
     {

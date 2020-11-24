@@ -59,10 +59,13 @@ class ImportInline extends AssetFilter
     /**
      * Does file replacements.
      *
-     * @param  array $matches
+     * @param array $matches
+     *
      * @throws \RuntimeException
+     *
+     * @return string
      */
-    protected function _replace($matches)
+    protected function _replace($matches): string
     {
         $required = empty($matches[2]) ? $matches[4] : $matches[2];
         $filename = $this->scanner()->find($required);

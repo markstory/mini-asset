@@ -38,8 +38,12 @@ class CssCompressor extends AssetFilter
 
     /**
      * Generates a small bit of Javascript code to invoke cleancss with.
+     *
+     * @param false|string $file
+     *
+     * @return void
      */
-    protected function generateScript($file, $input)
+    protected function generateScript($file, string $input): void
     {
         $script = <<<JS
 var csscompressor = require('css-compressor');

@@ -71,11 +71,14 @@ class AssetWriter
     /**
      * Writes content into a file
      *
-     * @param  \MiniAsset\AssetTarget $build   The filename to write.
-     * @param  string                 $content The contents to write.
+     * @param \MiniAsset\AssetTarget $build   The filename to write.
+     * @param string                 $content The contents to write.
+     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
-    public function write(AssetTarget $build, $content)
+    public function write(AssetTarget $build, $content): bool
     {
         $path = $build->outputDir();
 
@@ -91,10 +94,11 @@ class AssetWriter
     /**
      * Invalidate a build before re-generating the file.
      *
-     * @param  \MiniAsset\AssetTarget $build The build to invalidate.
-     * @return void
+     * @param \MiniAsset\AssetTarget $build The build to invalidate.
+     *
+     * @return false|null
      */
-    public function invalidate(AssetTarget $build)
+    public function invalidate(AssetTarget $build): ?bool
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -212,7 +216,7 @@ class AssetWriter
      * @param  \MiniAsset\AssetTarget $target The build target name.
      * @return string The build filename to cache on disk.
      */
-    public function buildFileName(AssetTarget $target, $timestamp = true)
+    public function buildFileName(AssetTarget $target, bool $timestamp = true)
     {
         $file = $target->name();
         if ($target->isThemed() && $this->theme) {

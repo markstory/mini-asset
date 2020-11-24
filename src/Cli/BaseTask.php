@@ -74,6 +74,8 @@ abstract class BaseTask
      *
      * @param string $text  The text to output.
      * @param string $short The short alternative.
+     *
+     * @return void
      */
     public function verbose($text, $short = '')
     {

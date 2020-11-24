@@ -57,7 +57,7 @@ class LessCss extends AssetFilter
         return $return;
     }
 
-    protected function _generateScript($file, $input)
+    protected function _generateScript($file, string $input): void
     {
         $text = <<<JS
 var less = require('less'),
