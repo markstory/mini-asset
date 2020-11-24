@@ -23,7 +23,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
-    "phpunit/phpunit": "^8.0"
+    "phpunit/phpunit": "^8.5 | ^9.3"
   },
   "autoload": {
     "psr-4": {
