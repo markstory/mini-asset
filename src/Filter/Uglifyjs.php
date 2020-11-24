@@ -43,15 +43,15 @@ class Uglifyjs extends AssetFilter
     /**
      * Run `uglifyjs` against the output and compress it.
      *
-     * @param  string $filename Name of the file being generated.
-     * @param  string $input    The uncompressed contents for $filename.
+     * @param  string $target   Name of the file being generated.
+     * @param  string $content The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
-    public function output($filename, $input)
+    public function output($target, $content)
     {
         $cmdSep = $this->_settings['version'] <= 1 ? ' - ' : '';
         $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSep . $this->_settings['options'];
         $env = array('NODE_PATH' => $this->_settings['node_path']);
-        return $this->_runCmd($cmd, $input, $env);
+        return $this->_runCmd($cmd, $content, $env);
     }
 }

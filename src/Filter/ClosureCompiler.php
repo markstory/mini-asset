@@ -71,9 +71,9 @@ class ClosureCompiler extends AssetFilter
     /**
      * {@inheritdoc}
      *
-     * @return string
+     * @return string|true
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         $errors = $this->_query($content, array('output_info' => 'errors'));
         if (!empty($errors)) {

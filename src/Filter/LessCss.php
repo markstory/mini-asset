@@ -38,17 +38,17 @@ class LessCss extends AssetFilter
      * Runs `lessc` against any files that match the configured extension.
      *
      * @param  string $filename The name of the input file.
-     * @param  string $input    The content of the file.
+     * @param  string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
 
         $tmpfile = tempnam(sys_get_temp_dir(), 'asset_compress_less');
-        $this->_generateScript($tmpfile, $input);
+        $this->_generateScript($tmpfile, $content);
 
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
         $env = array('NODE_PATH' => $this->_settings['node_path']);
@@ -57,7 +57,7 @@ class LessCss extends AssetFilter
         return $return;
     }
 
-    protected function _generateScript($file, string $input): void
+    protected function _generateScript($file, string $content): void
     {
         $text = <<<JS
 var less = require('less'),
@@ -75,7 +75,7 @@ parser.parse(%s, function (e, tree) {
 JS;
         file_put_contents(
             $file,
-            sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($input))
+            sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($content))
         );
     }
 }

@@ -39,12 +39,12 @@ class JShrinkFilter extends AssetFilter
     /**
      * Apply JShrink to $content.
      *
-     * @param  string $filename target filename
+     * @param  string $target target filename
      * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         if (!class_exists('JShrink\Minifier')) {
             throw new \Exception(sprintf('Cannot not load filter class "%s".', 'JShrink\Minifier'));

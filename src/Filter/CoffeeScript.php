@@ -39,13 +39,13 @@ class CoffeeScript extends AssetFilter
      * @param  string $input    Content of the file being processed.
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
         $cmd = $this->_settings['node'] . ' ' . $this->_settings['coffee'] . ' -c -p -s ';
         $env = array('NODE_PATH' => $this->_settings['node_path']);
-        return $this->_runCmd($cmd, $input, $env);
+        return $this->_runCmd($cmd, $content, $env);
     }
 }

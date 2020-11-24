@@ -30,11 +30,11 @@ class SimpleCssMin extends AssetFilter
      * Copyright (c) 2009 and onwards, Manas Tungare.
      * Creative Commons Attribution, Share-Alike.
      *
-     * @param  string $filename target filename
+     * @param  string $target target filename
      * @param  string $content  Content to filter.
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         // Remove comments
         $content = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content);

@@ -35,13 +35,13 @@ class PipeOutputFilter extends AssetFilter
      * Run command against the output and compress it.
      *
      * @param string $filename Name of the file being generated.
-     * @param string $input The raw contents for $filename.
+     * @param string $content The raw contents for $filename.
      * @return string Processed contents.
      */
-    public function output($filename, $input)
+    public function output($target, $content)
     {
         $cmd = $this->_settings['command'];
 
-        return $this->_runCmd($cmd, $input, array('PATH' => $this->_settings['path']));
+        return $this->_runCmd($cmd, $content, array('PATH' => $this->_settings['path']));
     }
 }

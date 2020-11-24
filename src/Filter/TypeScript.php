@@ -31,14 +31,14 @@ class TypeScript extends AssetFilter
     /**
      * Runs `tsc` against files that match the configured extension.
      *
-     * @param  string $filename Filename being processed.
-     * @param  string $input  Content of the file being processed.
+     * @param  string $filename  Filename being processed.
+     * @param  string $content Content of the file being processed.
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
 
         $tmpFile = tempnam(sys_get_temp_dir(), 'TYPESCRIPT');

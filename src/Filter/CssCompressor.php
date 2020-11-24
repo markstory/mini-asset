@@ -21,16 +21,16 @@ class CssCompressor extends AssetFilter
     /**
      * Run `cleancss` against the output and compress it.
      *
-     * @param  string $filename Name of the file being generated.
-     * @param  string $input    The uncompressed contents for $filename.
+     * @param  string $target Name of the file being generated.
+     * @param  string $content    The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
-    public function output($filename, $input)
+    public function output($target, $content)
     {
         $env = array('NODE_PATH' => $this->_settings['node_path']);
 
         $tmpfile = tempnam(sys_get_temp_dir(), 'miniasset_css_compressor');
-        $this->generateScript($tmpfile, $input);
+        $this->generateScript($tmpfile, $content);
 
         $cmd = $this->_settings['node'] . ' ' . $tmpfile;
         return $this->_runCmd($cmd, '', $env);

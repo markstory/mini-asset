@@ -71,7 +71,10 @@ class AssetMiddleware
         return $this->respond($response, $contents, $build->ext());
     }
 
-    private function respond(\Psr\Http\Message\ResponseInterface $response, string $contents, string $ext)
+    /**
+     * @return self
+     */
+    private function respond(\Psr\Http\Message\ResponseInterface $response, string $contents, string $ext): self
     {
         // Deliver built asset.
         $body = $response->getBody();

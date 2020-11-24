@@ -35,10 +35,10 @@ interface FilterInterface
      * Output filters are used to do minification or do other manipulation
      * on the content before $targetFile is saved/output.
      *
-     * @param string $targetFile  The build target being made.
+     * @param string $target  The build target being made.
      * @param string $content The content to filter.
      */
-    public function output($targetFile, $content);
+    public function output($target, $content);
 
     /**
      * Gets settings for this filter. Will always include 'paths'

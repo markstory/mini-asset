@@ -52,13 +52,13 @@ class ScssFilter extends AssetFilter
      * Runs SCSS compiler against any files that match the configured extension.
      *
      * @param  string $filename The name of the input file.
-     * @param  string $input    The content of the file.
+     * @param  string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
         $filename = preg_replace('/ /', '\\ ', $filename);
         $cmd = $this->_settings['sass'];

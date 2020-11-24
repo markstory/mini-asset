@@ -37,14 +37,14 @@ class LessPHP extends AssetFilter
      * Runs `lessc` against any files that match the configured extension.
      *
      * @param  string $filename The name of the input file.
-     * @param  string $input    The content of the file.
+     * @param  string $content    The content of the file.
      * @throws \Exception
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
         if (!class_exists('lessc')) {
             throw new \Exception('Cannot not load "lessc" class. Make sure it is installed.');

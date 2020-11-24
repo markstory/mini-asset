@@ -34,12 +34,12 @@ class JsMinFilter extends AssetFilter
     /**
      * Apply JsMin to $content.
      *
-     * @param  string $filename Name of the file being generated.
-     * @param  string $content  The uncompress contents of $filename.
+     * @param  string $target Name of the file being generated.
+     * @param  string $content  The uncompress contents of $target.
      * @throws \Exception
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         if (function_exists('jsmin')) {
             return jsmin($content);
