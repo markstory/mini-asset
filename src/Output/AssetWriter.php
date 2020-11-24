@@ -96,9 +96,9 @@ class AssetWriter
      *
      * @param \MiniAsset\AssetTarget $build The build to invalidate.
      *
-     * @return false|null
+     * @return boolean
      */
-    public function invalidate(AssetTarget $build): ?bool
+    public function invalidate(AssetTarget $build): bool
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -106,6 +106,8 @@ class AssetWriter
         }
         $this->_invalidated = $build->name();
         $this->setTimestamp($build, 0);
+
+        return true;
     }
 
     /**
