@@ -34,7 +34,7 @@ class PipeOutputFilter extends AssetFilter
     /**
      * Run command against the output and compress it.
      *
-     * @param string $filename Name of the file being generated.
+     * @param string $target Name of the file being generated.
      * @param string $content The raw contents for $filename.
      * @return string Processed contents.
      */

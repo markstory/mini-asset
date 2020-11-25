@@ -28,7 +28,7 @@ class CssMinFilter extends AssetFilter
     /**
      * Apply CssMin to $content.
      *
-     * @param  string $filename target filename
+     * @param  string $target   target filename
      * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
