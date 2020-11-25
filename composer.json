@@ -23,7 +23,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
-    "phpunit/phpunit": "^8.0"
+    "phpunit/phpunit": "^8.5 | ^9.3"
   },
   "autoload": {
     "psr-4": {
@@ -57,6 +57,6 @@
     "stan": "phpstan analyse src/ && psalm --show-info=false",
     "stan-test": "phpstan analyse tests/",
     "psalm": "psalm",
-    "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 vimeo/psalm:^3.0 && mv composer.backup composer.json"
+    "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 vimeo/psalm:^4.1.0 && mv composer.backup composer.json"
   }
 }

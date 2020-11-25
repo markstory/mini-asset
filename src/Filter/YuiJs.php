@@ -35,15 +35,15 @@ class YuiJs extends AssetFilter
     /**
      * Run $input through YuiCompressor
      *
-     * @param  string $filename Filename being generated.
-     * @param  string $input    Contents of file
+     * @param  string $target  Filename being generated.
+     * @param  string $content Contents of file
      * @return string Compressed file
      */
-    public function output($filename, $input)
+    public function output($target, $content)
     {
         $paths = [getcwd(), dirname(dirname(dirname(dirname(__DIR__))))];
         $jar = $this->_findExecutable($paths, $this->_settings['path']);
         $cmd = 'java -jar "' . $jar . '" --type js';
-        return $this->_runCmd($cmd, $input);
+        return $this->_runCmd($cmd, $content);
     }
 }

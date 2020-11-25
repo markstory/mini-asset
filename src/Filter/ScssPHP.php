@@ -49,14 +49,14 @@ class ScssPHP extends AssetFilter
 
     /**
      * @param  string $filename The name of the input file.
-     * @param  string $input    The content of the file.
+     * @param  string $content    The content of the file.
      * @throws \Exception
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
         if (!class_exists('ScssPhp\\ScssPhp\\Compiler')) {
             throw new \Exception(sprintf('Cannot not load filter class "%s".', 'ScssPhp\\ScssPhp\\Compiler'));
@@ -66,6 +66,6 @@ class ScssPHP extends AssetFilter
         foreach ($this->_settings['imports'] as $path) {
             $sc->addImportPath($path);
         }
-        return $sc->compile($input);
+        return $sc->compile($content);
     }
 }

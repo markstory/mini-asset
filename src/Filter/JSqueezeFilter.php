@@ -40,12 +40,12 @@ class JSqueezeFilter extends AssetFilter
     /**
      * Apply JSqueeze to $content.
      *
-     * @param  string $filename target filename
+     * @param  string $target target filename
      * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         if (!class_exists('Patchwork\JSqueeze')) {
             throw new \Exception(sprintf('Cannot not load filter class "%s".', 'Patchwork\JSqueeze'));

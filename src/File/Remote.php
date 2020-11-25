@@ -65,6 +65,9 @@ class Remote implements FileInterface
         return $this->_getLastModified($this->url);
     }
 
+    /**
+     * @param false|string $url
+     */
     protected function _getLastModified($url)
     {
         $time = time();

@@ -132,12 +132,15 @@ class AssetConfig
     /**
      * Factory method
      *
-     * @param      string $iniFile             File path for the ini file to parse.
-     * @param      array  $constants Additional constants that will be translated
-     *                                         when parsing paths.
+     * @param string $iniFile   File path for the ini file to parse.
+     * @param array  $constants Additional constants that will be translated
+     *                          when parsing paths.
+     *
      * @deprecated Use ConfigFinder::loadAll() instead.
+     *
+     * @return static
      */
-    public static function buildFromIniFile($iniFile = null, $constants = array())
+    public static function buildFromIniFile($iniFile = null, $constants = array()): self
     {
         $config = new static([], $constants);
         return $config->load($iniFile);
@@ -361,7 +364,7 @@ class AssetConfig
     /**
      * Get/set filters for an extension
      *
-     * @param  string $ext     Name of an extension
+     * @param  string $ext Name of an extension
      * @param  array  $filters Filters to replace either the global or per target filters.
      * @return array|void Filters for extension.
      */
@@ -587,8 +590,10 @@ class AssetConfig
      *
      * @param string $target Name of the target file. The extension will be inferred based on the last extension.
      * @param array  $config Config data for the target. Should contain files, filters and theme key.
+     *
+     * @return void
      */
-    public function addTarget($target, array $config)
+    public function addTarget($target, array $config): void
     {
         $ext = $this->getExt($target);
         $config += [

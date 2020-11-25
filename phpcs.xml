@@ -2,6 +2,7 @@
 <ruleset name="MiniAsset">
     <rule ref="PSR2"/>
 
+    <exclude-pattern>tests/bootstrap.php</exclude-pattern>
     <exclude-pattern>tests/test_files/js/*</exclude-pattern>
     <exclude-pattern>tests/test_files/css/*</exclude-pattern>
     <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">

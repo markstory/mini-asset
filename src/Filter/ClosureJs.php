@@ -37,14 +37,14 @@ class ClosureJs extends AssetFilter
     );
 
     /**
-     * Run $input through Closure compiler
+     * Run $content through Closure compiler
      *
-     * @param  string $filename Filename being generated.
-     * @param  string $input    Contents of file
+     * @param  string $target Filename being generated.
+     * @param  string $content    Contents of file
      * @throws \Exception $e
      * @return string Compressed file
      */
-    public function output($filename, $input)
+    public function output($target, $content)
     {
         $output = null;
         $paths = [getcwd(), dirname(dirname(dirname(dirname(__DIR__))))];
@@ -52,7 +52,7 @@ class ClosureJs extends AssetFilter
 
         // Closure works better if you specify an input file. Also supress warnings by default
         $tmpFile = tempnam(sys_get_temp_dir(), 'CLOSURE');
-        file_put_contents($tmpFile, $input);
+        file_put_contents($tmpFile, $content);
 
         $options = array('js' => $tmpFile) + $this->_settings;
         $options = array_diff_key($options, array('path' => null, 'paths' => null, 'target' => null, 'theme' => null));

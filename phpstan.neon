@@ -1,7 +1,9 @@
 parameters:
     level: 2
-    autoload_files:
+    bootstrapFiles:
         - tests/bootstrap.php
+    paths:
+        - src/
     ignoreErrors:
         -
             message: "#^Function jsmin not found.#"

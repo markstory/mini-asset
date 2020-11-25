@@ -31,7 +31,12 @@ class Glob
         $this->pattern = $pattern;
     }
 
-    public function files()
+    /**
+     * @return Local[]
+     *
+     * @psalm-return list<Local>
+     */
+    public function files(): array
     {
         $files = [];
         foreach (glob($this->basePath . $this->pattern) as $file) {

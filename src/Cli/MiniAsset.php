@@ -50,7 +50,7 @@ class MiniAsset
         }
     }
 
-    public function help()
+    public function help(): void
     {
         $this->cli->underline('Mini Asset CLI Tool');
         $this->cli->out('');

@@ -51,6 +51,8 @@ class AssetFilter implements FilterInterface
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
+     *
+     * @return string
      */
     public function input($filename, $content)
     {
@@ -62,6 +64,8 @@ class AssetFilter implements FilterInterface
      *
      * @param string $target  The build target being made.
      * @param string $content The content to filter.
+     *
+     * @return string
      */
     public function output($target, $content)
     {
@@ -74,10 +78,10 @@ class AssetFilter implements FilterInterface
      * Preprocessor filters can use this hook method to find a list of dependent
      * files.
      *
-     * @param  \MiniAsset\AssetTarget $file The target to find dependencies for this filter.
+     * @param  \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
      * @return array An array of MiniAsset\File\Local objects.
      */
-    public function getDependencies(AssetTarget $file)
+    public function getDependencies(AssetTarget $target)
     {
         return [];
     }
@@ -95,12 +99,15 @@ class AssetFilter implements FilterInterface
     /**
      * Run the compressor command and get the output
      *
-     * @param  string $cmd     The command to run.
-     * @param  string $content The content to run through the command.
+     * @param string $cmd     The command to run.
+     * @param string $content The content to run through the command.
+     * @param array|null $environment
+     *
      * @return string The result of the command.
+     *
      * @throws \RuntimeException
      */
-    protected function _runCmd($cmd, $content, $environment = null)
+    protected function _runCmd($cmd, $content, ?array $environment = null)
     {
         $Process = new AssetProcess();
         $Process->environment($environment);
@@ -118,8 +125,10 @@ class AssetFilter implements FilterInterface
      *
      * @param array  $search Paths to search.
      * @param string $file   The executable to find.
+     *
+     * @return null|string
      */
-    protected function _findExecutable($search, $file)
+    protected function _findExecutable($search, $file): ?string
     {
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
         if (file_exists($file)) {

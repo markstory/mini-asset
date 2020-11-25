@@ -46,16 +46,16 @@ class Hogan extends AssetFilter
      * Runs `hogan.compile` against all template fragments in a file.
      *
      * @param  string $filename The name of the input file.
-     * @param  string $input    The content of the file.
+     * @param  string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $input)
+    public function input($filename, $content)
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
-            return $input;
+            return $content;
         }
         $tmpfile = tempnam(sys_get_temp_dir(), 'mini_asset_hogan');
-        $this->_generateScript($tmpfile, $filename, $input);
+        $this->_generateScript($tmpfile, $filename, $content);
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
         $env = array('NODE_PATH' => $this->_settings['node_path']);
         $return = $this->_runCmd($bin, '', $env);

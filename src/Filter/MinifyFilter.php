@@ -13,14 +13,14 @@ class MinifyFilter extends AssetFilter
     /**
      * Run $content through Minify.
      *
-     * @param  string $filename target filename
+     * @param  string $target target filename
      * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
-        if (substr($filename, -3) === 'css') {
+        if (substr($target, -3) === 'css') {
             return (new Minify\CSS($content))->minify();
         }
 

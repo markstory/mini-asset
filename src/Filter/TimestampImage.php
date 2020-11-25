@@ -57,6 +57,7 @@ class TimestampImage extends AssetFilter
         $this->_filename = $filename;
         $content = preg_replace_callback($this->_backgroundPattern, array($this, '_replace'), $content);
         $content = preg_replace_callback($this->_backgroundImagePattern, array($this, '_replace'), $content);
+
         return $content;
     }
 

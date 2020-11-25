@@ -62,7 +62,7 @@ class AssetCacher
         return $file;
     }
 
-    public function write(AssetTarget $target, $contents)
+    public function write(AssetTarget $target, string $contents): void
     {
         $this->ensureDir();
         $buildName = $this->buildFileName($target);

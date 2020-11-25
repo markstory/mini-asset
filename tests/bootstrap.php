@@ -11,9 +11,6 @@
  * @since     0.0.1
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
-/**
- * Test suite bootstrap.
- */
 require_once 'vendor/autoload.php';
 
 // Path constants to a few helpful things.

@@ -28,12 +28,12 @@ class CssMinFilter extends AssetFilter
     /**
      * Apply CssMin to $content.
      *
-     * @param  string $filename target filename
+     * @param  string $target   target filename
      * @param  string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($filename, $content)
+    public function output($target, $content)
     {
         if (!class_exists('CssMin')) {
             throw new RuntimeException('Cannot not load filter class "CssMin". Ensure you have it installed.');
