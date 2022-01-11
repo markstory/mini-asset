@@ -154,7 +154,8 @@ class AssetCollection implements Countable, Iterator
         $this->index++;
     }
 
-    public function key(): mixed
+    #[\ReturnTypeWillChange]
+    public function key()
     {
         return $this->index;
     }
@@ -164,7 +165,8 @@ class AssetCollection implements Countable, Iterator
         return isset($this->items[$this->index]);
     }
 
-    public function current(): mixed
+    #[\ReturnTypeWillChange]
+    public function current()
     {
         $current = $this->items[$this->index];
         return $this->get($current);
