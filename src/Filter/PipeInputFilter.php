@@ -55,12 +55,12 @@ class PipeInputFilter extends AssetFilter
         return $this->_settings['dependencies'];
     }
 
-    public function getDependencies(AssetTarget $file)
+    public function getDependencies(AssetTarget $target)
     {
         if ($this->_settings['dependencies']) {
             $this->optionalDependencyPrefix = $this->_settings['optional_dependency_prefix'];
 
-            return $this->getCssDependencies($file);
+            return $this->getCssDependencies($target);
         }
 
         return [];
