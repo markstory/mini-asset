@@ -139,35 +139,33 @@ class AssetCollection implements Countable, Iterator
      *
      * @return int
      */
-    #[\ReturnTypeWillChange]
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
 
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = 0;
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
         $this->index++;
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->index;
     }
 
-    #[\ReturnTypeWillChange]
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->items[$this->index]);
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $current = $this->items[$this->index];
