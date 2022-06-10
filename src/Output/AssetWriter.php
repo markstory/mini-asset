@@ -188,8 +188,8 @@ class AssetWriter
      */
     protected function _readTimestamp()
     {
-        $data = array();
-        if (empty($data) && file_exists($this->path . static::BUILD_TIME_FILE)) {
+        $data = [];
+        if (file_exists($this->path . static::BUILD_TIME_FILE)) {
             $data = file_get_contents($this->path . static::BUILD_TIME_FILE);
             if ($data) {
                 $data = unserialize($data);

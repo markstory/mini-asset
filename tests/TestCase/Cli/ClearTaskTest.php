@@ -96,7 +96,7 @@ class ClearTaskTest extends TestCase
         $this->task->main(['clear', '--config', APP . 'config/integration.ini']);
 
         foreach ($files as $file) {
-            $this->assertFileNotExists($file, "$file was not cleared");
+            $this->assertFalse(file_exists($file), "$file was not cleared");
         }
     }
 

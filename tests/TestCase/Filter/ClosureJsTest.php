@@ -22,21 +22,25 @@ class ClosureJsTest extends TestCase
     public function testCommand()
     {
         $filter = $this->getMockBuilder('MiniAsset\Filter\ClosureJs')
-            ->setMethods(['_findExecutable', '_runCmd'])
+            ->onlyMethods(['_findExecutable', '_runCmd'])
             ->getMock();
 
-        $filter->expects($this->at(0))
+        $filter->expects($this->any())
             ->method('_findExecutable')
             ->will($this->returnValue('closure/compiler.jar'));
-        $filter->expects($this->at(1))
+        $filter->expects($this->once())
             ->method('_runCmd')
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET"/'));
         $filter->output('file.js', 'var a = 1;');
 
-        $filter->expects($this->at(0))
+
+        $filter = $this->getMockBuilder('MiniAsset\Filter\ClosureJs')
+            ->onlyMethods(['_findExecutable', '_runCmd'])
+            ->getMock();
+        $filter->expects($this->any())
             ->method('_findExecutable')
             ->will($this->returnValue('closure/compiler.jar'));
-        $filter->expects($this->at(1))
+        $filter->expects($this->once())
             ->method('_runCmd')
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET" --language_in="ECMASCRIPT5"/'));
         $filter->settings(array('language_in' => 'ECMASCRIPT5'));

@@ -6,10 +6,6 @@ parameters:
         - src/
     ignoreErrors:
         -
-            message: "#^Function jsmin not found.#"
-            count: 1
-            path: src/Filter/JsMinFilter.php
-        -
             message: "#^Call to method minify\\(\\) on an unknown class.*#"
             count: 2
             path: src/Filter/MinifyFilter.php
