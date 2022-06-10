@@ -84,10 +84,12 @@ jobs:
         php-version: '7.4'
         extensions: mbstring, intl
         coverage: none
-        tools: psalm:~4.1.0, phpstan:^0.12
 
     - name: Composer Install
       run: composer install
+
+    - name: Install tools
+      run: composer stan-setup
 
     - name: Run phpcs
       run: vendor/bin/phpcs -p src/ tests/
