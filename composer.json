@@ -17,7 +17,7 @@
     "source": "https://github.com/markstory/mini-asset"
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.2,<8.2",
     "league/climate": "~3.0"
   },
   "require-dev": {

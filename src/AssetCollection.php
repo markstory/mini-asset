@@ -139,16 +139,19 @@ class AssetCollection implements Countable, Iterator
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->items);
     }
 
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->index = 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $this->index++;
@@ -159,6 +162,7 @@ class AssetCollection implements Countable, Iterator
         return $this->index;
     }
 
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return isset($this->items[$this->index]);
