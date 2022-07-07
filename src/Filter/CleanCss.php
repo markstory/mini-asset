@@ -51,5 +51,4 @@ class CleanCss extends AssetFilter
         unlink($tmpFile);
         return $result;
     }
-
 }
