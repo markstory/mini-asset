@@ -25,7 +25,7 @@ class CleanCss extends AssetFilter
      * Settings for CleanCss
      *
      * - `node` Path to nodejs on your machine
-     * - `node_path` The path to the node_modules directory where uglify is installed.
+     * - `node_path` The path to the node_modules directory where cleancss is installed.
      */
     protected $_settings = array(
         'node' => '/usr/local/bin/node',
