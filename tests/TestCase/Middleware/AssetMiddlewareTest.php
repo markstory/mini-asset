@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,11 +15,11 @@
  */
 namespace MiniAsset\Test\TestCase;
 
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequestFactory;
 use MiniAsset\AssetConfig;
 use MiniAsset\Middleware\AssetMiddleware;
 use PHPUnit\Framework\TestCase;
-use Laminas\Diactoros\ServerRequestFactory;
-use Laminas\Diactoros\Response;
 
 class AssetMiddlewareTest extends TestCase
 {
@@ -37,7 +39,7 @@ class AssetMiddlewareTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => '/wrong/assets/path'
+            'REQUEST_URI' => '/wrong/assets/path',
             ]
         );
         $response = new Response();
@@ -52,7 +54,7 @@ class AssetMiddlewareTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => '/assets/nope.js'
+            'REQUEST_URI' => '/assets/nope.js',
             ]
         );
         $response = new Response();
@@ -69,13 +71,13 @@ class AssetMiddlewareTest extends TestCase
         $this->config->addTarget(
             'invalid.css',
             [
-            'files' => [APP . 'invalid.css']
+            'files' => [APP . 'invalid.css'],
             ]
         );
 
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => '/assets/invalid.css'
+            'REQUEST_URI' => '/assets/invalid.css',
             ]
         );
         $response = new Response();
@@ -93,7 +95,7 @@ class AssetMiddlewareTest extends TestCase
         file_put_contents(sys_get_temp_dir() . '/all.css', 'cached data');
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => '/assets/all.css'
+            'REQUEST_URI' => '/assets/all.css',
             ]
         );
         $response = new Response();
@@ -113,7 +115,7 @@ class AssetMiddlewareTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => '/assets/all.css'
+            'REQUEST_URI' => '/assets/all.css',
             ]
         );
         $response = new Response();
@@ -145,7 +147,7 @@ class AssetMiddlewareTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals(
             [
-            'REQUEST_URI' => $uri
+            'REQUEST_URI' => $uri,
             ]
         );
 

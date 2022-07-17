@@ -21,6 +21,7 @@
     "league/climate": "~3.0"
   },
   "require-dev": {
+    "cakephp/cakephp-codesniffer": "5.x-dev",
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
     "phpunit/phpunit": "^8.5 | ^9.3"

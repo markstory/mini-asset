@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset;
 
-use MiniAsset\AssetConfig;
-use MiniAsset\Factory;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -187,7 +187,7 @@ class FactoryTest extends TestCase
         $config = AssetConfig::buildFromIniFile(
             $this->integrationFile,
             [
-            'WEBROOT' => TMP
+            'WEBROOT' => TMP,
             ]
         );
         $factory = new Factory($config);
@@ -280,10 +280,10 @@ class FactoryTest extends TestCase
         $expected = [
             'timestamp' => [
                 'js' => true,
-                'css' => false
+                'css' => false,
             ],
             'path' => TMP,
-            'theme' => 'Red'
+            'theme' => 'Red',
         ];
         $this->assertEquals($expected, $writer->config());
     }
@@ -297,7 +297,7 @@ class FactoryTest extends TestCase
         $expected = [
             'timestamp' => [
                 'js' => true,
-                'css' => false
+                'css' => false,
             ],
             'path' => WEBROOT . 'timestamp' . DIRECTORY_SEPARATOR,
             'theme' => '',

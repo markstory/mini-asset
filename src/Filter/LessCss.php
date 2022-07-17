@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,9 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-use MiniAsset\Filter\CssDependencyTrait;
-
 /**
  * Pre-processing filter that adds support for LESS.css files.
  *
@@ -27,21 +26,21 @@ class LessCss extends AssetFilter
 {
     use CssDependencyTrait;
 
-    protected $_settings = array(
+    protected $_settings = [
         'ext' => '.less',
         'node' => '/usr/local/bin/node',
         'node_path' => '/usr/local/lib/node_modules',
         'paths' => [],
-    );
+    ];
 
     /**
      * Runs `lessc` against any files that match the configured extension.
      *
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
@@ -51,9 +50,10 @@ class LessCss extends AssetFilter
         $this->_generateScript($tmpfile, $content);
 
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
-        $env = array('NODE_PATH' => $this->_settings['node_path']);
+        $env = ['NODE_PATH' => $this->_settings['node_path']];
         $return = $this->_runCmd($bin, '', $env);
         unlink($tmpfile);
+
         return $return;
     }
 

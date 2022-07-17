@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,7 +15,7 @@
  */
 namespace MiniAsset\File;
 
-use MiniAsset\File\FileInterface;
+use RuntimeException;
 
 /**
  * Wrapper for local files that are used in asset targets.
@@ -25,13 +27,13 @@ class Local implements FileInterface
     public function __construct($path)
     {
         if (!is_file($path)) {
-            throw new \RuntimeException("$path does not exist.");
+            throw new RuntimeException("$path does not exist.");
         }
         $this->path = $path;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function path()
     {
@@ -39,7 +41,7 @@ class Local implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function name()
     {
@@ -47,7 +49,7 @@ class Local implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function contents()
     {
@@ -55,7 +57,7 @@ class Local implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function modifiedTime()
     {

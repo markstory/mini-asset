@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,9 +16,7 @@
 namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\Output\CompilerInterface;
 use MiniAsset\Filter\FilterRegistry;
-use RuntimeException;
 
 /**
  * Compiles a set of assets together, and applies filters.
@@ -29,7 +29,7 @@ class Compiler implements CompilerInterface
      *
      * @var \MiniAsset\Filter\FilterRegistry
      */
-    protected $filterRegistry;
+    protected FilterRegistry $filterRegistry;
 
     /**
      * Set to true when in development mode.
@@ -38,12 +38,12 @@ class Compiler implements CompilerInterface
      *
      * @var bool
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
     /**
      * Constructor.
      *
-     * @param  \MiniAsset\Filter\FilterRegistry $filters The filter registry
+     * @param \MiniAsset\Filter\FilterRegistry $filters The filter registry
      * @return void
      */
     public function __construct(FilterRegistry $filters, $debug)
@@ -55,11 +55,11 @@ class Compiler implements CompilerInterface
     /**
      * Generate a compiled asset, with all the configured filters applied.
      *
-     * @param  \MiniAsset\AssetTarget $build The target to build
+     * @param \MiniAsset\AssetTarget $build The target to build
      * @return string The processed result of $target and it dependencies.
      * @throws \RuntimeException
      */
-    public function generate(AssetTarget $build)
+    public function generate(AssetTarget $build): string
     {
         $filters = $this->filterRegistry->collection($build);
         $output = '';
@@ -71,6 +71,7 @@ class Compiler implements CompilerInterface
         if (!$this->debug || php_sapi_name() === 'cli') {
             $output = $filters->output($build->path(), $output);
         }
+
         return trim($output);
     }
 }

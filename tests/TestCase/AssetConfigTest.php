@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -19,7 +21,6 @@ use RuntimeException;
 
 class AssetConfigTest extends TestCase
 {
-
     /**
      * setup method
      *
@@ -89,37 +90,37 @@ class AssetConfigTest extends TestCase
 
     public function testSettingFilters()
     {
-        $this->config->filters('js', array('Uglifyjs'));
-        $this->assertEquals(array('Uglifyjs'), $this->config->filters('js'));
+        $this->config->filters('js', ['Uglifyjs']);
+        $this->assertEquals(['Uglifyjs'], $this->config->filters('js'));
     }
 
     public function testFiles()
     {
         $result = $this->config->files('libs.js');
-        $expected = array('jquery.js', 'mootools.js', 'class.js');
+        $expected = ['jquery.js', 'mootools.js', 'class.js'];
         $this->assertEquals($expected, $result);
 
         $result = $this->config->files('foo.bar.js');
-        $expected = array('test.js');
+        $expected = ['test.js'];
         $this->assertEquals($expected, $result);
 
-        $this->assertEquals(array(), $this->config->files('nothing here'));
+        $this->assertEquals([], $this->config->files('nothing here'));
     }
 
     public function testPathConstantReplacement()
     {
         $result = $this->config->paths('css');
         $result = str_replace('/', DS, $result);
-        $this->assertEquals(array(WEBROOT . 'css' . DS), $result);
-        $this->assertEquals(array(), $this->config->paths('nothing'));
+        $this->assertEquals([WEBROOT . 'css' . DS], $result);
+        $this->assertEquals([], $this->config->paths('nothing'));
     }
 
     public function testPaths()
     {
-        $this->config->paths('js', null, array('/path/to/files', 'WEBROOT/js'));
+        $this->config->paths('js', null, ['/path/to/files', 'WEBROOT/js']);
         $result = $this->config->paths('js');
         $result = str_replace('/', DS, $result);
-        $expected = array(DS . 'path' . DS . 'to' . DS . 'files', WEBROOT . 'js');
+        $expected = [DS . 'path' . DS . 'to' . DS . 'files', WEBROOT . 'js'];
         $this->assertEquals($expected, $result);
 
         $result = $this->config->paths('js', 'libs.js');
@@ -133,24 +134,24 @@ class AssetConfigTest extends TestCase
         $this->config->addTarget(
             'testing.js',
             [
-            'files' => ['one.js', 'two.js']
+            'files' => ['one.js', 'two.js'],
             ]
         );
-        $this->assertEquals(array('one.js', 'two.js'), $this->config->files('testing.js'));
+        $this->assertEquals(['one.js', 'two.js'], $this->config->files('testing.js'));
     }
 
     public function testAddTargetThemed()
     {
         $this->config->addTarget(
             'testing-two.js',
-            array(
-            'files' => array('one.js', 'two.js'),
-            'filters' => array('uglify'),
-            'theme' => true
-            )
+            [
+            'files' => ['one.js', 'two.js'],
+            'filters' => ['uglify'],
+            'theme' => true,
+            ]
         );
         $this->assertEquals(
-            array('one.js', 'two.js'),
+            ['one.js', 'two.js'],
             $this->config->files('testing-two.js')
         );
         $this->assertTrue($this->config->isThemed('testing-two.js'));
@@ -160,16 +161,16 @@ class AssetConfigTest extends TestCase
     {
         $this->config->addTarget(
             'testing.js',
-            array(
-            'files' => array('one.js', 'two.js'),
-            )
+            [
+            'files' => ['one.js', 'two.js'],
+            ]
         );
         $this->config->addTarget(
             'child.js',
-            array(
-            'files' => array('one.js', 'two.js'),
-            'require' => 'base.js'
-            )
+            [
+            'files' => ['one.js', 'two.js'],
+            'require' => 'base.js',
+            ]
         );
         $this->assertEquals([], $this->config->requires('testing.js'));
         $this->assertEquals(['base.js'], $this->config->requires('child.js'));
@@ -193,47 +194,47 @@ class AssetConfigTest extends TestCase
     public function testFilterConfig()
     {
         $result = $this->config->filterConfig('Uglifyjs');
-        $expected = array('path' => '/path/to/uglify-js');
+        $expected = ['path' => '/path/to/uglify-js'];
         $this->assertEquals($expected, $result);
 
-        $this->config->filterConfig('Sprockets', array('some' => 'value'));
-        $this->assertEquals(array('some' => 'value'), $this->config->filterConfig('Sprockets'));
+        $this->config->filterConfig('Sprockets', ['some' => 'value']);
+        $this->assertEquals(['some' => 'value'], $this->config->filterConfig('Sprockets'));
 
-        $this->assertEquals(array(), $this->config->filterConfig('imaginary'));
+        $this->assertEquals([], $this->config->filterConfig('imaginary'));
     }
 
     public function testFilterConfigPathExpansion()
     {
         $result = $this->config->filterConfig('YuiJs');
-        $expected = array('path' => ROOT . 'to/yuicompressor');
+        $expected = ['path' => ROOT . 'to/yuicompressor'];
         $this->assertEquals($expected, $result);
     }
 
     public function testFilterConfigArray()
     {
-        $this->config->filterConfig('Sprockets', array('some' => 'value'));
+        $this->config->filterConfig('Sprockets', ['some' => 'value']);
 
-        $result = $this->config->filterConfig(array('Uglifyjs', 'Sprockets'));
-        $expected = array(
-            'Sprockets' => array(
-                'some' => 'value'
-            ),
-            'Uglifyjs' => array(
-                'path' => '/path/to/uglify-js'
-            )
-        );
+        $result = $this->config->filterConfig(['Uglifyjs', 'Sprockets']);
+        $expected = [
+            'Sprockets' => [
+                'some' => 'value',
+            ],
+            'Uglifyjs' => [
+                'path' => '/path/to/uglify-js',
+            ],
+        ];
         $this->assertEquals($expected, $result);
     }
 
     public function testTargets()
     {
-        $expected = array(
+        $expected = [
             'libs.js',
             'foo.bar.js',
             'new_file.js',
             'all.css',
-            'pink.css'
-        );
+            'pink.css',
+        ];
         $result = $this->config->targets();
         $this->assertEquals($expected, $result);
     }
@@ -258,7 +259,7 @@ class AssetConfigTest extends TestCase
         try {
             $this->config->set('only.two.allowed', 'smelly');
             $this->assertFalse(true, 'No exception');
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->assertTrue(true, 'Exception was raised.');
         }
     }
@@ -295,10 +296,10 @@ class AssetConfigTest extends TestCase
         $config = AssetConfig::buildFromIniFile($ini);
 
         $result = $config->paths('js');
-        $this->assertEquals(array(WEBROOT . 'js/**'), $result);
+        $this->assertEquals([WEBROOT . 'js/**'], $result);
 
         $result = $config->paths('css');
-        $this->assertEquals(array(WEBROOT . 'css/**'), $result);
+        $this->assertEquals([WEBROOT . 'css/**'], $result);
     }
 
     public function testTheme()

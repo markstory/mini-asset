@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,7 +16,6 @@
 namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\Output\FreshTrait;
 
 /**
  * Writes temporary output files for assets.
@@ -32,14 +33,14 @@ class AssetCacher
      *
      * @var string
      */
-    protected $path;
+    protected string $path;
 
     /**
      * The theme currently being built.
      *
      * @var string
      */
-    protected $theme;
+    protected string $theme;
 
     public function __construct($path, $theme = null)
     {
@@ -50,15 +51,16 @@ class AssetCacher
     /**
      * Get the final build file name for a target.
      *
-     * @param  AssetTarget $target The target to get a name for.
+     * @param \MiniAsset\AssetTarget $target The target to get a name for.
      * @return string
      */
-    public function buildFileName(AssetTarget $target)
+    public function buildFileName(AssetTarget $target): string
     {
         $file = $target->name();
         if ($target->isThemed() && $this->theme) {
             $file = $this->theme . '-' . $file;
         }
+
         return $file;
     }
 
@@ -74,7 +76,7 @@ class AssetCacher
      *
      * @return void
      */
-    public function ensureDir()
+    public function ensureDir(): void
     {
         if (!is_dir($this->path)) {
             mkdir($this->path, 0777);
@@ -84,12 +86,13 @@ class AssetCacher
     /**
      * Get the cached result for a build target.
      *
-     * @param  AssetTarget $target The target to get content for.
+     * @param \MiniAsset\AssetTarget $target The target to get content for.
      * @return string
      */
-    public function read(AssetTarget $target)
+    public function read(AssetTarget $target): string
     {
         $buildName = $this->buildFileName($target);
+
         return file_get_contents($this->path . $buildName);
     }
 
@@ -98,10 +101,10 @@ class AssetCacher
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param  \MiniAsset\AssetTarget $target
+     * @param \MiniAsset\AssetTarget $target
      * @return string The path
      */
-    public function outputDir(AssetTarget $target)
+    public function outputDir(AssetTarget $target): string
     {
         return $this->path;
     }

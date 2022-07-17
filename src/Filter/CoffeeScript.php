@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * Pre-processing filter that adds support for CoffeeScript files.
  *
@@ -24,28 +24,28 @@ use MiniAsset\Filter\AssetFilter;
  */
 class CoffeeScript extends AssetFilter
 {
-
-    protected $_settings = array(
+    protected $_settings = [
         'ext' => '.coffee',
         'coffee' => '/usr/local/bin/coffee',
         'node' => '/usr/local/bin/node',
-        'node_path' => '/usr/local/lib/node_modules'
-    );
+        'node_path' => '/usr/local/lib/node_modules',
+    ];
 
     /**
      * Runs `coffee` against files that match the configured extension.
      *
-     * @param  string $filename Filename being processed.
-     * @param  string $content  Content of the file being processed.
+     * @param string $filename Filename being processed.
+     * @param string $content  Content of the file being processed.
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
         }
         $cmd = $this->_settings['node'] . ' ' . $this->_settings['coffee'] . ' -c -p -s ';
-        $env = array('NODE_PATH' => $this->_settings['node_path']);
+        $env = ['NODE_PATH' => $this->_settings['node_path']];
+
         return $this->_runCmd($cmd, $content, $env);
     }
 }

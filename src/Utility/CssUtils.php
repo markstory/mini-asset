@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -18,15 +20,15 @@ namespace MiniAsset\Utility;
  */
 class CssUtils
 {
-    const IMPORT_PATTERN = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)))(\s.*)?;/m';
+    public const IMPORT_PATTERN = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)))(\s.*)?;/m';
 
     /**
      * Extract the urls in import directives.
      *
-     * @param  string $css The CSS to parse.
+     * @param string $css The CSS to parse.
      * @return array An array of CSS files that were used in imports.
      */
-    public static function extractImports($css)
+    public static function extractImports(string $css): array
     {
         $imports = [];
         preg_match_all(static::IMPORT_PATTERN, $css, $matches, PREG_SET_ORDER);
@@ -37,6 +39,7 @@ class CssUtils
             $url = empty($match[2]) ? $match[4] : $match[2];
             $imports[] = $url;
         }
+
         return $imports;
     }
 }

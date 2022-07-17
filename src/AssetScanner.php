@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset;
 
-use RuntimeException;
-
 /**
  * Used for dynamic build files where a set of searchPaths
  * are declared in the config file. This class allows you search through
@@ -22,13 +22,12 @@ use RuntimeException;
  */
 class AssetScanner
 {
-
     /**
      * Paths this scanner should scan.
      *
      * @var array
      */
-    protected $_paths = [];
+    protected array $_paths = [];
 
     /**
      * Constructor.
@@ -48,7 +47,7 @@ class AssetScanner
      *
      * @return void
      */
-    protected function _normalizePaths()
+    protected function _normalizePaths(): void
     {
         foreach ($this->_paths as &$path) {
             $ds = DIRECTORY_SEPARATOR;
@@ -60,13 +59,13 @@ class AssetScanner
     /**
      * Normalize a file path to the specified Directory Separator ($ds)
      *
-     * @param  string $name Path to normalize
-     * @param  string $ds   Directory Separator to be used
+     * @param string $name Path to normalize
+     * @param string $ds   Directory Separator to be used
      * @return string Normalized path
      */
-    protected function _normalizePath($name, $ds)
+    protected function _normalizePath(string $name, string $ds): string
     {
-        return str_replace(array('/', '\\'), $ds, $name);
+        return str_replace(['/', '\\'], $ds, $name);
     }
 
     /**
@@ -74,9 +73,9 @@ class AssetScanner
      *
      * @return void
      */
-    protected function _expandPaths()
+    protected function _expandPaths(): void
     {
-        $expanded = array();
+        $expanded = [];
         foreach ($this->_paths as $path) {
             if (preg_match('/[*.\[\]]/', $path)) {
                 $tree = $this->_generateTree($path);
@@ -91,26 +90,27 @@ class AssetScanner
     /**
      * Discover all the sub directories for a given path.
      *
-     * @param  string $path The path to search
+     * @param string $path The path to search
      * @return array Array of subdirectories.
      */
-    protected function _generateTree($path)
+    protected function _generateTree(string $path): array
     {
         $paths = glob($path, GLOB_ONLYDIR);
         if (!$paths) {
-            $paths = array();
+            $paths = [];
         }
         array_unshift($paths, dirname($path));
+
         return $paths;
     }
 
     /**
      * Find a file in the connected paths, and check for its existance.
      *
-     * @param  string $file The file you want to find.
-     * @return false|string Either false on a miss, or the full path of the file.
+     * @param string $file The file you want to find.
+     * @return string|false Either false on a miss, or the full path of the file.
      */
-    public function find($file)
+    public function find(string $file): false|string
     {
         $found = false;
         $expanded = $this->_expandPrefix($file);
@@ -126,6 +126,7 @@ class AssetScanner
                 break;
             }
         }
+
         return $found;
     }
 
@@ -133,10 +134,10 @@ class AssetScanner
      * Path resolution hook. Used by framework integrations to add in
      * framework module paths.
      *
-     * @param  string $path Path to resolve
+     * @param string $path Path to resolve
      * @return string resolved path
      */
-    protected function _expandPrefix($path)
+    protected function _expandPrefix(string $path): string
     {
         return $path;
     }
@@ -146,7 +147,7 @@ class AssetScanner
      *
      * @return array an array of paths.
      */
-    public function paths()
+    public function paths(): array
     {
         return $this->_paths;
     }

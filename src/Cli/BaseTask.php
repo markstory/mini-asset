@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,6 +15,8 @@
  */
 namespace MiniAsset\Cli;
 
+use Exception;
+use League\CLImate\CLImate;
 use MiniAsset\AssetConfig;
 
 abstract class BaseTask
@@ -26,7 +30,7 @@ abstract class BaseTask
      * @param \League\CLImate\CLImate $cli    The CLImate instance.
      * @param array                   $config Configuration data.
      */
-    public function __construct($cli, $config = null)
+    public function __construct(CLImate $cli, ?array $config = null)
     {
         $this->cli = $cli;
         $this->config = $config;
@@ -37,35 +41,39 @@ abstract class BaseTask
      *
      * @return \MiniAsset\AssetConfig
      */
-    public function config()
+    public function config(): AssetConfig
     {
         if (!$this->config) {
             $config = new AssetConfig();
             $config->load($this->cli->arguments->get('config'));
             $this->config = $config;
         }
+
         return $this->config;
     }
 
     /**
      * Execute the task given a set of CLI arguments.
      *
-     * @param  array $argv The arguments to use.
+     * @param array $argv The arguments to use.
      * @return int
      */
-    public function main($argv)
+    public function main(array $argv): int
     {
         $this->addArguments();
         try {
             $this->cli->arguments->parse($argv);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->cli->usage();
+
             return 0;
         }
         if ($this->cli->arguments->get('help')) {
             $this->cli->usage();
+
             return 0;
         }
+
         return $this->execute();
     }
 
@@ -74,15 +82,15 @@ abstract class BaseTask
      *
      * @param string $text  The text to output.
      * @param string $short The short alternative.
-     *
      * @return void
      */
-    public function verbose($text, $short = '')
+    public function verbose(string $text, string $short = ''): void
     {
         if (!$this->cli->arguments->defined('verbose')) {
             if (strlen($short)) {
                 $this->cli->inline($short);
             }
+
             return;
         }
         $this->cli->out($text);
@@ -94,7 +102,7 @@ abstract class BaseTask
      *
      * @return void
      */
-    protected function bootstrapApp()
+    protected function bootstrapApp(): void
     {
         $files = explode(',', $this->cli->arguments->get('bootstrap'));
         foreach ($files as $file) {
@@ -107,12 +115,12 @@ abstract class BaseTask
      *
      * @return void
      */
-    abstract protected function addArguments();
+    abstract protected function addArguments(): void;
 
     /**
      * Used by subclasses to execute work.
      *
      * @return int
      */
-    abstract protected function execute();
+    abstract protected function execute(): int;
 }

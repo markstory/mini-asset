@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace MiniAsset\Filter;
 
 use MatthiasMullie\Minify;
@@ -13,12 +15,12 @@ class MinifyFilter extends AssetFilter
     /**
      * Run $content through Minify.
      *
-     * @param  string $target target filename
-     * @param  string $content  Content to filter.
+     * @param string $target target filename
+     * @param string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         if (substr($target, -3) === 'css') {
             return (new Minify\CSS($content))->minify();

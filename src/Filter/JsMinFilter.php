@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,8 @@
  */
 namespace MiniAsset\Filter;
 
+use Exception;
 use JSMin;
-use MiniAsset\Filter\AssetFilter;
 
 /**
  * JsMin filter.
@@ -30,23 +32,23 @@ use MiniAsset\Filter\AssetFilter;
  */
 class JsMinFilter extends AssetFilter
 {
-
     /**
      * Apply JsMin to $content.
      *
-     * @param  string $target Name of the file being generated.
-     * @param  string $content  The uncompress contents of $target.
+     * @param string $target Name of the file being generated.
+     * @param string $content  The uncompress contents of $target.
      * @throws \Exception
      * @return string
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         if (function_exists('jsmin')) {
             return jsmin($content);
         }
         if (!class_exists('JSMin')) {
-            throw new \Exception(sprintf('Cannot not load filter class "%s".', 'JsMin'));
+            throw new Exception(sprintf('Cannot not load filter class "%s".', 'JsMin'));
         }
+
         return JSMin::minify($content);
     }
 }

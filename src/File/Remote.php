@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\File;
 
-use MiniAsset\File\FileInterface;
-
 /**
  * Wrapper for remote files that are used in asset targets.
  */
@@ -28,7 +28,7 @@ class Remote implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function path()
     {
@@ -36,7 +36,7 @@ class Remote implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function name()
     {
@@ -44,7 +44,7 @@ class Remote implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function contents()
     {
@@ -54,11 +54,12 @@ class Remote implements FileInterface
             $content = stream_get_contents($handle);
             fclose($handle);
         }
+
         return $content;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function modifiedTime()
     {
@@ -66,9 +67,9 @@ class Remote implements FileInterface
     }
 
     /**
-     * @param false|string $url
+     * @param string|false $url
      */
-    protected function _getLastModified($url)
+    protected function _getLastModified(false|string $url)
     {
         $time = time();
 
@@ -85,6 +86,7 @@ class Remote implements FileInterface
             if (substr(strtolower($response), 0, 10) === 'location: ') {
                 $newUri = substr($response, 10);
                 fclose($fp);
+
                 return $this->_getLastModified($newUri);
             } elseif (substr(strtolower($response), 0, 15) === 'last-modified: ') {
                 // last-modified found
@@ -94,6 +96,7 @@ class Remote implements FileInterface
         }
 
         fclose($fp);
+
         return $time;
     }
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -18,15 +20,14 @@ use PHPUnit\Framework\TestCase;
 
 class AssetScannerTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
         $this->_testFiles = APP;
-        $paths = array(
+        $paths = [
             $this->_testFiles . 'js' . DS,
-            $this->_testFiles . 'js' . DS . 'classes' . DS
-        );
+            $this->_testFiles . 'js' . DS . 'classes' . DS,
+        ];
         $this->Scanner = new AssetScanner($paths);
     }
 
@@ -41,9 +42,9 @@ class AssetScannerTest extends TestCase
 
     public function testFindOtherExtension()
     {
-        $paths = array(
-            $this->_testFiles . 'css' . DS
-        );
+        $paths = [
+            $this->_testFiles . 'css' . DS,
+        ];
         $scanner = new AssetScanner($paths);
         $result = $scanner->find('other.less');
         $expected = $this->_testFiles . 'css' . DS . 'other.less';
@@ -52,10 +53,10 @@ class AssetScannerTest extends TestCase
 
     public function testNormalizePaths()
     {
-        $paths = array(
+        $paths = [
             $this->_testFiles . 'js',
-            $this->_testFiles . 'js' . DS . 'classes'
-        );
+            $this->_testFiles . 'js' . DS . 'classes',
+        ];
         $scanner = new AssetScanner($paths);
 
         $result = $scanner->find('base_class.js');
@@ -65,17 +66,17 @@ class AssetScannerTest extends TestCase
 
     public function testExpandStarStar()
     {
-        $paths = array(
+        $paths = [
             $this->_testFiles . 'js' . DS . '**',
-        );
+        ];
         $scanner = new AssetScanner($paths);
 
         $result = $scanner->paths();
-        $expected = array(
+        $expected = [
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . 'classes' . DS,
-            $this->_testFiles . 'js' . DS . 'secondary' . DS
-        );
+            $this->_testFiles . 'js' . DS . 'secondary' . DS,
+        ];
         $this->assertEquals($expected, $result);
 
         $result = $scanner->find('base_class.js');
@@ -89,10 +90,10 @@ class AssetScannerTest extends TestCase
 
     public function testExpandGlob()
     {
-        $paths = array(
+        $paths = [
             $this->_testFiles . 'js' . DS,
-            $this->_testFiles . 'js' . DS . '*'
-        );
+            $this->_testFiles . 'js' . DS . '*',
+        ];
         $scanner = new AssetScanner($paths);
 
         $result = $scanner->find('base_class.js');

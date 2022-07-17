@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -21,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class CachedCompilerTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,18 +36,18 @@ class CachedCompilerTest extends TestCase
         $this->config->paths(
             'js',
             null,
-            array(
+            [
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . '*',
-            )
+            ]
         );
         $this->config->paths(
             'css',
             null,
-            array(
+            [
             $this->_testFiles . 'css' . DS,
             $this->_testFiles . 'css' . DS . '*',
-            )
+            ]
         );
 
         if (file_exists(TMP . '/all.css')) {
@@ -57,6 +58,7 @@ class CachedCompilerTest extends TestCase
     protected function instance()
     {
         $factory = new Factory($this->config);
+
         return $factory->cachedCompiler(TMP);
     }
 
@@ -66,6 +68,7 @@ class CachedCompilerTest extends TestCase
             new Local(APP . 'css/other.less'),
             new Local(APP . 'css/nav.css'),
         ];
+
         return new AssetTarget(TMP . 'all.css', $files);
     }
 

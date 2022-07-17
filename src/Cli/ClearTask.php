@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,13 +16,11 @@
 namespace MiniAsset\Cli;
 
 use DirectoryIterator;
-use MiniAsset\Cli\BaseTask;
 use MiniAsset\Factory;
 
 class ClearTask extends BaseTask
 {
-
-    protected function addArguments()
+    protected function addArguments(): void
     {
         $this->cli->arguments->add(
             [
@@ -48,7 +48,7 @@ class ClearTask extends BaseTask
                 'longPrefix' => 'config',
                 'description' => 'The config file to use.',
                 'required' => true,
-            ]
+            ],
             ]
         );
     }
@@ -69,6 +69,7 @@ class ClearTask extends BaseTask
         $assets = $factory->assetCollection();
         if (count($assets) === 0) {
             $this->cli->err('<red>No build targets defined</red>.');
+
             return 1;
         }
 
@@ -83,21 +84,22 @@ class ClearTask extends BaseTask
     /**
      * Clear a path of build targets.
      *
-     * @param  string $path    The root path to clear.
-     * @param  array  $targets The build targets to clear.
+     * @param string $path    The root path to clear.
+     * @param array  $targets The build targets to clear.
      * @return void
      */
-    protected function _clearPath($path, $targets)
+    protected function _clearPath(string $path, array $targets): void
     {
         if (!file_exists($path)) {
             $this->verbose("Not clearing '$path' it does not exist.");
+
             return;
         }
 
         $dir = new DirectoryIterator($path);
         foreach ($dir as $file) {
             $name = $base = $file->getFilename();
-            if (in_array($name, array('.', '..'))) {
+            if (in_array($name, ['.', '..'])) {
                 continue;
             }
             // timestampped files.

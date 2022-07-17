@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,22 +15,21 @@
  */
 namespace MiniAsset\Cli;
 
-use MiniAsset\Cli\BaseTask;
+use Exception;
+use MiniAsset\AssetTarget;
 use MiniAsset\Factory;
-use \Exception;
 
 /**
  * Provides the `mini_asset build` command.
  */
 class BuildTask extends BaseTask
 {
-
     /**
      * Define the CLI options.
      *
      * @return void
      */
-    protected function addArguments()
+    protected function addArguments(): void
     {
         $this->cli->arguments->add(
             [
@@ -55,14 +56,14 @@ class BuildTask extends BaseTask
                 'longPrefix' => 'bootstrap',
                 'description' => 'Comma separated list of files to include bootstrap your ' .
                     'application\s environment.',
-                'defaultValue' => ''
+                'defaultValue' => '',
             ],
             'config' => [
                 'prefix' => 'c',
                 'longPrefix' => 'config',
                 'description' => 'The config file to use.',
                 'required' => true,
-            ]
+            ],
             ]
         );
     }
@@ -72,7 +73,7 @@ class BuildTask extends BaseTask
      *
      * @return int
      */
-    protected function execute()
+    protected function execute(): int
     {
         if ($this->cli->arguments->defined('bootstrap')) {
             $this->bootstrapApp();
@@ -83,17 +84,18 @@ class BuildTask extends BaseTask
             $this->_buildTarget($factory, $target);
         }
         $this->cli->out('<green>Complete</green>');
+
         return 0;
     }
 
     /**
      * Generate and save the cached file for a build target.
      *
-     * @param  \MiniAsset\Factory     $factory The factory class.
-     * @param  \MiniAsset\AssetTarget $build   The build target.
+     * @param \MiniAsset\Factory     $factory The factory class.
+     * @param \MiniAsset\AssetTarget $build   The build target.
      * @return void
      */
-    protected function _buildTarget($factory, $build)
+    protected function _buildTarget(Factory $factory, AssetTarget $build): void
     {
         $writer = $factory->writer();
         $compiler = $factory->cachedCompiler();
@@ -101,6 +103,7 @@ class BuildTask extends BaseTask
         $name = $writer->buildFileName($build);
         if ($writer->isFresh($build) && !$this->cli->arguments->defined('force')) {
             $this->verbose('<light_blue>Skip building</light_blue> ' . $name . ' existing file is still fresh.', 'S');
+
             return;
         }
 

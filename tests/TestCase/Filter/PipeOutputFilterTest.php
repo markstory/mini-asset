@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -18,7 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 class PipeOutputFilterTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();

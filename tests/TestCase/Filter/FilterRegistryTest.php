@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -26,7 +28,7 @@ class FilterRegistryTest extends TestCase
         parent::setUp();
         $this->filters = [
             'noop' => new AssetFilter(),
-            'simple' => new AssetFilter()
+            'simple' => new AssetFilter(),
         ];
         $this->registry = new FilterRegistry($this->filters);
     }

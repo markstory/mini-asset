@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -26,26 +28,26 @@ interface FileInterface
      *
      * @return string
      */
-    public function name();
+    public function name(): string;
 
     /**
      * Return contents of the file
      *
      * @return string
      */
-    public function contents();
+    public function contents(): string;
 
     /**
      * Return modified time of the file
      *
      * @return int
      */
-    public function modifiedTime();
+    public function modifiedTime(): int;
 
     /**
      * The path to the file.
      *
      * @return string
      */
-    public function path();
+    public function path(): string;
 }

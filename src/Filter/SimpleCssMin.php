@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * SimpleCssMin filter.
  * Easily compresses CSS files. Allows to avoid problems that some minifiers have
@@ -22,7 +22,6 @@ use MiniAsset\Filter\AssetFilter;
  */
 class SimpleCssMin extends AssetFilter
 {
-
     /**
      * Apply SimpleCssMin to $content.
      *
@@ -30,11 +29,11 @@ class SimpleCssMin extends AssetFilter
      * Copyright (c) 2009 and onwards, Manas Tungare.
      * Creative Commons Attribution, Share-Alike.
      *
-     * @param  string $target target filename
-     * @param  string $content  Content to filter.
+     * @param string $target target filename
+     * @param string $content  Content to filter.
      * @return string
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         // Remove comments
         $content = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content);

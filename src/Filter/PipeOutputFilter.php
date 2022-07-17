@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,23 +15,20 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * Output pipe processor
  */
 class PipeOutputFilter extends AssetFilter
 {
-
     /**
      * Settings for PipeOutputFilter
      *
      * - `command` Command to execute
      */
-    protected $_settings = array(
+    protected $_settings = [
         'command' => '/bin/cat',
         'path' => '/bin',
-    );
+    ];
 
     /**
      * Run command against the output and compress it.
@@ -38,10 +37,10 @@ class PipeOutputFilter extends AssetFilter
      * @param string $content The raw contents for $filename.
      * @return string Processed contents.
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         $cmd = $this->_settings['command'];
 
-        return $this->_runCmd($cmd, $content, array('PATH' => $this->_settings['path']));
+        return $this->_runCmd($cmd, $content, ['PATH' => $this->_settings['path']]);
     }
 }

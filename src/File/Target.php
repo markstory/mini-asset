@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,7 +16,6 @@
 namespace MiniAsset\File;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\File\FileInterface;
 use MiniAsset\Output\CompilerInterface;
 
 /**
@@ -33,7 +34,7 @@ class Target implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function path()
     {
@@ -41,7 +42,7 @@ class Target implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function name()
     {
@@ -49,7 +50,7 @@ class Target implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function contents()
     {
@@ -57,7 +58,7 @@ class Target implements FileInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function modifiedTime()
     {

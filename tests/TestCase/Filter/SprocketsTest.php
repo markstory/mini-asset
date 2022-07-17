@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -20,7 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 class SprocketsTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,12 +29,12 @@ class SprocketsTest extends TestCase
         $this->_jsDir = $this->_testFiles . 'js' . DS;
 
         $this->filter = new Sprockets();
-        $settings = array(
-            'paths' => array(
+        $settings = [
+            'paths' => [
                 $this->_jsDir,
                 $this->_jsDir . 'classes' . DS,
-            )
-        );
+            ],
+        ];
         $this->filter->settings($settings);
     }
 
@@ -146,7 +147,7 @@ TEXT;
     public function testGetDependenciesRecursive()
     {
         $files = [
-            new Local($this->_jsDir . 'classes/nested_class.js')
+            new Local($this->_jsDir . 'classes/nested_class.js'),
         ];
         $target = new AssetTarget('test.js', $files);
         $result = $this->filter->getDependencies($target);
@@ -163,7 +164,7 @@ TEXT;
     public function testGetDependenciesMultiple()
     {
         $files = [
-            new Local($this->_jsDir . 'classes/slideshow.js')
+            new Local($this->_jsDir . 'classes/slideshow.js'),
         ];
         $target = new AssetTarget('test.js', $files);
         $result = $this->filter->getDependencies($target);

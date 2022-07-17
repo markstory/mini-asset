@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -21,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class CompilerTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,24 +36,25 @@ class CompilerTest extends TestCase
         $this->config->paths(
             'js',
             null,
-            array(
+            [
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . '*',
-            )
+            ]
         );
         $this->config->paths(
             'css',
             null,
-            array(
+            [
             $this->_testFiles . 'css' . DS,
             $this->_testFiles . 'css' . DS . '*',
-            )
+            ]
         );
     }
 
     protected function instance()
     {
         $factory = new Factory($this->config);
+
         return $factory->compiler();
     }
 

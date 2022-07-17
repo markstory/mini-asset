@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,8 +16,6 @@
 namespace MiniAsset\Filter;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\Filter\AssetFilter;
-use MiniAsset\Filter\CssDependencyTrait;
 
 /**
  * Pre-processing filter that adds support for command pipes
@@ -35,20 +35,20 @@ class PipeInputFilter extends AssetFilter
      * - `command` Command to run the file through
      * - `path` Sets PATH environment variable
      */
-    protected $_settings = array(
+    protected $_settings = [
         'ext' => '.css',
         'dependencies' => false,
         'optional_dependency_prefix' => false,
         'command' => '/bin/cat',
         'path' => '/bin',
-    );
+    ];
 
     /**
      * It will use prefixed files if they exist.
      *
      * @var string
      */
-    protected $optionalDependencyPrefix = null;
+    protected string $optionalDependencyPrefix = null;
 
     public function hasDependencies()
     {
@@ -73,14 +73,14 @@ class PipeInputFilter extends AssetFilter
      * @param string $content The content of the file.
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
         }
         $filename = escapeshellarg($filename);
         $bin = $this->_settings['command'] . ' ' . $filename;
-        $return = $this->_runCmd($bin, '', array('PATH' => $this->_settings['path']));
+        $return = $this->_runCmd($bin, '', ['PATH' => $this->_settings['path']]);
 
         return $return;
     }

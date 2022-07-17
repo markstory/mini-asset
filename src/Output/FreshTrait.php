@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -23,14 +25,14 @@ trait FreshTrait
      *
      * @var int
      */
-    protected $configTime = 0;
+    protected int $configTime = 0;
 
     /**
      * The filter registry to use.
      *
      * @var \MiniAsset\Filter\FilterRegistry
      */
-    protected $filterRegistry;
+    protected FilterRegistry $filterRegistry;
 
     /**
      * Set the modified time of the configuration
@@ -39,11 +41,11 @@ trait FreshTrait
      * This value is used to determine if a build
      * output is still 'fresh'.
      *
-     * @param  int $time The timestamp the configuration files
+     * @param int $time The timestamp the configuration files
      *                   were modified at.
      * @return void
      */
-    public function configTimestamp($time)
+    public function configTimestamp(int $time): void
     {
         $this->configTime = $time;
     }
@@ -51,10 +53,10 @@ trait FreshTrait
     /**
      * Set the filter registry
      *
-     * @param  \MiniAsset\Filter\FilterRegistry $filters The filter set to use.
+     * @param \MiniAsset\Filter\FilterRegistry $filters The filter set to use.
      * @return void
      */
-    public function filterRegistry(FilterRegistry $filters)
+    public function filterRegistry(FilterRegistry $filters): void
     {
         $this->filterRegistry = $filters;
     }
@@ -64,10 +66,10 @@ trait FreshTrait
      * Fresh cached files have timestamps newer than all of the component
      * files.
      *
-     * @param  AssetTarget $target The target file being built.
-     * @return boolean
+     * @param \MiniAsset\AssetTarget $target The target file being built.
+     * @return bool
      */
-    public function isFresh(AssetTarget $target)
+    public function isFresh(AssetTarget $target): bool
     {
         $buildName = $this->buildFileName($target);
         $buildFile = $this->outputDir($target) . DIRECTORY_SEPARATOR . $buildName;
@@ -100,6 +102,7 @@ trait FreshTrait
                 }
             }
         }
+
         return true;
     }
 
@@ -108,8 +111,8 @@ trait FreshTrait
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param  \MiniAsset\AssetTarget $target
+     * @param \MiniAsset\AssetTarget $target
      * @return string The path
      */
-    abstract public function outputDir(AssetTarget $target);
+    abstract public function outputDir(AssetTarget $target): string;
 }

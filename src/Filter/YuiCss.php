@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * A YUI Compressor adapter for compressing CSS.
  * This filter assumes you have Java installed on your system and that its accessible
@@ -22,28 +22,28 @@ use MiniAsset\Filter\AssetFilter;
  */
 class YuiCss extends AssetFilter
 {
-
     /**
      * Settings for YuiCompressor based filters.
      *
      * @var array
      */
-    protected $_settings = array(
-        'path' => 'yuicompressor/yuicompressor.jar'
-    );
+    protected array $_settings = [
+        'path' => 'yuicompressor/yuicompressor.jar',
+    ];
 
     /**
      * Run $input through YuiCompressor
      *
-     * @param  string $target   Filename being generated.
-     * @param  string $content Contents of file
+     * @param string $target   Filename being generated.
+     * @param string $content Contents of file
      * @return string Compressed file
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         $paths = [getcwd(), dirname(dirname(dirname(dirname(__DIR__))))];
         $jar = $this->_findExecutable($paths, $this->_settings['path']);
         $cmd = 'java -jar "' . $jar . '" --type css';
+
         return $this->_runCmd($cmd, $content);
     }
 }

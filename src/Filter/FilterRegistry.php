@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,9 +15,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\FilterInterface;
 use MiniAsset\AssetTarget;
-use MiniAsset\Filter\FilterCollection;
 use RuntimeException;
 
 /**
@@ -31,7 +31,7 @@ class FilterRegistry
      *
      * @var array
      */
-    protected $filters = [];
+    protected array $filters = [];
 
     /**
      * Constructor
@@ -48,10 +48,10 @@ class FilterRegistry
     /**
      * Check if the registry contains a named filter.
      *
-     * @param  string $name The filter name to check.
+     * @param string $name The filter name to check.
      * @return bool
      */
-    public function contains($name)
+    public function contains(string $name): bool
     {
         return isset($this->filters[$name]);
     }
@@ -59,11 +59,11 @@ class FilterRegistry
     /**
      * Add a filter to the registry
      *
-     * @param  string                            $name   The filter name to load.
-     * @param  \MiniAsset\Filter\FilterInterface $filter The filter to load.
+     * @param string                            $name   The filter name to load.
+     * @param \MiniAsset\Filter\FilterInterface $filter The filter to load.
      * @return void
      */
-    public function add($name, FilterInterface $filter)
+    public function add(string $name, FilterInterface $filter): void
     {
         $this->filters[$name] = $filter;
     }
@@ -71,24 +71,25 @@ class FilterRegistry
     /**
      * Get a filter from the registry
      *
-     * @param  string $name The filter name to fetch.
+     * @param string $name The filter name to fetch.
      * @return \MiniAsset\Filter\FilterInterface|null
      */
-    public function get($name)
+    public function get(string $name): ?FilterInterface
     {
         if (!isset($this->filters[$name])) {
             return null;
         }
+
         return $this->filters[$name];
     }
 
     /**
      * Remove a filter from the registry
      *
-     * @param  string $name The filter name to remove
+     * @param string $name The filter name to remove
      * @return void
      */
-    public function remove($name)
+    public function remove(string $name): void
     {
         unset($this->filters[$name]);
     }
@@ -96,10 +97,10 @@ class FilterRegistry
     /**
      * Get a filter collection for a specific target.
      *
-     * @param  \MiniAsset\AssetTarget $target The target to get a filter collection for.
+     * @param \MiniAsset\AssetTarget $target The target to get a filter collection for.
      * @return \MiniAsset\Filter\FilterCollection
      */
-    public function collection(AssetTarget $target)
+    public function collection(AssetTarget $target): FilterCollection
     {
         $filters = [];
         foreach ($target->filterNames() as $name) {
@@ -112,11 +113,12 @@ class FilterRegistry
             $copy->settings(
                 [
                 'target' => $target->name(),
-                'paths' => $target->paths()
+                'paths' => $target->paths(),
                 ]
             );
             $filters[] = $copy;
         }
+
         return new FilterCollection($filters);
     }
 }

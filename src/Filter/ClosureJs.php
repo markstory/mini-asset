@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,7 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
 use Exception;
 
 /**
@@ -25,26 +26,25 @@ use Exception;
  */
 class ClosureJs extends AssetFilter
 {
-
     /**
      * Settings for Closure based filters.
      *
      * @var array
      */
-    protected $_settings = array(
+    protected array $_settings = [
         'path' => 'closure/compiler.jar',
-        'warning_level' => 'QUIET' // Supress warnings by default
-    );
+        'warning_level' => 'QUIET', // Supress warnings by default
+    ];
 
     /**
      * Run $content through Closure compiler
      *
-     * @param  string $target Filename being generated.
-     * @param  string $content    Contents of file
+     * @param string $target Filename being generated.
+     * @param string $content    Contents of file
      * @throws \Exception $e
      * @return string Compressed file
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         $output = null;
         $paths = [getcwd(), dirname(dirname(dirname(dirname(__DIR__))))];
@@ -54,8 +54,8 @@ class ClosureJs extends AssetFilter
         $tmpFile = tempnam(sys_get_temp_dir(), 'CLOSURE');
         file_put_contents($tmpFile, $content);
 
-        $options = array('js' => $tmpFile) + $this->_settings;
-        $options = array_diff_key($options, array('path' => null, 'paths' => null, 'target' => null, 'theme' => null));
+        $options = ['js' => $tmpFile] + $this->_settings;
+        $options = array_diff_key($options, ['path' => null, 'paths' => null, 'target' => null, 'theme' => null]);
 
         $cmd = 'java -jar "' . $jar . '"';
         foreach ($options as $key => $value) {

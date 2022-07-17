@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,6 +16,7 @@
 namespace MiniAsset;
 
 use RuntimeException;
+use const FILTER_CALLBACK;
 
 /**
  * Parses the ini files MiniAsset uses into arrays that
@@ -26,21 +29,21 @@ class AssetConfig
      *
      * @var array
      */
-    protected $_data = [];
+    protected array $_data = [];
 
     /**
      * Filter configuration
      *
      * @var array
      */
-    protected $_filters = [];
+    protected array $_filters = [];
 
     /**
      * Target configuration
      *
      * @var array
      */
-    protected $_targets = [];
+    protected array $_targets = [];
 
     /**
      * Defaults and conventions for configuration.
@@ -48,14 +51,14 @@ class AssetConfig
      *
      * @var array
      */
-    protected static $_defaults = array(
-        'js' => array(
-            'paths' => array('WEBROOT/js/**')
-        ),
-        'css' => array(
-            'paths' => array('WEBROOT/css/**')
-        ),
-    );
+    protected static array $_defaults = [
+        'js' => [
+            'paths' => ['WEBROOT/js/**'],
+        ],
+        'css' => [
+            'paths' => ['WEBROOT/css/**'],
+        ],
+    ];
 
     /**
      * Names of normal extensions that MiniAsset could
@@ -64,28 +67,28 @@ class AssetConfig
      *
      * @var array
      */
-    protected static $_extensionTypes = array(
-        'js', 'css', 'png', 'gif', 'jpeg', 'svg'
-    );
+    protected static array $_extensionTypes = [
+        'js', 'css', 'png', 'gif', 'jpeg', 'svg',
+    ];
 
     /**
      * The max modified time of all the config files loaded.
      *
      * @var int
      */
-    protected $_modifiedTime = 0;
+    protected int $_modifiedTime = 0;
 
     /**
      * A hash of constants that can be expanded when reading ini files.
      *
      * @var array
      */
-    protected $constantMap = [];
+    protected array $constantMap = [];
 
-    const FILTERS = 'filters';
-    const FILTER_PREFIX = 'filter_';
-    const TARGETS = 'targets';
-    const GENERAL = 'general';
+    public const FILTERS = 'filters';
+    public const FILTER_PREFIX = 'filter_';
+    public const TARGETS = 'targets';
+    public const GENERAL = 'general';
 
     /**
      * Constructor, set some initial data for a AssetConfig object.
@@ -110,10 +113,10 @@ class AssetConfig
     /**
      * Add path based constants to the mapped constants.
      *
-     * @param  array $constants The constants to map
+     * @param array $constants The constants to map
      * @return void
      */
-    protected function _addConstants($constants)
+    protected function _addConstants(array $constants): void
     {
         foreach ($constants as $key => $value) {
             if (is_resource($value) === false) {
@@ -135,14 +138,13 @@ class AssetConfig
      * @param string $iniFile   File path for the ini file to parse.
      * @param array  $constants Additional constants that will be translated
      *                          when parsing paths.
-     *
      * @deprecated Use ConfigFinder::loadAll() instead.
-     *
      * @return static
      */
-    public static function buildFromIniFile($iniFile = null, $constants = array()): self
+    public static function buildFromIniFile(?string $iniFile = null, array $constants = []): self
     {
         $config = new static([], $constants);
+
         return $config->load($iniFile);
     }
 
@@ -151,7 +153,7 @@ class AssetConfig
      *
      * @return array
      */
-    public function constants()
+    public function constants(): array
     {
         return $this->constantMap;
     }
@@ -159,11 +161,11 @@ class AssetConfig
     /**
      * Load a config file into the current instance.
      *
-     * @param  string $path   The config file to load.
-     * @param  string $prefix The string to prefix all targets in $path with.
+     * @param string $path   The config file to load.
+     * @param string $prefix The string to prefix all targets in $path with.
      * @return $this
      */
-    public function load($path, $prefix = '')
+    public function load(string $path, string $prefix = '')
     {
         $config = $this->readConfig($path);
 
@@ -203,11 +205,11 @@ class AssetConfig
     /**
      * Read the configuration file from disk
      *
-     * @param  string $filename Name of the inifile to parse
+     * @param string $filename Name of the inifile to parse
      * @return array Inifile contents
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    protected function readConfig($filename)
+    protected function readConfig(string $filename): array
     {
         if (empty($filename) || !is_string($filename) || !file_exists($filename)) {
             throw new RuntimeException(sprintf('Configuration file "%s" was not found.', $filename));
@@ -225,9 +227,9 @@ class AssetConfig
      * Once all targets have been built, resolve extend options.
      *
      * @return void
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    protected function resolveExtends()
+    protected function resolveExtends(): void
     {
         $extend = [];
         foreach ($this->_targets as $name => $target) {
@@ -255,6 +257,7 @@ class AssetConfig
             $config['files'] = array_merge($parentConfig['files'], $config['files']);
             $config['filters'] = array_merge($parentConfig['filters'], $config['filters']);
             $config['theme'] = $parentConfig['theme'] || $config['theme'];
+
             return $config;
         };
 
@@ -266,11 +269,11 @@ class AssetConfig
     /**
      * Add/Replace an extension configuration.
      *
-     * @param  string $ext    Extension name
-     * @param  array  $config Configuration for the extension
+     * @param string $ext    Extension name
+     * @param array  $config Configuration for the extension
      * @return void
      */
-    public function addExtension($ext, array $config)
+    public function addExtension(string $ext, array $config): void
     {
         $this->_data[$ext] = $this->_parseExtensionDef($config);
     }
@@ -278,20 +281,21 @@ class AssetConfig
     /**
      * Parses paths in an extension definition
      *
-     * @param  array $target Array of extension information.
+     * @param array $target Array of extension information.
      * @return array Array of build extension information with paths replaced.
      */
-    protected function _parseExtensionDef($target)
+    protected function _parseExtensionDef(array $target): array
     {
-        $paths = array();
+        $paths = [];
         if (!empty($target['paths'])) {
-            $paths = array_map(array($this, '_replacePathConstants'), (array)$target['paths']);
+            $paths = array_map([$this, '_replacePathConstants'], (array)$target['paths']);
         }
         $target['paths'] = $paths;
         if (!empty($target['cachePath'])) {
             $path = $this->_replacePathConstants($target['cachePath']);
             $target['cachePath'] = rtrim($path, '/') . '/';
         }
+
         return $target;
     }
 
@@ -299,10 +303,10 @@ class AssetConfig
      * Replaces the file path constants used in Config files.
      * Will replace APP and WEBROOT
      *
-     * @param  string $path Path to replace constants on
+     * @param string $path Path to replace constants on
      * @return string constants replaced
      */
-    protected function _replacePathConstants($path)
+    protected function _replacePathConstants(string $path): string
     {
         return strtr($path, $this->constantMap);
     }
@@ -311,12 +315,12 @@ class AssetConfig
      * Set values into the config object, You can't modify targets, or filters
      * with this. Use the appropriate methods for those settings.
      *
-     * @param  string $path  The path to set.
-     * @param  string $value The value to set.
+     * @param string $path  The path to set.
+     * @param string $value The value to set.
      * @return void
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    public function set($path, $value)
+    public function set(string $path, string $value): void
     {
         $parts = explode('.', $path);
         switch (count($parts)) {
@@ -336,11 +340,11 @@ class AssetConfig
     /**
      * Get values from the config data.
      *
-     * @param  string $path The path you want.
+     * @param string $path The path you want.
      * @return mixed The configuration value.
-     * @throws RuntimeException On invalid paths.
+     * @throws \RuntimeException On invalid paths.
      */
-    public function get($path)
+    public function get(string $path): mixed
     {
         $parts = explode('.', $path);
         switch (count($parts)) {
@@ -364,16 +368,17 @@ class AssetConfig
     /**
      * Get/set filters for an extension
      *
-     * @param  string $ext Name of an extension
-     * @param  array  $filters Filters to replace either the global or per target filters.
+     * @param string $ext Name of an extension
+     * @param array  $filters Filters to replace either the global or per target filters.
      * @return array|void Filters for extension.
      */
-    public function filters($ext, $filters = null)
+    public function filters(string $ext, ?array $filters = null): ?array
     {
         if ($filters === null) {
             if (isset($this->_data[$ext][self::FILTERS])) {
                 return $this->_data[$ext][self::FILTERS];
             }
+
             return [];
         }
         $this->_data[$ext][self::FILTERS] = $filters;
@@ -382,10 +387,10 @@ class AssetConfig
     /**
      * Get the filters for a build target.
      *
-     * @param  string $name The build target to get filters for.
+     * @param string $name The build target to get filters for.
      * @return array
      */
-    public function targetFilters($name)
+    public function targetFilters(string $name): array
     {
         $ext = $this->getExt($name);
         $filters = [];
@@ -396,6 +401,7 @@ class AssetConfig
             $buildFilters = $this->_targets[$name][self::FILTERS];
             $filters = array_merge($filters, $buildFilters);
         }
+
         return array_unique($filters);
     }
 
@@ -406,7 +412,7 @@ class AssetConfig
      *
      * @return array Config data related to all filters.
      */
-    public function allFilters()
+    public function allFilters(): array
     {
         $filters = [];
         foreach ($this->extensions() as $ext) {
@@ -421,46 +427,49 @@ class AssetConfig
             }
             $filters = array_merge($filters, $target[self::FILTERS]);
         }
+
         return array_unique($filters);
     }
 
     /**
      * Get/Set filter Settings.
      *
-     * @param  string $filter   The filter name
-     * @param  array  $settings The settings to set, leave null to get
+     * @param string $filter   The filter name
+     * @param array  $settings The settings to set, leave null to get
      * @return mixed.
      */
-    public function filterConfig($filter, $settings = null)
+    public function filterConfig(string $filter, ?array $settings = null): mixed
     {
         if ($settings === null) {
             if (is_string($filter)) {
-                return isset($this->_filters[$filter]) ? $this->_filters[$filter] : [];
+                return $this->_filters[$filter] ?? [];
             }
             if (is_array($filter)) {
                 $result = [];
                 foreach ($filter as $f) {
                     $result[$f] = $this->filterConfig($f);
                 }
+
                 return $result;
             }
         }
 
         // array_map_recursive
-        $this->_filters[$filter] = filter_var($settings, \FILTER_CALLBACK, ['options' => [$this, '_replacePathConstants']]);
+        $this->_filters[$filter] = filter_var($settings, FILTER_CALLBACK, ['options' => [$this, '_replacePathConstants']]);
     }
 
     /**
      * Get the list of files that match the given build file.
      *
-     * @param  string $target The build file with extension.
+     * @param string $target The build file with extension.
      * @return array An array of files for the chosen build.
      */
-    public function files($target)
+    public function files(string $target): array
     {
         if (isset($this->_targets[$target]['files'])) {
             return (array)$this->_targets[$target]['files'];
         }
+
         return [];
     }
 
@@ -471,24 +480,25 @@ class AssetConfig
      * asset is merged into the named target. In extends, the
      * source files & filter for an asset are merged into a target.
      *
-     * @param  string $target The target to get requirements for.
+     * @param string $target The target to get requirements for.
      * @return array A list of required builds.
      */
-    public function requires($target)
+    public function requires(string $target): array
     {
         if (isset($this->_targets[$target]['require'])) {
             return (array)$this->_targets[$target]['require'];
         }
+
         return [];
     }
 
     /**
      * Get the extension for a filename.
      *
-     * @param  string $file
+     * @param string $file
      * @return string
      */
-    public function getExt($file)
+    public function getExt(string $file): string
     {
         return substr($file, strrpos($file, '.') + 1);
     }
@@ -497,17 +507,17 @@ class AssetConfig
      * Get/set paths for an extension. Setting paths will replace
      * global or per target existing paths. Its only intended for testing.
      *
-     * @param  string $ext    Extension to get paths for.
-     * @param  string $target A build target. If provided the target's paths (if any) will also be
+     * @param string $ext    Extension to get paths for.
+     * @param string $target A build target. If provided the target's paths (if any) will also be
      *                        returned.
-     * @param  array  $paths  Paths to replace either the global or per target paths.
+     * @param array  $paths  Paths to replace either the global or per target paths.
      * @return array|void An array of paths to search for assets on or null when setting paths.
      */
-    public function paths($ext, $target = null, $paths = null)
+    public function paths(string $ext, ?string $target = null, ?array $paths = null): ?array
     {
         if ($paths === null) {
             if (empty($this->_data[$ext]['paths'])) {
-                $paths = array();
+                $paths = [];
             } else {
                 $paths = (array)$this->_data[$ext]['paths'];
             }
@@ -515,10 +525,11 @@ class AssetConfig
                 $buildPaths = $this->_targets[$target]['paths'];
                 $paths = array_merge($paths, $buildPaths);
             }
+
             return array_unique($paths);
         }
 
-        $paths = array_map(array($this, '_replacePathConstants'), $paths);
+        $paths = array_map([$this, '_replacePathConstants'], $paths);
         if ($target === null) {
             $this->_data[$ext]['paths'] = $paths;
         } else {
@@ -532,12 +543,13 @@ class AssetConfig
      * @param string $ext  Extension to get paths for.
      * @param string $path The path to cache files using $ext to.
      */
-    public function cachePath($ext, $path = null)
+    public function cachePath(string $ext, ?string $path = null)
     {
         if ($path === null) {
             if (isset($this->_data[$ext]['cachePath'])) {
                 return $this->_data[$ext]['cachePath'];
             }
+
             return '';
         }
         $path = $this->_replacePathConstants($path);
@@ -549,14 +561,14 @@ class AssetConfig
      * to using get()/set() as you don't run the risk of making a
      * mistake in General's casing.
      *
-     * @param  string $key   The key to read/write
-     * @param  mixed  $value The value to set.
+     * @param string $key   The key to read/write
+     * @param mixed  $value The value to set.
      * @return mixed Null when writing. Either a value or null when reading.
      */
-    public function general($key, $value = null)
+    public function general(string $key, mixed $value = null): mixed
     {
         if ($value === null) {
-            return isset($this->_data[self::GENERAL][$key]) ? $this->_data[self::GENERAL][$key] : null;
+            return $this->_data[self::GENERAL][$key] ?? null;
         }
         $this->_data[self::GENERAL][$key] = $value;
     }
@@ -566,21 +578,22 @@ class AssetConfig
      *
      * @return array An array of build targets.
      */
-    public function targets()
+    public function targets(): array
     {
         if (empty($this->_targets)) {
-            return array();
+            return [];
         }
+
         return array_keys($this->_targets);
     }
 
     /**
      * Check if the named target exists.
      *
-     * @param  string $name The name of the target to check.
+     * @param string $name The name of the target to check.
      * @return bool
      */
-    public function hasTarget($name)
+    public function hasTarget(string $name): bool
     {
         return isset($this->_targets[$name]);
     }
@@ -590,10 +603,9 @@ class AssetConfig
      *
      * @param string $target Name of the target file. The extension will be inferred based on the last extension.
      * @param array  $config Config data for the target. Should contain files, filters and theme key.
-     *
      * @return void
      */
-    public function addTarget($target, array $config): void
+    public function addTarget(string $target, array $config): void
     {
         $ext = $this->getExt($target);
         $config += [
@@ -604,7 +616,7 @@ class AssetConfig
             'require' => [],
         ];
         if (!empty($config['paths'])) {
-            $config['paths'] = array_map(array($this, '_replacePathConstants'), (array)$config['paths']);
+            $config['paths'] = array_map([$this, '_replacePathConstants'], (array)$config['paths']);
         }
         $this->_targets[$target] = $config;
     }
@@ -612,13 +624,13 @@ class AssetConfig
     /**
      * Set the active theme for building assets.
      *
-     * @param  string $theme The theme name to set. Null to get
+     * @param string $theme The theme name to set. Null to get
      * @return mixed Either null on set, or theme on get
      */
-    public function theme($theme = null)
+    public function theme(?string $theme = null): mixed
     {
         if ($theme === null) {
-            return isset($this->_data['theme']) ? $this->_data['theme'] : '';
+            return $this->_data['theme'] ?? '';
         }
         $this->_data['theme'] = $theme;
     }
@@ -626,10 +638,10 @@ class AssetConfig
     /**
      * Check if a build target is themed.
      *
-     * @param  string $target A build target.
-     * @return boolean
+     * @param string $target A build target.
+     * @return bool
      */
-    public function isThemed($target)
+    public function isThemed(string $target): bool
     {
         return !empty($this->_targets[$target]['theme']);
     }
@@ -639,7 +651,7 @@ class AssetConfig
      *
      * @return array Extension list.
      */
-    public function extensions()
+    public function extensions(): array
     {
         return self::$_extensionTypes;
     }
@@ -649,7 +661,7 @@ class AssetConfig
      *
      * @return int
      */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         return $this->_modifiedTime;
     }

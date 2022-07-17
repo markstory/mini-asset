@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,10 +15,10 @@
  */
 namespace MiniAsset\Filter;
 
+use Exception;
 use MiniAsset\AssetScanner;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
-use MiniAsset\Filter\AssetFilter;
 
 /**
  * Implements directive replacement similar to sprockets <http://getsprockets.org>
@@ -24,7 +26,6 @@ use MiniAsset\Filter\AssetFilter;
  */
 class Sprockets extends AssetFilter
 {
-
     protected $_scanner;
 
     /**
@@ -32,21 +33,21 @@ class Sprockets extends AssetFilter
      *
      * @var string
      */
-    protected $_pattern = '/^\s?\/\/\=\s+require\s+([\"\<])([^\"\>]+)[\"\>](?:[\r\n]+|[\n]+)/m';
+    protected string $_pattern = '/^\s?\/\/\=\s+require\s+([\"\<])([^\"\>]+)[\"\>](?:[\r\n]+|[\n]+)/m';
 
     /**
      * A list of unique files already processed.
      *
      * @var array
      */
-    protected $_loaded = array();
+    protected array $_loaded = [];
 
     /**
      * The current file being processed, used for "" file inclusion.
      *
      * @var string
      */
-    protected $_currentFile = '';
+    protected string $_currentFile = '';
 
     protected function _scanner()
     {
@@ -54,22 +55,24 @@ class Sprockets extends AssetFilter
             return $this->_scanner;
         }
         $this->_scanner = new AssetScanner($this->_settings['paths']);
+
         return $this->_scanner;
     }
 
     /**
      * Input filter - preprocesses //=require statements
      *
-     * @param  string $filename
-     * @param  string $content
+     * @param string $filename
+     * @param string $content
      * @return string content
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         $this->_currentFile = $filename;
+
         return preg_replace_callback(
             $this->_pattern,
-            array($this, '_replace'),
+            [$this, '_replace'],
             $content
         );
     }
@@ -77,10 +80,10 @@ class Sprockets extends AssetFilter
     /**
      * Performs the replacements and inlines dependencies.
      *
-     * @param  array $matches
+     * @param array $matches
      * @return string content
      */
-    protected function _replace($matches)
+    protected function _replace(array $matches): string
     {
         $file = $this->_currentFile;
         if ($matches[1] === '"') {
@@ -93,7 +96,7 @@ class Sprockets extends AssetFilter
 
         // prevent double inclusion
         if (isset($this->_loaded[$file])) {
-            return "";
+            return '';
         }
         $this->_loaded[$file] = true;
 
@@ -101,18 +104,19 @@ class Sprockets extends AssetFilter
         if ($return = $this->input($file, $content)) {
             return $return . "\n";
         }
+
         return '';
     }
 
     /**
      * Locates sibling files, or uses AssetScanner to locate <> style dependencies.
      *
-     * @param  string $filename The basename of the file needing to be found.
-     * @param  string $path     The path for same directory includes.
+     * @param string $filename The basename of the file needing to be found.
+     * @param string $path     The path for same directory includes.
      * @return string Path to file.
      * @throws \Exception when files can't be located.
      */
-    protected function _findFile($filename, $path = null)
+    protected function _findFile(string $filename, ?string $path = null): string
     {
         if (substr($filename, -2) !== 'js') {
             $filename .= '.js';
@@ -124,11 +128,11 @@ class Sprockets extends AssetFilter
         if ($file) {
             return $file;
         }
-        throw new \Exception('Sprockets - Could not locate file "' . $filename . '"');
+        throw new Exception('Sprockets - Could not locate file "' . $filename . '"');
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getDependencies(AssetTarget $target)
     {
@@ -153,6 +157,7 @@ class Sprockets extends AssetFilter
                 $children = array_merge($children, $this->getDependencies($newTarget));
             }
         }
+
         return $children;
     }
 }

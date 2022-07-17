@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -19,84 +21,85 @@ namespace MiniAsset;
  */
 class AssetProcess
 {
-
     /**
      * Environment variables for the sub process.
      *
      * @var array
      */
-    protected $_env = null;
+    protected array $_env = null;
 
     /**
      * The command that is being run.
      *
      * @var string
      */
-    protected $_command = '';
+    protected string $_command = '';
 
     /**
      * The stderr output.
      *
      * @var string
      */
-    protected $_error;
+    protected string $_error;
 
     /**
      * The stdout output.
      *
      * @var string
      */
-    protected $_output;
+    protected string $_output;
 
     /**
      * Get/set the environment for the command.
      *
      * @param array $env Environment variables.
-     *
-     * @return array|static The environment variables that are set, or this.
+     * @return static|array The environment variables that are set, or this.
      */
-    public function environment($env = null)
+    public function environment(?array $env = null): array|static
     {
         if ($env !== null) {
             // Windows nodejs needs these environment variables.
-            $winenv = $this->_getenv(array('SystemDrive', 'SystemRoot'));
+            $winenv = $this->_getenv(['SystemDrive', 'SystemRoot']);
             $this->_env = array_merge($winenv, $env);
+
             return $this;
         }
+
         return $this->_env;
     }
 
     /**
      * Gets selected variables from the global environment.
      *
-     * @param  array $vars An array of variable names to load
+     * @param array $vars An array of variable names to load
      * @return array The values of selected environment variables if they
      *    are set.
      */
-    protected function _getenv(array $vars)
+    protected function _getenv(array $vars): array
     {
-        $result = array();
+        $result = [];
         foreach ($vars as $var) {
             if (getenv($var)) {
                 $result[$var] = getenv($var);
             }
         }
+
         return $result;
     }
 
     /**
      * Run the command and capture the output as the return.
      *
-     * @param  string $input STDIN for the command.
+     * @param string $input STDIN for the command.
      * @return string Output from the command.
      */
-    public function run($input = null)
+    public function run(?string $input = null): string
     {
-        $descriptorSpec = array(
-            0 => array('pipe', 'r'),
-            1 => array('pipe', 'w'),
-            2 => array('pipe', 'w')
-        );
+        $descriptorSpec = [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
         $process = proc_open(
             $this->_command,
             $descriptorSpec,
@@ -115,6 +118,7 @@ class AssetProcess
             fclose($pipes[2]);
             proc_close($process);
         }
+
         return $this->_output;
     }
 
@@ -123,7 +127,7 @@ class AssetProcess
      *
      * @return string Content from the command.
      */
-    public function error()
+    public function error(): string
     {
         return trim($this->_error);
     }
@@ -133,7 +137,7 @@ class AssetProcess
      *
      * @return string Content from the command.
      */
-    public function output()
+    public function output(): string
     {
         return $this->_output;
     }
@@ -141,10 +145,10 @@ class AssetProcess
     /**
      * Set the command that will be run.
      *
-     * @param  string $command Command name to run.
+     * @param string $command Command name to run.
      * @return $this
      */
-    public function command($command)
+    public function command(string $command)
     {
         // Wrap Windows exe in quotes if needed. "C:\Program Files\nodejs\node.exe"
         // Checks for path name with one or more spaces followed by `.exe`
@@ -152,6 +156,7 @@ class AssetProcess
         // Unix commands wont have .exe so they remain unchanged.
         $command = preg_replace('/^\s*([^"\s]+\s.+\.exe)(\s|$)/', '"$1"$2', $command);
         $this->_command = $command;
+
         return $this;
     }
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * Adds timestamp querystrings to all background images in CSS files.
  * This helps with cachebusting CSS sprites. This is useful in
@@ -23,40 +23,39 @@ use MiniAsset\Filter\AssetFilter;
  */
 class TimestampImage extends AssetFilter
 {
-
     /**
      * Regex for `background` CSS property.
      *
      * @var string
      */
-    protected $_backgroundPattern = '/^(?<prop>.*background\s*\:\s*(?:\#[a-f0-9A-F]{3,6})?\s*url\([\'"]?)(?<path>[^\'")]+?(?:png|gif|jpg))(?<trail>[\'"]?\))/m';
+    protected string $_backgroundPattern = '/^(?<prop>.*background\s*\:\s*(?:\#[a-f0-9A-F]{3,6})?\s*url\([\'"]?)(?<path>[^\'")]+?(?:png|gif|jpg))(?<trail>[\'"]?\))/m';
 
     /**
      * Regex for `background-image` CSS property.
      *
      * @var string
      */
-    protected $_backgroundImagePattern = '/^(?<prop>.*background-image\s*\:\s*url\([\'"]?)(?<path>[^\'")]+?(?:png|gif|jpg))(?<trail>[\'"]?\))/m';
+    protected string $_backgroundImagePattern = '/^(?<prop>.*background-image\s*\:\s*url\([\'"]?)(?<path>[^\'")]+?(?:png|gif|jpg))(?<trail>[\'"]?\))/m';
 
     protected $_filename;
 
     protected $_settings = [
-        'webroot' => ''
+        'webroot' => '',
     ];
 
     /**
      * Input filter. Locates CSS background images relative to the
      * filename and gets the filemtime for the images.
      *
-     * @param  string $filename The file being processed
-     * @param  string $content  The file content
+     * @param string $filename The file being processed
+     * @param string $content  The file content
      * @return string The content with images timestamped.
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         $this->_filename = $filename;
-        $content = preg_replace_callback($this->_backgroundPattern, array($this, '_replace'), $content);
-        $content = preg_replace_callback($this->_backgroundImagePattern, array($this, '_replace'), $content);
+        $content = preg_replace_callback($this->_backgroundPattern, [$this, '_replace'], $content);
+        $content = preg_replace_callback($this->_backgroundImagePattern, [$this, '_replace'], $content);
 
         return $content;
     }
@@ -70,10 +69,10 @@ class TimestampImage extends AssetFilter
      * If the image path starts with / its assumed to be an absolute path
      * which will be prepended with settings[webroot] or WWW_ROOT
      *
-     * @param  array $matches Array of matches
+     * @param array $matches Array of matches
      * @return string Replaced code.
      */
-    protected function _replace($matches)
+    protected function _replace(array $matches): string
     {
         $webroot = null;
         if (defined('WWW_ROOT')) {
@@ -92,6 +91,7 @@ class TimestampImage extends AssetFilter
         if (file_exists($imagePath)) {
             $path = $this->_timestamp($imagePath, $path);
         }
+
         return $matches['prop'] . $path . $matches['trail'];
     }
 
@@ -100,15 +100,16 @@ class TimestampImage extends AssetFilter
      * querystrings, as they could have anything in them or be customized
      * already.
      *
-     * @param  string $filepath The absolute path to the file for timestamping
-     * @param  string $path     The path to append a timestamp to.
+     * @param string $filepath The absolute path to the file for timestamping
+     * @param string $path     The path to append a timestamp to.
      * @return string Path with a timestamp.
      */
-    protected function _timestamp($filepath, $path)
+    protected function _timestamp(string $filepath, string $path): string
     {
         if (strpos($path, '?') === false) {
             $path .= '?t=' . filemtime($filepath);
         }
+
         return $path;
     }
 }

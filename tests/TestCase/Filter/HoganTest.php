@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -18,18 +20,17 @@ use PHPUnit\Framework\TestCase;
 
 class HoganTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
         $this->_path = APP . '/hogan/';
 
         $this->filter = new Hogan();
-        $settings = array(
+        $settings = [
             'node' => trim(`which node`),
             'node_path' => getenv('NODE_PATH'),
             'paths' => [],
-        );
+        ];
         $this->filter->settings($settings);
 
         $hasHogan = `which hulk`;

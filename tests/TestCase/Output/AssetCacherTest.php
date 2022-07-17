@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,15 +15,14 @@
  */
 namespace MiniAsset\Test\TestCase\Output;
 
-use MiniAsset\Output\AssetCacher;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\FilterRegistry;
+use MiniAsset\Output\AssetCacher;
 use PHPUnit\Framework\TestCase;
 
 class AssetCacherTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
