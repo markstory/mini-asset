@@ -31,7 +31,7 @@ class Uglifyjs extends AssetFilter
      * - `node_path` The path to the node_modules directory where uglify is installed.
      * - `version` Which version of uglify you have installed.
      */
-    protected $_settings = [
+    protected array $_settings = [
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
         'node_path' => '/usr/local/lib/node_modules',

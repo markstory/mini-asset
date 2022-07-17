@@ -26,7 +26,7 @@ class AssetProcess
      *
      * @var array
      */
-    protected array $_env = null;
+    protected ?array $_env = null;
 
     /**
      * The command that is being run.
@@ -40,7 +40,7 @@ class AssetProcess
      *
      * @var string
      */
-    protected string $_error;
+    protected ?string $_error;
 
     /**
      * The stdout output.

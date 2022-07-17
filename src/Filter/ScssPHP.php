@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace MiniAsset\Filter;
 
 use Exception;
+use MiniAsset\AssetTarget;
 use ScssPhp\ScssPhp\Compiler;
 
 /**
@@ -31,7 +32,7 @@ class ScssPHP extends AssetFilter
         getDependencies as getCssDependencies;
     }
 
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.scss',
         'imports' => [],
     ];
@@ -43,14 +44,17 @@ class ScssPHP extends AssetFilter
      */
     protected string $optionalDependencyPrefix = '_';
 
-    public function getDependencies($target)
+    /**
+     * @return array<\MiniAsset\File\FileInterface>
+     */
+    public function getDependencies(AssetTarget $target): array
     {
         return $this->getCssDependencies($target, $this->_settings['imports']);
     }
 
     /**
      * @param string $filename The name of the input file.
-     * @param string $content    The content of the file.
+     * @param string $content The content of the file.
      * @throws \Exception
      * @return string
      */

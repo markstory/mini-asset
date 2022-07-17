@@ -35,7 +35,7 @@ class PipeInputFilter extends AssetFilter
      * - `command` Command to run the file through
      * - `path` Sets PATH environment variable
      */
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.css',
         'dependencies' => false,
         'optional_dependency_prefix' => false,
@@ -46,16 +46,19 @@ class PipeInputFilter extends AssetFilter
     /**
      * It will use prefixed files if they exist.
      *
-     * @var string
+     * @var ?string
      */
-    protected string $optionalDependencyPrefix = null;
+    protected ?string $optionalDependencyPrefix = null;
 
-    public function hasDependencies()
+    public function hasDependencies(): bool
     {
         return $this->_settings['dependencies'];
     }
 
-    public function getDependencies(AssetTarget $target)
+    /**
+     * @return array<\MiniAsset\AssetTarget>
+     */
+    public function getDependencies(AssetTarget $target): array
     {
         if ($this->_settings['dependencies']) {
             $this->optionalDependencyPrefix = $this->_settings['optional_dependency_prefix'];

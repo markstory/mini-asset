@@ -29,8 +29,9 @@ interface FilterInterface
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
+     * @return string Modified contents
      */
-    public function input(string $filename, string $content): void;
+    public function input(string $filename, string $content): string;
 
     /**
      * Output filters are used to do minification or do other manipulation
@@ -38,8 +39,9 @@ interface FilterInterface
      *
      * @param string $target  The build target being made.
      * @param string $content The content to filter.
+     * @return string
      */
-    public function output(string $target, string $content): void;
+    public function output(string $target, string $content): string;
 
     /**
      * Gets settings for this filter. Will always include 'paths'

@@ -25,13 +25,13 @@ use RuntimeException;
  */
 class ImportInline extends AssetFilter
 {
-    protected $_pattern = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)));/m';
+    protected string $_pattern = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)));/m';
 
-    protected $scanner = null;
+    protected ?AssetScanner $scanner = null;
 
-    protected $_loaded = [];
+    protected array $_loaded = [];
 
-    protected function scanner()
+    protected function scanner(): AssetScanner
     {
         if (isset($this->scanner)) {
             return $this->scanner;

@@ -24,7 +24,7 @@ namespace MiniAsset\Filter;
  */
 class CoffeeScript extends AssetFilter
 {
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.coffee',
         'coffee' => '/usr/local/bin/coffee',
         'node' => '/usr/local/bin/node',

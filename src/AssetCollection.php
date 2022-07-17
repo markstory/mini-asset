@@ -17,7 +17,6 @@ namespace MiniAsset;
 
 use Countable;
 use Iterator;
-use ReturnTypeWillChange;
 
 /**
  * A collection of AssetTargets.
@@ -134,11 +133,6 @@ class AssetCollection implements Countable, Iterator
         }
     }
 
-    /**
-     * Get the length of the collection.
-     *
-     * @return int
-     */
     public function count(): int
     {
         return count($this->items);
@@ -154,8 +148,7 @@ class AssetCollection implements Countable, Iterator
         $this->index++;
     }
 
-    #[ReturnTypeWillChange]
-    public function key()
+    public function key(): int
     {
         return $this->index;
     }
@@ -165,8 +158,7 @@ class AssetCollection implements Countable, Iterator
         return isset($this->items[$this->index]);
     }
 
-    #[ReturnTypeWillChange]
-    public function current()
+    public function current(): AssetTarget
     {
         $current = $this->items[$this->index];
 

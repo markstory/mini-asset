@@ -30,19 +30,15 @@ class AssetCacher
 
     /**
      * The output path
-     *
-     * @var string
      */
-    protected string $path;
+    protected ?string $path;
 
     /**
      * The theme currently being built.
-     *
-     * @var string
      */
-    protected string $theme;
+    protected ?string $theme;
 
-    public function __construct($path, $theme = null)
+    public function __construct(string $path, ?string $theme = null)
     {
         $this->path = $path;
         $this->theme = $theme;
@@ -73,8 +69,6 @@ class AssetCacher
 
     /**
      * Create the output directory if it doesn't already exist.
-     *
-     * @return void
      */
     public function ensureDir(): void
     {

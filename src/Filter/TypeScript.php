@@ -22,7 +22,7 @@ namespace MiniAsset\Filter;
  */
 class TypeScript extends AssetFilter
 {
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.ts',
         'typescript' => '/usr/local/bin/tsc',
     ];

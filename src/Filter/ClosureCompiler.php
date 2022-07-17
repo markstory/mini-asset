@@ -133,7 +133,7 @@ class ClosureCompiler extends AssetFilter
             CURLOPT_URL => 'https://closure-compiler.appspot.com/compile',
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => 'js_code=' . urlencode($content) . '&' . http_build_query($args),
-            CURLOPT_RETURNTRANSFER =>  1,
+            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 0,
             CURLOPT_FOLLOWLOCATION => 0,
             ]

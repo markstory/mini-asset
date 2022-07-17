@@ -59,7 +59,7 @@ class FilterRegistry
     /**
      * Add a filter to the registry
      *
-     * @param string                            $name   The filter name to load.
+     * @param string $name The filter name to load.
      * @param \MiniAsset\Filter\FilterInterface $filter The filter to load.
      * @return void
      */

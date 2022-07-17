@@ -123,7 +123,7 @@ class AssetConfig
                 if (is_array($value) || strpos($value, DIRECTORY_SEPARATOR) === false) {
                     continue;
                 }
-                if ($value !== DIRECTORY_SEPARATOR && !@file_exists($value)) {
+                if ($value !== DIRECTORY_SEPARATOR && !file_exists($value)) {
                     continue;
                 }
                 $this->constantMap[$key] = rtrim($value, DIRECTORY_SEPARATOR);
@@ -316,11 +316,11 @@ class AssetConfig
      * with this. Use the appropriate methods for those settings.
      *
      * @param string $path  The path to set.
-     * @param string $value The value to set.
+     * @param mixed $value The value to set.
      * @return void
      * @throws \RuntimeException
      */
-    public function set(string $path, string $value): void
+    public function set(string $path, mixed $value): void
     {
         $parts = explode('.', $path);
         switch (count($parts)) {
@@ -352,12 +352,14 @@ class AssetConfig
                 if (isset($this->_data[$parts[0]][$parts[1]])) {
                     return $this->_data[$parts[0]][$parts[1]];
                 }
-                break;
+
+                return null;
             case 1:
                 if (isset($this->_data[$parts[0]])) {
                     return $this->_data[$parts[0]];
                 }
-                break;
+
+                return null;
             case 0:
                 throw new RuntimeException('Path was empty.');
             default:
@@ -382,6 +384,8 @@ class AssetConfig
             return [];
         }
         $this->_data[$ext][self::FILTERS] = $filters;
+
+        return null;
     }
 
     /**
@@ -434,11 +438,11 @@ class AssetConfig
     /**
      * Get/Set filter Settings.
      *
-     * @param string $filter   The filter name
-     * @param array  $settings The settings to set, leave null to get
+     * @param string|array $filter The filter name, or a list of filter configuration to set.
+     * @param array $settings The settings to set, leave null to get
      * @return mixed.
      */
-    public function filterConfig(string $filter, ?array $settings = null): mixed
+    public function filterConfig(string|array $filter, ?array $settings = null): mixed
     {
         if ($settings === null) {
             if (is_string($filter)) {
@@ -456,6 +460,8 @@ class AssetConfig
 
         // array_map_recursive
         $this->_filters[$filter] = filter_var($settings, FILTER_CALLBACK, ['options' => [$this, '_replacePathConstants']]);
+
+        return null;
     }
 
     /**
@@ -535,6 +541,8 @@ class AssetConfig
         } else {
             $this->_targets[$target]['paths'] = $paths;
         }
+
+        return null;
     }
 
     /**
@@ -542,8 +550,9 @@ class AssetConfig
      *
      * @param string $ext  Extension to get paths for.
      * @param string $path The path to cache files using $ext to.
+     * @return ?string Path to cache directory for the extension
      */
-    public function cachePath(string $ext, ?string $path = null)
+    public function cachePath(string $ext, ?string $path = null): ?string
     {
         if ($path === null) {
             if (isset($this->_data[$ext]['cachePath'])) {
@@ -554,6 +563,8 @@ class AssetConfig
         }
         $path = $this->_replacePathConstants($path);
         $this->_data[$ext]['cachePath'] = rtrim($path, '/') . '/';
+
+        return null;
     }
 
     /**
@@ -633,6 +644,8 @@ class AssetConfig
             return $this->_data['theme'] ?? '';
         }
         $this->_data['theme'] = $theme;
+
+        return null;
     }
 
     /**

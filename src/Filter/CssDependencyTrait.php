@@ -33,7 +33,7 @@ trait CssDependencyTrait
     /**
      * @inheritDoc
      */
-    public function getDependencies(AssetTarget $target, array $paths = [])
+    public function getDependencies(AssetTarget $target, array $paths = []): array
     {
         $prefixedName = '';
         $children = [];

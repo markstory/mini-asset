@@ -21,16 +21,16 @@ use MiniAsset\AssetConfig;
 
 abstract class BaseTask
 {
-    protected $cli;
-    protected $config;
+    protected CLImate $cli;
+    protected ?AssetConfig $config;
 
     /**
      * Constructor
      *
-     * @param \League\CLImate\CLImate $cli    The CLImate instance.
-     * @param array                   $config Configuration data.
+     * @param \League\CLImate\CLImate $cli The CLImate instance.
+     * @param \MiniAsset\AssetConfig|null $config Configuration data.
      */
-    public function __construct(CLImate $cli, ?array $config = null)
+    public function __construct(CLImate $cli, ?AssetConfig $config = null)
     {
         $this->cli = $cli;
         $this->config = $config;

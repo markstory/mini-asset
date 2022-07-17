@@ -29,7 +29,7 @@ class LessDotPHP extends AssetFilter
 {
     use CssDependencyTrait;
 
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.less',
         'paths' => [],
     ];

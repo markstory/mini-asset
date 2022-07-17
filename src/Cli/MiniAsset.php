@@ -22,9 +22,9 @@ use League\CLImate\CLImate;
  */
 class MiniAsset
 {
-    protected $cli;
-    protected $build;
-    protected $clear;
+    protected CLImate $cli;
+    protected BaseTask $build;
+    protected BaseTask $clear;
 
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MiniAsset
         $this->clear = new ClearTask($this->cli);
     }
 
-    public function main($argv)
+    public function main(array $argv): int
     {
         if (empty($argv)) {
             $this->help();

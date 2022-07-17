@@ -25,7 +25,7 @@ class PipeOutputFilter extends AssetFilter
      *
      * - `command` Command to execute
      */
-    protected $_settings = [
+    protected array $_settings = [
         'command' => '/bin/cat',
         'path' => '/bin',
     ];

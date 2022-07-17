@@ -53,7 +53,7 @@ class ClearTask extends BaseTask
         );
     }
 
-    protected function execute()
+    protected function execute(): int
     {
         if ($this->cli->arguments->defined('bootstrap')) {
             $this->bootstrapApp();

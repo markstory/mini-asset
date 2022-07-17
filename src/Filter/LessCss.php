@@ -26,7 +26,7 @@ class LessCss extends AssetFilter
 {
     use CssDependencyTrait;
 
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.less',
         'node' => '/usr/local/bin/node',
         'node_path' => '/usr/local/lib/node_modules',
@@ -57,7 +57,7 @@ class LessCss extends AssetFilter
         return $return;
     }
 
-    protected function _generateScript($file, string $content): void
+    protected function _generateScript(string $file, string $content): void
     {
         $text = <<<JS
 var less = require('less'),

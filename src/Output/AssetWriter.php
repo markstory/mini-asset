@@ -28,25 +28,23 @@ class AssetWriter
 
     public const BUILD_TIME_FILE = 'mini_asset_build_time';
 
-    protected $timestamp = [];
+    protected array $timestamp = [];
 
-    protected $theme;
+    protected ?string $theme;
 
-    protected $path;
+    protected string $path;
 
     /**
-     * An array of invalidated output files.
-     *
-     * @var array
+     * The most recently invalidated file.
      */
-    protected array $_invalidated = null;
+    protected ?string $_invalidated = null;
 
     /**
      * Constructor.
      *
-     * @param array  $timestamp     The map of extensions and timestamps
+     * @param array $timestamp The map of extensions and timestamps
      * @param string $timestampPath The path to the timestamp file for assets.
-     * @param string $theme         The the theme being assets are being built for.
+     * @param string $theme  The the theme being assets are being built for.
      */
     public function __construct(array $timestamp, string $timestampPath, ?string $theme = null)
     {
@@ -73,7 +71,7 @@ class AssetWriter
      * Writes content into a file
      *
      * @param \MiniAsset\AssetTarget $build   The filename to write.
-     * @param string                 $content The contents to write.
+     * @param string $content The contents to write.
      * @throws \RuntimeException
      * @return bool
      */
@@ -162,9 +160,9 @@ class AssetWriter
      * If timestamps are disabled, false will be returned.
      *
      * @param \MiniAsset\AssetTarget $build The build to get a timestamp for.
-     * @return mixed The last build time, or false.
+     * @return int|false The last build time, or false.
      */
-    public function getTimestamp(AssetTarget $build): mixed
+    public function getTimestamp(AssetTarget $build): int|false
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -266,10 +264,10 @@ class AssetWriter
      * Modify a file name and append in the timestamp
      *
      * @param string $file The filename.
-     * @param int    $time The timestamp.
+     * @param int|false $time The timestamp.
      * @return string The build filename to cache on disk.
      */
-    protected function _timestampFile(string $file, int $time): string
+    protected function _timestampFile(string $file, int|false $time): string
     {
         if (!$time) {
             return $file;

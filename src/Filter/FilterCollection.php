@@ -24,7 +24,7 @@ use ReturnTypeWillChange;
  */
 class FilterCollection implements Countable
 {
-    protected $filters = [];
+    protected array $filters = [];
 
     public function __construct(array $filters)
     {

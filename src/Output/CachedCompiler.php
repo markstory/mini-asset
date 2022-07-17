@@ -22,8 +22,8 @@ use MiniAsset\AssetTarget;
  */
 class CachedCompiler implements CompilerInterface
 {
-    private $compiler;
-    private $cacher;
+    private Compiler $compiler;
+    private AssetCacher $cacher;
 
     public function __construct(AssetCacher $cacher, Compiler $compiler)
     {

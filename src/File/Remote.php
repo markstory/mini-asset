@@ -20,33 +20,24 @@ namespace MiniAsset\File;
  */
 class Remote implements FileInterface
 {
-    protected $url;
+    protected string $url;
 
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function path()
+    public function path(): string
     {
         return $this->url;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function name()
+    public function name(): string
     {
         return $this->url;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function contents()
+    public function contents(): string
     {
         $handle = fopen($this->url, 'rb');
         $content = '';
@@ -58,18 +49,15 @@ class Remote implements FileInterface
         return $content;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         return $this->_getLastModified($this->url);
     }
 
     /**
-     * @param string|false $url
+     * Get the last modified time from HTTP headers.
      */
-    protected function _getLastModified(false|string $url)
+    protected function _getLastModified(string $url): int|false
     {
         $time = time();
 

@@ -53,7 +53,7 @@ class AssetFilter implements FilterInterface
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
-     * @return string
+     * @return void
      */
     public function input(string $filename, string $content): string
     {
@@ -79,7 +79,7 @@ class AssetFilter implements FilterInterface
      * files.
      *
      * @param \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
-     * @return array An array of MiniAsset\File\Local objects.
+     * @return array<\MiniAsset\FileInterface> An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $target): array
     {
@@ -99,7 +99,7 @@ class AssetFilter implements FilterInterface
     /**
      * Run the compressor command and get the output
      *
-     * @param string $cmd     The command to run.
+     * @param string $cmd The command to run.
      * @param string $content The content to run through the command.
      * @param array|null $environment
      * @return string The result of the command.

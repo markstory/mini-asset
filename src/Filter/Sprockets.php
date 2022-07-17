@@ -26,7 +26,7 @@ use MiniAsset\File\Local;
  */
 class Sprockets extends AssetFilter
 {
-    protected $_scanner;
+    protected ?AssetScanner $_scanner;
 
     /**
      * Regex pattern for finding //= require <file> and //= require "file" style inclusions
@@ -49,7 +49,7 @@ class Sprockets extends AssetFilter
      */
     protected string $_currentFile = '';
 
-    protected function _scanner()
+    protected function _scanner(): AssetScanner
     {
         if (isset($this->_scanner)) {
             return $this->_scanner;
@@ -101,7 +101,8 @@ class Sprockets extends AssetFilter
         $this->_loaded[$file] = true;
 
         $content = file_get_contents($file);
-        if ($return = $this->input($file, $content)) {
+        $return = $this->input($file, $content);
+        if (strlen($return)) {
             return $return . "\n";
         }
 
@@ -134,7 +135,7 @@ class Sprockets extends AssetFilter
     /**
      * @inheritDoc
      */
-    public function getDependencies(AssetTarget $target)
+    public function getDependencies(AssetTarget $target): array
     {
         $children = [];
         foreach ($target->files() as $file) {

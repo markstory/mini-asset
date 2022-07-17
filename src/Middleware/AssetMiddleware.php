@@ -19,9 +19,9 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class AssetMiddleware
 {
-    private $config;
-    private $outputDir;
-    private $urlPrefix;
+    private AssetConfig $config;
+    private string $outputDir;
+    private string $urlPrefix;
 
     /**
      * Constructor.
@@ -87,6 +87,11 @@ class AssetMiddleware
         return $response->withHeader('Content-Type', $this->mapType($ext));
     }
 
+    /**
+     * Get the content type for an extension.
+     *
+     * @param $ext string The extension to map to a content type.
+     */
     private function mapType($ext): string
     {
         $types = [

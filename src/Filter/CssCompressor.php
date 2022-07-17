@@ -12,7 +12,7 @@ namespace MiniAsset\Filter;
  */
 class CssCompressor extends AssetFilter
 {
-    protected $_settings = [
+    protected array $_settings = [
         'node' => '/usr/local/bin/node',
         'node_path' => '/usr/local/lib/node_modules',
     ];
@@ -21,7 +21,7 @@ class CssCompressor extends AssetFilter
      * Run `cleancss` against the output and compress it.
      *
      * @param string $target Name of the file being generated.
-     * @param string $content    The uncompressed contents for $filename.
+     * @param string $content The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
     public function output(string $target, string $content): string

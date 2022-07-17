@@ -40,7 +40,7 @@ class AssetCacherTest extends TestCase
         $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')
             ->will($this->returnValue([]));
-        $registry = new FilterRegistry([$filter]);
+        $registry = new FilterRegistry(['mock' => $filter]);
 
         $this->cacher = new AssetCacher(TMP);
         $this->cacher->filterRegistry($registry);

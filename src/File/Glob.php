@@ -22,10 +22,10 @@ use RuntimeException;
  */
 class Glob
 {
-    protected $basePath;
-    protected $pattern;
+    protected string $basePath;
+    protected string $pattern;
 
-    public function __construct($basePath, $pattern)
+    public function __construct(string $basePath, string $pattern)
     {
         if (!is_dir($basePath)) {
             throw new RuntimeException("$basePath does not exist.");
@@ -37,7 +37,6 @@ class Glob
 
     /**
      * @return array<\MiniAsset\File\Local>
-     * @psalm-return list<\MiniAsset\File\Local>
      */
     public function files(): array
     {

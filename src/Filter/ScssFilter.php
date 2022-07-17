@@ -15,6 +15,8 @@ declare(strict_types=1);
  */
 namespace MiniAsset\Filter;
 
+use MiniAsset\AssetTarget;
+
 /**
  * Pre-processing filter that adds support for SCSS files.
  *
@@ -28,7 +30,7 @@ class ScssFilter extends AssetFilter
         getDependencies as getCssDependencies;
     }
 
-    protected $_settings = [
+    protected array $_settings = [
         'ext' => '.scss',
         'sass' => '/usr/bin/sass',
         'path' => '/usr/bin',
@@ -42,7 +44,10 @@ class ScssFilter extends AssetFilter
      */
     protected string $optionalDependencyPrefix = '_';
 
-    public function getDependencies($target)
+    /**
+     * @return array<\MiniAsset\File\FileInterface>
+     */
+    public function getDependencies(AssetTarget $target): array
     {
         return $this->getCssDependencies($target, $this->_settings['imports']);
     }

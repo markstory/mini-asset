@@ -37,9 +37,9 @@ class TimestampImage extends AssetFilter
      */
     protected string $_backgroundImagePattern = '/^(?<prop>.*background-image\s*\:\s*url\([\'"]?)(?<path>[^\'")]+?(?:png|gif|jpg))(?<trail>[\'"]?\))/m';
 
-    protected $_filename;
+    protected string $_filename;
 
-    protected $_settings = [
+    protected array $_settings = [
         'webroot' => '',
     ];
 

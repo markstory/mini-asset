@@ -26,8 +26,6 @@ class Compiler implements CompilerInterface
 {
     /**
      * The filter registry to use.
-     *
-     * @var \MiniAsset\Filter\FilterRegistry
      */
     protected FilterRegistry $filterRegistry;
 
@@ -35,8 +33,6 @@ class Compiler implements CompilerInterface
      * Set to true when in development mode.
      *
      * Enabling this disables output filters.
-     *
-     * @var bool
      */
     protected bool $debug = false;
 
@@ -44,9 +40,10 @@ class Compiler implements CompilerInterface
      * Constructor.
      *
      * @param \MiniAsset\Filter\FilterRegistry $filters The filter registry
+     * @param $debug Whether or not debug mode is enabled.
      * @return void
      */
-    public function __construct(FilterRegistry $filters, $debug)
+    public function __construct(FilterRegistry $filters, bool $debug)
     {
         $this->filterRegistry = $filters;
         $this->debug = $debug;

@@ -22,9 +22,9 @@ use RuntimeException;
  */
 class Local implements FileInterface
 {
-    protected $path;
+    protected string $path;
 
-    public function __construct($path)
+    public function __construct(string $path)
     {
         if (!is_file($path)) {
             throw new RuntimeException("$path does not exist.");
@@ -32,34 +32,22 @@ class Local implements FileInterface
         $this->path = $path;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function path()
+    public function path(): string
     {
         return $this->path;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function name()
+    public function name(): string
     {
         return basename($this->path);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function contents()
+    public function contents(): string
     {
         return file_get_contents($this->path);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         return filemtime($this->path);
     }
