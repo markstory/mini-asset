@@ -438,7 +438,7 @@ class AssetConfig
     /**
      * Get/Set filter Settings.
      *
-     * @param string|array $filter The filter name, or a list of filter configuration to set.
+     * @param array|string $filter The filter name, or a list of filter configuration to set.
      * @param array $settings The settings to set, leave null to get
      * @return mixed.
      */
