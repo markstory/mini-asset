@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -20,13 +22,12 @@ use MiniAsset\AssetTarget;
  */
 interface CompilerInterface
 {
-
     /**
      * Generate a compiled asset, with all the configured filters applied.
      *
-     * @param  \MiniAsset\AssetTarget $build The target to build
+     * @param \MiniAsset\AssetTarget $build The target to build
      * @return string The processed result of $target and it dependencies.
      * @throws \RuntimeException
      */
-    public function generate(AssetTarget $build);
+    public function generate(AssetTarget $build): string;
 }

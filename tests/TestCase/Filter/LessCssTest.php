@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -20,7 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 class LessCssTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,7 +29,7 @@ class LessCssTest extends TestCase
         $this->filter = new LessCss();
         $this->filter->settings(
             [
-            'paths' => [$this->_cssDir]
+            'paths' => [$this->_cssDir],
             ]
         );
     }
@@ -36,7 +37,7 @@ class LessCssTest extends TestCase
     public function testGetDependencies()
     {
         $files = [
-            new Local($this->_cssDir . 'other.less')
+            new Local($this->_cssDir . 'other.less'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);

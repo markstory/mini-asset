@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -20,7 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 class PipeInputFilterTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -34,7 +35,7 @@ class PipeInputFilterTest extends TestCase
 
     public function testParsing()
     {
-        $this->filter->settings(array('command' => '/bin/cat'));
+        $this->filter->settings(['command' => '/bin/cat']);
 
         $content = file_get_contents($this->_cssDir . 'test.scss');
         $result = $this->filter->input($this->_cssDir . 'test.scss', $content);
@@ -44,13 +45,13 @@ class PipeInputFilterTest extends TestCase
 
     public function testGetDependenciesFalse()
     {
-        $this->filter->settings(array(
+        $this->filter->settings([
             'dependencies' => false,
             'optional_dependency_prefix' => false,
-        ));
+        ]);
 
         $files = [
-            new Local($this->_cssDir . 'test.scss')
+            new Local($this->_cssDir . 'test.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);
@@ -60,13 +61,13 @@ class PipeInputFilterTest extends TestCase
 
     public function testGetDependenciesTrue()
     {
-        $this->filter->settings(array(
+        $this->filter->settings([
             'dependencies' => true,
             'optional_dependency_prefix' => '_',
-        ));
+        ]);
 
         $files = [
-            new Local($this->_cssDir . 'test.scss')
+            new Local($this->_cssDir . 'test.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);
@@ -79,13 +80,13 @@ class PipeInputFilterTest extends TestCase
 
     public function testGetDependenciesMissingDependency()
     {
-        $this->filter->settings(array(
+        $this->filter->settings([
             'dependencies' => true,
             'optional_dependency_prefix' => '_',
-        ));
+        ]);
 
         $files = [
-            new Local($this->_cssDir . 'broken.scss')
+            new Local($this->_cssDir . 'broken.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);

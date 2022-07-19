@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,17 +16,14 @@
 namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\Output\Compiler;
-use MiniAsset\Output\CompilerInterface;
-use MiniAsset\Output\AssetCacher;
 
 /**
  * An decorator that combines a cacher and a compiler.
  */
 class CachedCompiler implements CompilerInterface
 {
-    private $compiler;
-    private $cacher;
+    private Compiler $compiler;
+    private AssetCacher $cacher;
 
     public function __construct(AssetCacher $cacher, Compiler $compiler)
     {
@@ -35,11 +34,11 @@ class CachedCompiler implements CompilerInterface
     /**
      * Generate a compiled asset, with all the configured filters applied.
      *
-     * @param  \MiniAsset\AssetTarget $build The target to build
+     * @param \MiniAsset\AssetTarget $build The target to build
      * @return string The processed result of $target and it dependencies.
      * @throws \RuntimeException
      */
-    public function generate(AssetTarget $build)
+    public function generate(AssetTarget $build): string
     {
         if ($this->cacher->isFresh($build)) {
             $contents = $this->cacher->read($build);
@@ -47,6 +46,7 @@ class CachedCompiler implements CompilerInterface
             $contents = $this->compiler->generate($build);
             $this->cacher->write($build, $contents);
         }
+
         return $contents;
     }
 }

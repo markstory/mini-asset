@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,18 +15,20 @@
  */
 namespace MiniAsset\File;
 
+use RuntimeException;
+
 /**
  * Wrapper for glob patterns that are used in asset targets.
  */
 class Glob
 {
-    protected $basePath;
-    protected $pattern;
+    protected string $basePath;
+    protected string $pattern;
 
-    public function __construct($basePath, $pattern)
+    public function __construct(string $basePath, string $pattern)
     {
         if (!is_dir($basePath)) {
-            throw new \RuntimeException("$basePath does not exist.");
+            throw new RuntimeException("$basePath does not exist.");
         }
 
         $this->basePath = $basePath;
@@ -32,9 +36,7 @@ class Glob
     }
 
     /**
-     * @return Local[]
-     *
-     * @psalm-return list<Local>
+     * @return array<\MiniAsset\File\Local>
      */
     public function files(): array
     {

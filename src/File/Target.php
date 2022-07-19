@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,7 +16,6 @@
 namespace MiniAsset\File;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\File\FileInterface;
 use MiniAsset\Output\CompilerInterface;
 
 /**
@@ -23,8 +24,8 @@ use MiniAsset\Output\CompilerInterface;
  */
 class Target implements FileInterface
 {
-    private $target;
-    private $compiler;
+    private AssetTarget $target;
+    private CompilerInterface $compiler;
 
     public function __construct(AssetTarget $target, CompilerInterface $compiler)
     {
@@ -32,34 +33,22 @@ class Target implements FileInterface
         $this->compiler = $compiler;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function path()
+    public function path(): string
     {
         return $this->target->path();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function name()
+    public function name(): string
     {
         return $this->target->name();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function contents()
+    public function contents(): string
     {
         return $this->compiler->generate($this->target);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         return $this->target->modifiedTime();
     }

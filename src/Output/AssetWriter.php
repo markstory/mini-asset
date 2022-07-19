@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,7 +16,6 @@
 namespace MiniAsset\Output;
 
 use MiniAsset\AssetTarget;
-use MiniAsset\Output\FreshTrait;
 use RuntimeException;
 
 /**
@@ -25,29 +26,27 @@ class AssetWriter
 {
     use FreshTrait;
 
-    const BUILD_TIME_FILE = 'mini_asset_build_time';
+    public const BUILD_TIME_FILE = 'mini_asset_build_time';
 
-    protected $timestamp = [];
+    protected array $timestamp = [];
 
-    protected $theme;
+    protected ?string $theme;
 
-    protected $path;
+    protected string $path;
 
     /**
-     * An array of invalidated output files.
-     *
-     * @var array
+     * The most recently invalidated file.
      */
-    protected $_invalidated = null;
+    protected ?string $_invalidated = null;
 
     /**
      * Constructor.
      *
-     * @param array  $timestamp     The map of extensions and timestamps
+     * @param array $timestamp The map of extensions and timestamps
      * @param string $timestampPath The path to the timestamp file for assets.
-     * @param string $theme         The the theme being assets are being built for.
+     * @param string $theme  The the theme being assets are being built for.
      */
-    public function __construct(array $timestamp, $timestampPath, $theme = null)
+    public function __construct(array $timestamp, string $timestampPath, ?string $theme = null)
     {
         $this->timestamp = $timestamp;
         $this->path = $timestampPath;
@@ -59,12 +58,12 @@ class AssetWriter
      *
      * @return array
      */
-    public function config()
+    public function config(): array
     {
         return [
             'theme' => $this->theme,
             'timestamp' => $this->timestamp,
-            'path' => $this->path
+            'path' => $this->path,
         ];
     }
 
@@ -72,13 +71,11 @@ class AssetWriter
      * Writes content into a file
      *
      * @param \MiniAsset\AssetTarget $build   The filename to write.
-     * @param string                 $content The contents to write.
-     *
-     * @throws RuntimeException
-     *
+     * @param string $content The contents to write.
+     * @throws \RuntimeException
      * @return bool
      */
-    public function write(AssetTarget $build, $content): bool
+    public function write(AssetTarget $build, string $content): bool
     {
         $path = $build->outputDir();
 
@@ -88,6 +85,7 @@ class AssetWriter
         $filename = $this->buildFileName($build);
         $success = file_put_contents($path . DIRECTORY_SEPARATOR . $filename, $content) !== false;
         $this->finalize($build);
+
         return $success;
     }
 
@@ -95,8 +93,7 @@ class AssetWriter
      * Invalidate a build before re-generating the file.
      *
      * @param \MiniAsset\AssetTarget $build The build to invalidate.
-     *
-     * @return boolean
+     * @return bool
      */
     public function invalidate(AssetTarget $build): bool
     {
@@ -113,10 +110,10 @@ class AssetWriter
     /**
      * Finalize a build after written to filesystem.
      *
-     * @param  \MiniAsset\AssetTarget $build The build to finalize.
+     * @param \MiniAsset\AssetTarget $build The build to finalize.
      * @return void
      */
-    public function finalize(AssetTarget $build)
+    public function finalize(AssetTarget $build): void
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -138,11 +135,11 @@ class AssetWriter
     /**
      * Set the timestamp for a build file.
      *
-     * @param  \MiniAsset\AssetTarget $build The name of the build to set a timestamp for.
-     * @param  int                    $time  The timestamp.
+     * @param \MiniAsset\AssetTarget $build The name of the build to set a timestamp for.
+     * @param int                    $time  The timestamp.
      * @return void
      */
-    public function setTimestamp(AssetTarget $build, $time)
+    public function setTimestamp(AssetTarget $build, int $time): void
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -162,10 +159,10 @@ class AssetWriter
      *
      * If timestamps are disabled, false will be returned.
      *
-     * @param  \MiniAsset\AssetTarget $build The build to get a timestamp for.
-     * @return mixed The last build time, or false.
+     * @param \MiniAsset\AssetTarget $build The build to get a timestamp for.
+     * @return int|false The last build time, or false.
      */
-    public function getTimestamp(AssetTarget $build)
+    public function getTimestamp(AssetTarget $build): int|false
     {
         $ext = $build->ext();
         if (empty($this->timestamp[$ext])) {
@@ -178,6 +175,7 @@ class AssetWriter
         }
         $time = time();
         $this->setTimestamp($build, $time);
+
         return $time;
     }
 
@@ -186,7 +184,7 @@ class AssetWriter
      *
      * @return array An array of timestamps for build files.
      */
-    protected function _readTimestamp()
+    protected function _readTimestamp(): array
     {
         $data = [];
         if (file_exists($this->path . static::BUILD_TIME_FILE)) {
@@ -195,16 +193,17 @@ class AssetWriter
                 $data = unserialize($data);
             }
         }
+
         return $data;
     }
 
     /**
      * Write timestamps to either the fast cache, or the serialized file.
      *
-     * @param  array $data An array of timestamps for build files.
+     * @param array $data An array of timestamps for build files.
      * @return void
      */
-    protected function _writeTimestamp($data)
+    protected function _writeTimestamp(array $data): void
     {
         $data = serialize($data);
         file_put_contents($this->path . static::BUILD_TIME_FILE, $data);
@@ -215,10 +214,10 @@ class AssetWriter
      * Get the final filename for a build. Resolves
      * theme prefixes and timestamps.
      *
-     * @param  \MiniAsset\AssetTarget $target The build target name.
+     * @param \MiniAsset\AssetTarget $target The build target name.
      * @return string The build filename to cache on disk.
      */
-    public function buildFileName(AssetTarget $target, bool $timestamp = true)
+    public function buildFileName(AssetTarget $target, bool $timestamp = true): string
     {
         $file = $target->name();
         if ($target->isThemed() && $this->theme) {
@@ -228,21 +227,23 @@ class AssetWriter
             $time = $this->getTimestamp($target);
             $file = $this->_timestampFile($file, $time);
         }
+
         return $file;
     }
 
     /**
      * Get the cache name a build.
      *
-     * @param  \MiniAsset\AssetTarget $build The build target name.
+     * @param \MiniAsset\AssetTarget $build The build target name.
      * @return string The build cache name.
      */
-    public function buildCacheName($build)
+    public function buildCacheName(AssetTarget $build): string
     {
         $name = $this->buildFileName($build, false);
         if ($build->name() == $this->_invalidated) {
             return '~' . $name;
         }
+
         return $name;
     }
 
@@ -251,7 +252,7 @@ class AssetWriter
      *
      * @return void
      */
-    public function clearTimestamps()
+    public function clearTimestamps(): void
     {
         $path = $this->path . static::BUILD_TIME_FILE;
         if (file_exists($path)) {
@@ -262,11 +263,11 @@ class AssetWriter
     /**
      * Modify a file name and append in the timestamp
      *
-     * @param  string $file The filename.
-     * @param  int    $time The timestamp.
+     * @param string $file The filename.
+     * @param int|false $time The timestamp.
      * @return string The build filename to cache on disk.
      */
-    protected function _timestampFile($file, $time)
+    protected function _timestampFile(string $file, int|false $time): string
     {
         if (!$time) {
             return $file;
@@ -274,6 +275,7 @@ class AssetWriter
         $pos = strrpos($file, '.');
         $name = substr($file, 0, $pos);
         $ext = substr($file, $pos);
+
         return $name . '.v' . $time . $ext;
     }
 
@@ -282,10 +284,10 @@ class AssetWriter
      *
      * Used to locate outputs when determining freshness.
      *
-     * @param  \MiniAsset\AssetTarget $target
+     * @param \MiniAsset\AssetTarget $target
      * @return string The path
      */
-    public function outputDir(AssetTarget $target)
+    public function outputDir(AssetTarget $target): string
     {
         return $target->outputDir();
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,12 +15,8 @@
  */
 namespace MiniAsset;
 
-use MiniAsset\AssetConfig;
-use MiniAsset\AssetTarget;
-use MiniAsset\Factory;
 use Countable;
 use Iterator;
-use InvalidArgumentException;
 
 /**
  * A collection of AssetTargets.
@@ -34,35 +32,35 @@ class AssetCollection implements Countable, Iterator
      *
      * @var array
      */
-    protected $indexed = [];
+    protected array $indexed = [];
 
     /**
      * The assets indexed numerically.
      *
      * @var array
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * The current position.
      *
      * @var int
      */
-    protected $index = 0;
+    protected int $index = 0;
 
     /**
      * A factory instance that can be used to lazily build targets.
      *
      * @var \MiniAsset\Factory
      */
-    protected $factory;
+    protected Factory $factory;
 
     /**
      * Constructor. You can provide an array or any traversable object
      *
-     * @param  array $targets Items.
-     * @param  \MiniAsset\Factory $factory Factory for other objects.
-     * @throws InvalidArgumentException If passed incorrect type for items.
+     * @param array $targets Items.
+     * @param \MiniAsset\Factory $factory Factory for other objects.
+     * @throws \InvalidArgumentException If passed incorrect type for items.
      */
     public function __construct(array $targets, Factory $factory)
     {
@@ -76,10 +74,10 @@ class AssetCollection implements Countable, Iterator
     /**
      * Append an asset to the collection.
      *
-     * @param  AssetTarget $target The target to append
+     * @param \MiniAsset\AssetTarget $target The target to append
      * @return void
      */
-    public function append(AssetTarget $target)
+    public function append(AssetTarget $target): void
     {
         $name = $target->name();
         $this->indexed[$name] = $target;
@@ -89,10 +87,10 @@ class AssetCollection implements Countable, Iterator
     /**
      * Get an asset from the collection
      *
-     * @param  string $name The name of the asset you want.
-     * @return null|AssetTarget Either null or the asset target.
+     * @param string $name The name of the asset you want.
+     * @return \MiniAsset\AssetTarget|null Either null or the asset target.
      */
-    public function get($name)
+    public function get(string $name): ?AssetTarget
     {
         if (!isset($this->indexed[$name])) {
             return null;
@@ -100,16 +98,17 @@ class AssetCollection implements Countable, Iterator
         if (empty($this->indexed[$name])) {
             $this->indexed[$name] = $this->factory->target($name);
         }
+
         return $this->indexed[$name];
     }
 
     /**
      * Check whether or not the collection contains the named asset.
      *
-     * @param  string $name The name of the asset you want.
+     * @param string $name The name of the asset you want.
      * @return bool
      */
-    public function contains($name)
+    public function contains(string $name): bool
     {
         return isset($this->indexed[$name]);
     }
@@ -117,10 +116,10 @@ class AssetCollection implements Countable, Iterator
     /**
      * Remove an asset from the collection
      *
-     * @param  string $name The name of the asset you want to remove
+     * @param string $name The name of the asset you want to remove
      * @return void
      */
-    public function remove($name)
+    public function remove(string $name): void
     {
         if (!isset($this->indexed[$name])) {
             return;
@@ -134,11 +133,6 @@ class AssetCollection implements Countable, Iterator
         }
     }
 
-    /**
-     * Get the length of the collection.
-     *
-     * @return int
-     */
     public function count(): int
     {
         return count($this->items);
@@ -154,8 +148,7 @@ class AssetCollection implements Countable, Iterator
         $this->index++;
     }
 
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): int
     {
         return $this->index;
     }
@@ -165,10 +158,10 @@ class AssetCollection implements Countable, Iterator
         return isset($this->items[$this->index]);
     }
 
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): AssetTarget
     {
         $current = $this->items[$this->index];
+
         return $this->get($current);
     }
 }

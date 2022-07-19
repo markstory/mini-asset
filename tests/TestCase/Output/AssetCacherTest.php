@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,15 +15,14 @@
  */
 namespace MiniAsset\Test\TestCase\Output;
 
-use MiniAsset\Output\AssetCacher;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\FilterRegistry;
+use MiniAsset\Output\AssetCacher;
 use PHPUnit\Framework\TestCase;
 
 class AssetCacherTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,7 +40,7 @@ class AssetCacherTest extends TestCase
         $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')
             ->will($this->returnValue([]));
-        $registry = new FilterRegistry([$filter]);
+        $registry = new FilterRegistry(['mock' => $filter]);
 
         $this->cacher = new AssetCacher(TMP);
         $this->cacher->filterRegistry($registry);

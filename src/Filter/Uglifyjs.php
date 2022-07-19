@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-
 /**
  * Output minifier for uglify-js
  *
@@ -24,7 +24,6 @@ use MiniAsset\Filter\AssetFilter;
  */
 class Uglifyjs extends AssetFilter
 {
-
     /**
      * Settings for Uglify
      *
@@ -32,26 +31,27 @@ class Uglifyjs extends AssetFilter
      * - `node_path` The path to the node_modules directory where uglify is installed.
      * - `version` Which version of uglify you have installed.
      */
-    protected $_settings = array(
+    protected array $_settings = [
         'node' => '/usr/local/bin/node',
         'uglify' => '/usr/local/bin/uglifyjs',
         'node_path' => '/usr/local/lib/node_modules',
         'version' => 1,
         'options' => '',
-    );
+    ];
 
     /**
      * Run `uglifyjs` against the output and compress it.
      *
-     * @param  string $target   Name of the file being generated.
-     * @param  string $content The uncompressed contents for $filename.
+     * @param string $target   Name of the file being generated.
+     * @param string $content The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         $cmdSep = $this->_settings['version'] <= 1 ? ' - ' : '';
         $cmd = $this->_settings['node'] . ' ' . $this->_settings['uglify'] . $cmdSep . $this->_settings['options'];
-        $env = array('NODE_PATH' => $this->_settings['node_path']);
+        $env = ['NODE_PATH' => $this->_settings['node_path']];
+
         return $this->_runCmd($cmd, $content, $env);
     }
 }

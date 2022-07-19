@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-use MiniAsset\Filter\CssDependencyTrait;
+use Exception;
 use lessc;
 
 /**
@@ -28,28 +29,29 @@ class LessPHP extends AssetFilter
 {
     use CssDependencyTrait;
 
-    protected $_settings = array(
+    protected array $_settings = [
         'ext' => '.less',
         'paths' => [],
-    );
+    ];
 
     /**
      * Runs `lessc` against any files that match the configured extension.
      *
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content    The content of the file.
      * @throws \Exception
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
         }
         if (!class_exists('lessc')) {
-            throw new \Exception('Cannot not load "lessc" class. Make sure it is installed.');
+            throw new Exception('Cannot not load "lessc" class. Make sure it is installed.');
         }
         $lc = new lessc($filename);
+
         return $lc->parse();
     }
 }

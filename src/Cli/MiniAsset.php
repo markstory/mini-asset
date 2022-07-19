@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -14,17 +16,15 @@
 namespace MiniAsset\Cli;
 
 use League\CLImate\CLImate;
-use MiniAsset\Cli\ClearTask;
-use MiniAsset\Cli\BuildTask;
 
 /**
  * CLI entry point for MiniAsset.
  */
 class MiniAsset
 {
-    protected $cli;
-    protected $build;
-    protected $clear;
+    protected CLImate $cli;
+    protected BaseTask $build;
+    protected BaseTask $clear;
 
     public function __construct()
     {
@@ -33,10 +33,11 @@ class MiniAsset
         $this->clear = new ClearTask($this->cli);
     }
 
-    public function main($argv)
+    public function main(array $argv): int
     {
         if (empty($argv)) {
             $this->help();
+
             return 1;
         }
         switch ($argv[0]) {
@@ -46,6 +47,7 @@ class MiniAsset
                 return $this->clear->main($argv);
             default:
                 $this->help();
+
                 return 1;
         }
     }

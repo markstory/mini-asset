@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,7 +15,6 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
 use MiniAsset\AssetScanner;
 use RuntimeException;
 
@@ -24,34 +25,34 @@ use RuntimeException;
  */
 class ImportInline extends AssetFilter
 {
+    protected string $_pattern = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)));/m';
 
-    protected $_pattern = '/^\s*@import\s*(?:(?:([\'"])([^\'"]+)\\1)|(?:url\(([\'"])([^\'"]+)\\3\)));/m';
+    protected ?AssetScanner $scanner = null;
 
-    protected $scanner = null;
+    protected array $_loaded = [];
 
-    protected $_loaded = [];
-
-    protected function scanner()
+    protected function scanner(): AssetScanner
     {
         if (isset($this->scanner)) {
             return $this->scanner;
         }
         $this->scanner = new AssetScanner($this->_settings['paths']);
+
         return $this->scanner;
     }
 
     /**
      * Preprocesses CSS files and replaces @import statements.
      *
-     * @param  string $filename
-     * @param  string $content
+     * @param string $filename
+     * @param string $content
      * @return string The processed file.
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         return preg_replace_callback(
             $this->_pattern,
-            array($this, '_replace'),
+            [$this, '_replace'],
             $content
         );
     }
@@ -60,12 +61,10 @@ class ImportInline extends AssetFilter
      * Does file replacements.
      *
      * @param array $matches
-     *
      * @throws \RuntimeException
-     *
      * @return string
      */
-    protected function _replace($matches): string
+    protected function _replace(array $matches): string
     {
         $required = empty($matches[2]) ? $matches[4] : $matches[2];
         $filename = $this->scanner()->find($required);
@@ -75,6 +74,7 @@ class ImportInline extends AssetFilter
         if (empty($this->_loaded[$filename])) {
             return $this->input($filename, file_get_contents($filename));
         }
+
         return '';
     }
 }

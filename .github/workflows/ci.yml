@@ -15,10 +15,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2', '7.4', '8.0', '8.1']
+        php-version: ['8.1']
         prefer-lowest: ['']
         include:
-          - php-version: '7.2'
+          - php-version: '8.1'
             prefer-lowest: 'prefer-lowest'
 
     steps:
@@ -81,7 +81,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '8.1'
         extensions: mbstring, intl
         coverage: none
 

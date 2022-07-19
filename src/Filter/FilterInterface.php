@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -21,15 +23,15 @@ use MiniAsset\AssetTarget;
  */
 interface FilterInterface
 {
-
     /**
      * Input filters are used to do pre-processing on each file in a
      * build target.
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
+     * @return string Modified contents
      */
-    public function input($filename, $content);
+    public function input(string $filename, string $content): string;
 
     /**
      * Output filters are used to do minification or do other manipulation
@@ -37,17 +39,18 @@ interface FilterInterface
      *
      * @param string $target  The build target being made.
      * @param string $content The content to filter.
+     * @return string
      */
-    public function output($target, $content);
+    public function output(string $target, string $content): string;
 
     /**
      * Gets settings for this filter. Will always include 'paths'
      * key which points at paths available for the type of asset being generated.
      *
-     * @param  array $settings Array of settings.
+     * @param array $settings Array of settings.
      * @return array Updated Settings.
      */
-    public function settings(array $settings = null);
+    public function settings(?array $settings = null): array;
 
     /**
      * Find any additional filter based dependencies.
@@ -55,15 +58,15 @@ interface FilterInterface
      * Preprocessor filters can use this hook method to find a list of dependent
      * files. For example, `import` statements in Less/Sass.
      *
-     * @param  AssetTarget $target The target to find dependencies for this filter.
+     * @param \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
      * @return array An array of MiniAsset\File\Local objects.
      */
-    public function getDependencies(AssetTarget $target);
+    public function getDependencies(AssetTarget $target): array;
 
     /**
      * Returns a boolean whether the filter supports dependencies.
      *
-     * @return boolean True when the filter supports dependencies
+     * @return bool True when the filter supports dependencies
      */
-    public function hasDependencies();
+    public function hasDependencies(): bool;
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -26,7 +28,7 @@ class TargetTest extends TestCase
         $this->compiler = $this->getMockBuilder('MiniAsset\Output\CompilerInterface')->getMock();
 
         $files = [
-            new Local(APP . 'js/classes/base_class_two.js')
+            new Local(APP . 'js/classes/base_class_two.js'),
         ];
         $this->asset = new AssetTarget(TMP . 'all.css', $files);
         $this->target = new Target($this->asset, $this->compiler);

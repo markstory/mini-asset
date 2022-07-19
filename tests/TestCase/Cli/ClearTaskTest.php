@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -107,7 +109,7 @@ class ClearTaskTest extends TestCase
     {
         $files = [
             TMP . 'cache_js/nope.js',
-            TMP . 'cache_js/nope.v12354.js'
+            TMP . 'cache_js/nope.v12354.js',
         ];
         foreach ($files as $file) {
             touch($file);

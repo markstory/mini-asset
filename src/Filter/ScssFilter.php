@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-use MiniAsset\Filter\CssDependencyTrait;
+use MiniAsset\AssetTarget;
 
 /**
  * Pre-processing filter that adds support for SCSS files.
@@ -29,21 +30,24 @@ class ScssFilter extends AssetFilter
         getDependencies as getCssDependencies;
     }
 
-    protected $_settings = array(
+    protected array $_settings = [
         'ext' => '.scss',
         'sass' => '/usr/bin/sass',
         'path' => '/usr/bin',
         'imports' => [],
-    );
+    ];
 
     /**
      * SCSS will use `_` prefixed files if they exist.
      *
      * @var string
      */
-    protected $optionalDependencyPrefix = '_';
+    protected string $optionalDependencyPrefix = '_';
 
-    public function getDependencies($target)
+    /**
+     * @return array<\MiniAsset\File\FileInterface>
+     */
+    public function getDependencies(AssetTarget $target): array
     {
         return $this->getCssDependencies($target, $this->_settings['imports']);
     }
@@ -51,11 +55,11 @@ class ScssFilter extends AssetFilter
     /**
      * Runs SCSS compiler against any files that match the configured extension.
      *
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
@@ -66,7 +70,8 @@ class ScssFilter extends AssetFilter
             $cmd .= ' -I ' . escapeshellarg($path);
         }
         $bin = $cmd . ' ' . $filename;
-        $return = $this->_runCmd($bin, '', array('PATH' => $this->_settings['path']));
+        $return = $this->_runCmd($bin, '', ['PATH' => $this->_settings['path']]);
+
         return $return;
     }
 }

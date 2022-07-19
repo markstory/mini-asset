@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -20,14 +22,13 @@ use PHPUnit\Framework\TestCase;
 
 class ScssFilterTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
         $this->_cssDir = APP . 'css' . DS;
         $this->filter = new ScssFilter();
         $this->filter->settings([
-            'paths' => [$this->_cssDir]
+            'paths' => [$this->_cssDir],
         ]);
     }
 
@@ -37,7 +38,7 @@ class ScssFilterTest extends TestCase
         if (!$hasSass) {
             $this->markTestSkipped('Requries ruby and sass to be installed.');
         }
-        $this->filter->settings(array('sass' => trim($hasSass)));
+        $this->filter->settings(['sass' => trim($hasSass)]);
 
         $content = file_get_contents($this->_cssDir . 'test.scss');
         $result = $this->filter->input($this->_cssDir . 'test.scss', $content);
@@ -48,7 +49,7 @@ class ScssFilterTest extends TestCase
     public function testGetDependencies()
     {
         $files = [
-            new Local($this->_cssDir . 'test.scss')
+            new Local($this->_cssDir . 'test.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);
@@ -62,7 +63,7 @@ class ScssFilterTest extends TestCase
     public function testGetDependenciesMissingDependency()
     {
         $files = [
-            new Local($this->_cssDir . 'broken.scss')
+            new Local($this->_cssDir . 'broken.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);
@@ -78,7 +79,7 @@ class ScssFilterTest extends TestCase
             'imports' => [$this->_cssDir . DIRECTORY_SEPARATOR . 'reset'],
         ]);
         $files = [
-            new Local($this->_cssDir . 'test_imports.scss')
+            new Local($this->_cssDir . 'test_imports.scss'),
         ];
         $target = new AssetTarget('test.css', $files);
         $result = $this->filter->getDependencies($target);

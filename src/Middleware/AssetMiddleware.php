@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace MiniAsset\Middleware;
 
 use Exception;
 use MiniAsset\AssetConfig;
 use MiniAsset\Factory;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * A PSR7 middleware for serving assets from mini-asset.
@@ -16,9 +19,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class AssetMiddleware
 {
-    private $config;
-    private $outputDir;
-    private $urlPrefix;
+    private AssetConfig $config;
+    private string $outputDir;
+    private string $urlPrefix;
 
     /**
      * Constructor.
@@ -28,7 +31,7 @@ class AssetMiddleware
      *                                          Defaults to sys_get_temp_dir().
      * @param string                 $urlPrefix The URL prefix that assets are under. Defaults to /asset/.
      */
-    public function __construct(AssetConfig $config, $outputDir = null, $urlPrefix = '/asset/')
+    public function __construct(AssetConfig $config, ?string $outputDir = null, string $urlPrefix = '/asset/')
     {
         $this->config = $config;
         $this->outputDir = $outputDir ?: sys_get_temp_dir() . DIRECTORY_SEPARATOR;
@@ -38,12 +41,12 @@ class AssetMiddleware
     /**
      * Apply the asset middleware.
      *
-     * @param  \Psr\Http\Message\ServerRequestInterface $request  The request.
-     * @param  \Psr\Http\Message\ResponseInterface      $response The response.
-     * @param  callable                                 $next     The callable to invoke the next middleware layer.
+     * @param \Psr\Http\Message\ServerRequestInterface $request  The request.
+     * @param \Psr\Http\Message\ResponseInterface      $response The response.
+     * @param callable                                 $next     The callable to invoke the next middleware layer.
      * @return \Psr\Http\Message\ResponseInterface A response.
      */
-    public function __invoke($request, $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
     {
         $path = $request->getUri()->getPath();
         if (strpos($path, $this->urlPrefix) !== 0) {
@@ -66,9 +69,11 @@ class AssetMiddleware
         } catch (Exception $e) {
             // Could not build the asset.
             $response->getBody()->write($e->getMessage());
+
             return $response->withStatus(400)
                 ->withHeader('Content-Type', 'text/plain');
         }
+
         return $this->respond($response, $contents, $build->ext());
     }
 
@@ -82,13 +87,20 @@ class AssetMiddleware
         return $response->withHeader('Content-Type', $this->mapType($ext));
     }
 
-    private function mapType($ext): string
+    /**
+     * Get the content type for an extension.
+     *
+     * @param string $ext The extension to map to a content type.
+     * @return string
+     */
+    private function mapType(string $ext): string
     {
         $types = [
             'css' => 'application/css',
             'js' => 'application/javascript',
             'svg' => 'image/svg+xml',
         ];
-        return isset($types[$ext]) ? $types[$ext] : 'application/octet-stream';
+
+        return $types[$ext] ?? 'application/octet-stream';
     }
 }

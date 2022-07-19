@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,8 +15,8 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
-use MiniAsset\Filter\CssDependencyTrait;
+use Exception;
+use MiniAsset\AssetTarget;
 use ScssPhp\ScssPhp\Compiler;
 
 /**
@@ -30,42 +32,46 @@ class ScssPHP extends AssetFilter
         getDependencies as getCssDependencies;
     }
 
-    protected $_settings = array(
+    protected array $_settings = [
         'ext' => '.scss',
         'imports' => [],
-    );
+    ];
 
     /**
      * SCSS will use `_` prefixed files if they exist.
      *
      * @var string
      */
-    protected $optionalDependencyPrefix = '_';
+    protected string $optionalDependencyPrefix = '_';
 
-    public function getDependencies($target)
+    /**
+     * @return array<\MiniAsset\File\FileInterface>
+     */
+    public function getDependencies(AssetTarget $target): array
     {
         return $this->getCssDependencies($target, $this->_settings['imports']);
     }
 
     /**
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content The content of the file.
      * @throws \Exception
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
         }
         if (!class_exists('ScssPhp\\ScssPhp\\Compiler')) {
-            throw new \Exception(sprintf('Cannot not load filter class "%s".', 'ScssPhp\\ScssPhp\\Compiler'));
+            throw new Exception(sprintf('Cannot not load filter class "%s".', 'ScssPhp\\ScssPhp\\Compiler'));
         }
         $sc = new Compiler();
         $sc->addImportPath(dirname($filename));
         foreach ($this->_settings['imports'] as $path) {
             $sc->addImportPath($path);
         }
+
         return $sc->compile($content);
     }
 }

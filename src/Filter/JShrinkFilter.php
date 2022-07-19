@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,7 +15,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
+use Exception;
 use JShrink\Minifier;
 
 /**
@@ -25,30 +27,30 @@ use JShrink\Minifier;
  */
 class JShrinkFilter extends AssetFilter
 {
-
     /**
      * Settings for JShrink minifier.
      *
      * @var array
      */
-    protected $_settings = array(
+    protected array $_settings = [
         'path' => 'jshrink/Minifier.php',
         'flaggedComments' => true,
-    );
+    ];
 
     /**
      * Apply JShrink to $content.
      *
-     * @param  string $target target filename
-     * @param  string $content  Content to filter.
+     * @param string $target target filename
+     * @param string $content  Content to filter.
      * @throws \Exception
      * @return string
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         if (!class_exists('JShrink\Minifier')) {
-            throw new \Exception(sprintf('Cannot not load filter class "%s".', 'JShrink\Minifier'));
+            throw new Exception(sprintf('Cannot not load filter class "%s".', 'JShrink\Minifier'));
         }
-        return Minifier::minify($content, array('flaggedComments' => $this->_settings['flaggedComments']));
+
+        return Minifier::minify($content, ['flaggedComments' => $this->_settings['flaggedComments']]);
     }
 }

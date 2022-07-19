@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -12,8 +14,6 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace MiniAsset\Filter;
-
-use MiniAsset\Filter\AssetFilter;
 
 /**
  * Provides precompilation for mustache templates
@@ -30,26 +30,25 @@ use MiniAsset\Filter\AssetFilter;
  */
 class Hogan extends AssetFilter
 {
-
     /**
      * Settings for the filter.
      *
      * @var array
      */
-    protected $_settings = array(
+    protected array $_settings = [
         'ext' => '.mustache',
         'node' => '/usr/local/bin/node',
         'node_path' => '',
-    );
+    ];
 
     /**
      * Runs `hogan.compile` against all template fragments in a file.
      *
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content    The content of the file.
      * @return string
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
@@ -57,9 +56,10 @@ class Hogan extends AssetFilter
         $tmpfile = tempnam(sys_get_temp_dir(), 'mini_asset_hogan');
         $this->_generateScript($tmpfile, $filename, $content);
         $bin = $this->_settings['node'] . ' ' . $tmpfile;
-        $env = array('NODE_PATH' => $this->_settings['node_path']);
+        $env = ['NODE_PATH' => $this->_settings['node_path']];
         $return = $this->_runCmd($bin, '', $env);
         unlink($tmpfile);
+
         return $return;
     }
 
@@ -67,12 +67,12 @@ class Hogan extends AssetFilter
      * Generates the javascript passed into node to precompile the
      * the mustache template.
      *
-     * @param  string $file The tempfile to put the script in.
-     * @param  string $filename The template filename. Used to create a key in window.JST
-     * @param  string $input The mustache template content.
+     * @param string $file The tempfile to put the script in.
+     * @param string $filename The template filename. Used to create a key in window.JST
+     * @param string $input The mustache template content.
      * @return void
      */
-    protected function _generateScript($file, $filename, $input)
+    protected function _generateScript(string $file, string $filename, string $input): void
     {
         $id = str_replace($this->_settings['ext'], '', basename($filename));
         $filepath = str_replace($this->_settings['ext'], '', $filename);

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -37,7 +39,7 @@ CSS;
             'second.css',
             'third.css',
             '../../relative-path.css',
-            'http://example.com/dir/absolute-path.css'
+            'http://example.com/dir/absolute-path.css',
         ];
         $this->assertEquals($expected, $result);
     }

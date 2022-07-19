@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,6 +15,9 @@
  */
 namespace MiniAsset\Filter;
 
+use Exception;
+use Less_Parser;
+
 /**
  * Pre-processing filter that adds support for LESS.css files.
  *
@@ -24,30 +29,30 @@ class LessDotPHP extends AssetFilter
 {
     use CssDependencyTrait;
 
-    protected $_settings = array(
+    protected array $_settings = [
         'ext' => '.less',
         'paths' => [],
-    );
+    ];
 
     /**
      * Runs `lessc` against any files that match the configured extension.
      *
-     * @param  string $filename The name of the input file.
-     * @param  string $content    The content of the file.
+     * @param string $filename The name of the input file.
+     * @param string $content    The content of the file.
      * @return string
      * @throws \Exception
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
             return $content;
         }
         if (!class_exists('\Less_Parser')) {
-            throw new \Exception(
+            throw new Exception(
                 'Cannot not load "\Less_Parser" class. Make sure https://github.com/oyejorge/less.php is installed.'
             );
         }
-        $parser = new \Less_Parser();
+        $parser = new Less_Parser();
 
         return $parser->parseFile($filename)->getCss();
     }

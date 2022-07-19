@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,12 +15,10 @@
  */
 namespace MiniAsset\Test\TestCase\Filter;
 
-use MiniAsset\Filter\ClosureJs;
 use PHPUnit\Framework\TestCase;
 
 class ClosureJsTest extends TestCase
 {
-
     public function testCommand()
     {
         $filter = $this->getMockBuilder('MiniAsset\Filter\ClosureJs')
@@ -33,7 +33,6 @@ class ClosureJsTest extends TestCase
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET"/'));
         $filter->output('file.js', 'var a = 1;');
 
-
         $filter = $this->getMockBuilder('MiniAsset\Filter\ClosureJs')
             ->onlyMethods(['_findExecutable', '_runCmd'])
             ->getMock();
@@ -43,7 +42,7 @@ class ClosureJsTest extends TestCase
         $filter->expects($this->once())
             ->method('_runCmd')
             ->with($this->matchesRegularExpression('/java -jar "closure\/compiler\.jar" --js=(.*)\/CLOSURE(.*) --warning_level="QUIET" --language_in="ECMASCRIPT5"/'));
-        $filter->settings(array('language_in' => 'ECMASCRIPT5'));
+        $filter->settings(['language_in' => 'ECMASCRIPT5']);
         $filter->output('file.js', 'var a = 1;');
     }
 }

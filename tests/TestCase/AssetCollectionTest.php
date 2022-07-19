@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,10 +15,10 @@
  */
 namespace MiniAsset\Test\TestCase;
 
-use MiniAsset\AssetTarget;
 use MiniAsset\AssetCollection;
-use MiniAsset\Factory;
 use MiniAsset\AssetConfig;
+use MiniAsset\AssetTarget;
+use MiniAsset\Factory;
 use PHPUnit\Framework\TestCase;
 
 class AssetCollectionTest extends TestCase

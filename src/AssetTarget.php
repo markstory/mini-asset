@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -24,38 +26,38 @@ class AssetTarget
     /**
      * @var string
      */
-    protected $path;
+    protected string $path;
 
     /**
-     * @var \MiniAsset\File\FileInterface[]
+     * @var array<\MiniAsset\File\FileInterface>
      */
-    protected $files = [];
-
-    /**
-     * @var array
-     */
-    protected $filters = [];
+    protected array $files = [];
 
     /**
      * @var array
      */
-    protected $paths = [];
+    protected array $filters = [];
+
+    /**
+     * @var array
+     */
+    protected array $paths = [];
 
     /**
      * @var bool
      */
-    protected $themed;
+    protected bool $themed;
 
     /**
      * @param string                          $path    The output path or the asset target.
-     * @param \MiniAsset\File\FileInterface[] $files   An array of MiniAsset\File\FileInterface
+     * @param array<\MiniAsset\File\FileInterface> $files An array of MiniAsset\File\FileInterface
      * @param array                           $filters An array of filter names for this target.
      * @param array                           $paths   A list of search paths for this asset. These paths
      *                                                 are used by filters that allow additional
      *                                                 resources to be included e.g. Sprockets
      * @param bool                            $themed  Whether or not this file should be themed.
      */
-    public function __construct($path, $files = [], $filters = [], $paths = [], $themed = false)
+    public function __construct(string $path, array $files = [], array $filters = [], array $paths = [], bool $themed = false)
     {
         $this->path = $path;
         $this->files = $files;
@@ -67,7 +69,7 @@ class AssetTarget
     /**
      * @return bool
      */
-    public function isThemed()
+    public function isThemed(): bool
     {
         return $this->themed;
     }
@@ -75,15 +77,15 @@ class AssetTarget
     /**
      * @return array
      */
-    public function paths()
+    public function paths(): array
     {
         return $this->paths;
     }
 
     /**
-     * @return \MiniAsset\File\FileInterface[]
+     * @return array<\MiniAsset\File\FileInterface>
      */
-    public function files()
+    public function files(): array
     {
         return $this->files;
     }
@@ -91,7 +93,7 @@ class AssetTarget
     /**
      * @return string
      */
-    public function path()
+    public function path(): string
     {
         return $this->path;
     }
@@ -99,7 +101,7 @@ class AssetTarget
     /**
      * @return string
      */
-    public function outputDir()
+    public function outputDir(): string
     {
         return dirname($this->path);
     }
@@ -107,7 +109,7 @@ class AssetTarget
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return basename($this->path);
     }
@@ -115,16 +117,17 @@ class AssetTarget
     /**
      * @return string
      */
-    public function ext()
+    public function ext(): string
     {
         $parts = explode('.', $this->name());
+
         return array_pop($parts);
     }
 
     /**
      * @return array
      */
-    public function filterNames()
+    public function filterNames(): array
     {
         return $this->filters;
     }
@@ -132,11 +135,12 @@ class AssetTarget
     /**
      * @return int
      */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         if (file_exists($this->path)) {
             return filemtime($this->path);
         }
+
         return 0;
     }
 }

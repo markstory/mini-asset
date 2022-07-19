@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,14 +15,12 @@
  */
 namespace MiniAsset;
 
-use MiniAsset\AssetCollection;
-use MiniAsset\AssetConfig;
-use MiniAsset\AssetTarget;
 use MiniAsset\File\Callback;
+use MiniAsset\File\Glob;
 use MiniAsset\File\Local;
 use MiniAsset\File\Remote;
-use MiniAsset\File\Glob;
 use MiniAsset\File\Target;
+use MiniAsset\Filter\FilterInterface;
 use MiniAsset\Filter\FilterRegistry;
 use MiniAsset\Output\AssetCacher;
 use MiniAsset\Output\AssetWriter;
@@ -41,9 +41,9 @@ class Factory
      *
      * @var \MiniAsset\AssetConfig
      */
-    protected $config;
+    protected AssetConfig $config;
 
-    const CALLBACK_PATTERN = '/^(.*)::(.*)\(\)$/i';
+    public const CALLBACK_PATTERN = '/^(.*)::(.*)\(\)$/i';
 
     /**
      * Constructor
@@ -58,10 +58,10 @@ class Factory
     /**
      * Create an Compiler
      *
-     * @param  bool $debug Whether or not to enable debugging mode for the compiler.
+     * @param bool $debug Whether or not to enable debugging mode for the compiler.
      * @return \MiniAsset\Output\Compiler
      */
-    public function compiler($debug = false)
+    public function compiler(bool $debug = false): Compiler
     {
         return new Compiler($this->filterRegistry(), $debug);
     }
@@ -69,11 +69,11 @@ class Factory
     /**
      * Create a Caching Compiler
      *
-     * @param  string $outputDir The directory to output cached files to.
-     * @param  bool   $debug     Whether or not to enable debugging mode for the compiler.
+     * @param string $outputDir The directory to output cached files to.
+     * @param bool   $debug     Whether or not to enable debugging mode for the compiler.
      * @return \MiniAsset\Output\CachedCompiler
      */
-    public function cachedCompiler($outputDir = '', $debug = false)
+    public function cachedCompiler(string $outputDir = '', bool $debug = false): CachedCompiler
     {
         return new CachedCompiler(
             $this->cacher($outputDir),
@@ -84,10 +84,10 @@ class Factory
     /**
      * Create an AssetWriter
      *
-     * @param  string $tmpPath The path where the build timestamp lookup should be stored.
+     * @param string $tmpPath The path where the build timestamp lookup should be stored.
      * @return \MiniAsset\Output\AssetWriter
      */
-    public function writer($tmpPath = '')
+    public function writer(string $tmpPath = ''): AssetWriter
     {
         $tmpPath = $tmpPath ?: $this->config->get('general.timestampPath');
         if (!$tmpPath) {
@@ -100,16 +100,17 @@ class Factory
         $writer = new AssetWriter($timestamp, $tmpPath, $this->config->theme());
         $writer->configTimestamp($this->config->modifiedTime());
         $writer->filterRegistry($this->filterRegistry());
+
         return $writer;
     }
 
     /**
      * Create an AssetCacher
      *
-     * @param  string $path The path to cache assets into.
+     * @param string $path The path to cache assets into.
      * @return \MiniAsset\Output\AssetCacher
      */
-    public function cacher($path = '')
+    public function cacher(string $path = ''): AssetCacher
     {
         if (!$path) {
             $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
@@ -117,6 +118,7 @@ class Factory
         $cache = new AssetCacher($path, $this->config->theme());
         $cache->configTimestamp($this->config->modifiedTime());
         $cache->filterRegistry($this->filterRegistry());
+
         return $cache;
     }
 
@@ -125,19 +127,20 @@ class Factory
      *
      * @return \MiniAsset\AssetCollection
      */
-    public function assetCollection()
+    public function assetCollection(): AssetCollection
     {
         $assets = $this->config->targets();
+
         return new AssetCollection($assets, $this);
     }
 
     /**
      * Create a new scanner instance for the provided paths.
      *
-     * @param  array $paths The paths to scan.
+     * @param array $paths The paths to scan.
      * @return \MiniAsset\AssetScanner
      */
-    public function scanner($paths)
+    public function scanner(array $paths): AssetScanner
     {
         return new AssetScanner($paths);
     }
@@ -145,11 +148,11 @@ class Factory
     /**
      * Create a single build target
      *
-     * @param  string $name The name of the target to build
+     * @param string $name The name of the target to build
      * @return \MiniAsset\AssetTarget
      * @throws \RuntimeException
      */
-    public function target($name)
+    public function target(string $name): AssetTarget
     {
         if (!$this->config->hasTarget($name)) {
             throw new RuntimeException("The target named '$name' does not exist.");
@@ -195,6 +198,7 @@ class Factory
                 }
             }
         }
+
         return new AssetTarget($target, $files, $filters, $paths, $themed);
     }
 
@@ -203,23 +207,24 @@ class Factory
      *
      * @return \MiniAsset\Filter\FilterRegistry
      */
-    public function filterRegistry()
+    public function filterRegistry(): FilterRegistry
     {
         $filters = [];
         foreach ($this->config->allFilters() as $name) {
             $filters[$name] = $this->buildFilter($name, $this->config->filterConfig($name));
         }
+
         return new FilterRegistry($filters);
     }
 
     /**
      * Create a single filter
      *
-     * @param  string $name   The name of the filter to build.
-     * @param  array  $config The configuration for the filter.
+     * @param string $name   The name of the filter to build.
+     * @param array  $config The configuration for the filter.
      * @return \MiniAsset\Filter\FilterInterface
      */
-    protected function buildFilter($name, $config)
+    protected function buildFilter(string $name, array $config): FilterInterface
     {
         $className = $name;
         if (!class_exists($className)) {
@@ -230,6 +235,7 @@ class Factory
         }
         $filter = new $className();
         $filter->settings($config);
+
         return $filter;
     }
 }

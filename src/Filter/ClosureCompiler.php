@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,7 +15,7 @@
  */
 namespace MiniAsset\Filter;
 
-use MiniAsset\Filter\AssetFilter;
+use Exception;
 
 /**
  * Google Closure Compiler API Filter
@@ -25,13 +27,12 @@ use MiniAsset\Filter\AssetFilter;
  */
 class ClosureCompiler extends AssetFilter
 {
-
     /**
      * Defaults.
      *
      * @var array
      */
-    protected $_defaults = array('compilation_level' => 'WHITESPACE_ONLY');
+    protected array $_defaults = ['compilation_level' => 'WHITESPACE_ONLY'];
 
     /**
      * Settings.
@@ -44,11 +45,11 @@ class ClosureCompiler extends AssetFilter
      *
      * @var array
      */
-    protected $_settings = array(
+    protected array $_settings = [
         'level' => null,
         'statistics' => false,
-        'warnings' => false
-    );
+        'warnings' => false,
+    ];
 
     /**
      * Optional API parameters.
@@ -59,36 +60,36 @@ class ClosureCompiler extends AssetFilter
      * @var array
      * @see https://developers.google.com/closure/compiler/docs/api-ref
      */
-    protected $_params = array(
+    protected array $_params = [
         'js_externs',
         'externs_url',
         'exclude_default_externs',
         'formatting',
         'use_closure_library',
-        'language'
-    );
+        'language',
+    ];
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return string|true
      */
     public function output($target, $content)
     {
-        $errors = $this->_query($content, array('output_info' => 'errors'));
+        $errors = $this->_query($content, ['output_info' => 'errors']);
         if (!empty($errors)) {
-            throw new \Exception(sprintf("%s:\n%s\n", 'Errors', $errors));
+            throw new Exception(sprintf("%s:\n%s\n", 'Errors', $errors));
         }
 
-        $output = $this->_query($content, array('output_info' => 'compiled_code'));
+        $output = $this->_query($content, ['output_info' => 'compiled_code']);
 
         foreach ($this->_settings as $setting => $value) {
-            if (!in_array($setting, array('warnings', 'statistics')) || true != $value) {
+            if (!in_array($setting, ['warnings', 'statistics']) || $value != true) {
                 continue;
             }
 
-            $args = array('output_info' => $setting);
-            if ('warnings' == $setting && in_array($value, array('QUIET', 'DEFAULT', 'VERBOSE'))) {
+            $args = ['output_info' => $setting];
+            if ($setting == 'warnings' && in_array($value, ['QUIET', 'DEFAULT', 'VERBOSE'])) {
                 $args['warning_level'] = $value;
             }
 
@@ -104,16 +105,14 @@ class ClosureCompiler extends AssetFilter
      *
      * @param string $content Javascript to compile.
      * @param array  $args    API parameters.
-     *
      * @throws \Exception If curl extension is missing.
      * @throws \Exception If curl triggers an error.
-     *
      * @return string|true
      */
-    protected function _query($content, $args = array())
+    protected function _query(string $content, array $args = []): string|bool
     {
         if (!extension_loaded('curl')) {
-            throw new \Exception('Missing the `curl` extension.');
+            throw new Exception('Missing the `curl` extension.');
         }
 
         $args = array_merge($this->_defaults, $args);
@@ -130,23 +129,24 @@ class ClosureCompiler extends AssetFilter
         $ch = curl_init();
         curl_setopt_array(
             $ch,
-            array(
+            [
             CURLOPT_URL => 'https://closure-compiler.appspot.com/compile',
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => 'js_code=' . urlencode($content) . '&' . http_build_query($args),
-            CURLOPT_RETURNTRANSFER =>  1,
+            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 0,
-            CURLOPT_FOLLOWLOCATION => 0
-            )
+            CURLOPT_FOLLOWLOCATION => 0,
+            ]
         );
 
         $output = curl_exec($ch);
 
-        if (false === $output) {
-            throw new \Exception('Curl error: ' . curl_error($ch));
+        if ($output === false) {
+            throw new Exception('Curl error: ' . curl_error($ch));
         }
 
         curl_close($ch);
+
         return $output;
     }
 }

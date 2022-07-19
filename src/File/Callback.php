@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -30,7 +32,7 @@ class Callback
     /**
      * @var \MiniAsset\AssetScanner
      */
-    protected $scanner;
+    protected AssetScanner $scanner;
 
     /**
      * Constructor
@@ -39,11 +41,11 @@ class Callback
      * @param string                  $method  The method to invoke.
      * @param \MiniAsset\AssetScanner $scanner The asset scanner.
      */
-    public function __construct($class, $method, AssetScanner $scanner)
+    public function __construct(string $class, string $method, AssetScanner $scanner)
     {
         $callable = $class . '::' . $method;
         if (!is_callable($callable)) {
-            throw new \RuntimeException("Callback {$callable}() is not callable");
+            throw new RuntimeException("Callback {$callable}() is not callable");
         }
         $this->callable = $callable;
         $this->scanner = $scanner;
@@ -54,7 +56,7 @@ class Callback
      *
      * @return array
      */
-    public function files()
+    public function files(): array
     {
         $files = [];
         foreach (call_user_func($this->callable) as $file) {
@@ -64,6 +66,7 @@ class Callback
             }
             $files[] = new Local($path);
         }
+
         return $files;
     }
 }

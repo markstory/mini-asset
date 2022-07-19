@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,40 +15,29 @@
  */
 namespace MiniAsset\File;
 
-use MiniAsset\File\FileInterface;
-
 /**
  * Wrapper for remote files that are used in asset targets.
  */
 class Remote implements FileInterface
 {
-    protected $url;
+    protected string $url;
 
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function path()
+    public function path(): string
     {
         return $this->url;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function name()
+    public function name(): string
     {
         return $this->url;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function contents()
+    public function contents(): string
     {
         $handle = fopen($this->url, 'rb');
         $content = '';
@@ -54,21 +45,19 @@ class Remote implements FileInterface
             $content = stream_get_contents($handle);
             fclose($handle);
         }
+
         return $content;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function modifiedTime()
+    public function modifiedTime(): int
     {
         return $this->_getLastModified($this->url);
     }
 
     /**
-     * @param false|string $url
+     * Get the last modified time from HTTP headers.
      */
-    protected function _getLastModified($url)
+    protected function _getLastModified(string $url): int|false
     {
         $time = time();
 
@@ -85,6 +74,7 @@ class Remote implements FileInterface
             if (substr(strtolower($response), 0, 10) === 'location: ') {
                 $newUri = substr($response, 10);
                 fclose($fp);
+
                 return $this->_getLastModified($newUri);
             } elseif (substr(strtolower($response), 0, 15) === 'last-modified: ') {
                 // last-modified found
@@ -94,6 +84,7 @@ class Remote implements FileInterface
         }
 
         fclose($fp);
+
         return $time;
     }
 }

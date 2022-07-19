@@ -1,7 +1,7 @@
 <?php
-namespace MiniAsset\Filter;
+declare(strict_types=1);
 
-use MiniAsset\Filter\AssetFilter;
+namespace MiniAsset\Filter;
 
 /**
  * Output minifier for css-compressor
@@ -12,38 +12,37 @@ use MiniAsset\Filter\AssetFilter;
  */
 class CssCompressor extends AssetFilter
 {
-
-    protected $_settings = array(
+    protected array $_settings = [
         'node' => '/usr/local/bin/node',
-        'node_path' => '/usr/local/lib/node_modules'
-    );
+        'node_path' => '/usr/local/lib/node_modules',
+    ];
 
     /**
      * Run `cleancss` against the output and compress it.
      *
-     * @param  string $target Name of the file being generated.
-     * @param  string $content    The uncompressed contents for $filename.
+     * @param string $target Name of the file being generated.
+     * @param string $content The uncompressed contents for $filename.
      * @return string Compressed contents.
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
-        $env = array('NODE_PATH' => $this->_settings['node_path']);
+        $env = ['NODE_PATH' => $this->_settings['node_path']];
 
         $tmpfile = tempnam(sys_get_temp_dir(), 'miniasset_css_compressor');
         $this->generateScript($tmpfile, $content);
 
         $cmd = $this->_settings['node'] . ' ' . $tmpfile;
+
         return $this->_runCmd($cmd, '', $env);
     }
 
     /**
      * Generates a small bit of Javascript code to invoke cleancss with.
      *
-     * @param false|string $file
-     *
+     * @param string|false $file
      * @return void
      */
-    protected function generateScript($file, string $input): void
+    protected function generateScript(false|string $file, string $input): void
     {
         $script = <<<JS
 var csscompressor = require('css-compressor');

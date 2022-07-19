@@ -17,10 +17,11 @@
     "source": "https://github.com/markstory/mini-asset"
   },
   "require": {
-    "php": ">=7.2,<8.2",
+    "php": ">=8.1,<9",
     "league/climate": "~3.0"
   },
   "require-dev": {
+    "cakephp/cakephp-codesniffer": "5.x-dev",
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0",
     "phpunit/phpunit": "^8.5 | ^9.3"
@@ -58,5 +59,10 @@
     "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.5 psalm/phar:~4.22.0 && mv composer.backup composer.json",
     "stan": "phpstan analyse src/ && psalm.phar --show-info=false",
     "psalm": "psalm.phar --show-info=false"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }

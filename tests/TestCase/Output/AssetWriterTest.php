@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -13,10 +15,10 @@
  */
 namespace MiniAsset\Test\TestCase\Output;
 
-use MiniAsset\Output\AssetWriter;
 use MiniAsset\AssetTarget;
 use MiniAsset\File\Local;
 use MiniAsset\Filter\FilterRegistry;
+use MiniAsset\Output\AssetWriter;
 use PHPUnit\Framework\TestCase;
 
 class AssetWriterTest extends TestCase
@@ -33,7 +35,7 @@ class AssetWriterTest extends TestCase
         $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')
             ->will($this->returnValue([]));
-        $registry = new FilterRegistry([$filter]);
+        $registry = new FilterRegistry(['mock' => $filter]);
 
         $this->target = new AssetTarget(TMP . 'test.js', $this->files, [], [], true);
         $this->writer = new AssetWriter(['js' => false, 'css' => false], TMP);

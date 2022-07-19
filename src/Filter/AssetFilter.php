@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MiniAsset
  * Copyright (c) Mark Story (http://mark-story.com)
@@ -15,7 +17,6 @@ namespace MiniAsset\Filter;
 
 use MiniAsset\AssetProcess;
 use MiniAsset\AssetTarget;
-use MiniAsset\Filter\FilterInterface;
 use RuntimeException;
 
 /**
@@ -29,20 +30,21 @@ class AssetFilter implements FilterInterface
      *
      * @var array
      */
-    protected $_settings = array();
+    protected array $_settings = [];
 
     /**
      * Gets settings for this filter. Will always include 'paths'
      * key which points at paths available for the type of asset being generated.
      *
-     * @param  array $settings Array of settings.
+     * @param array $settings Array of settings.
      * @return array Array of updated settings.
      */
-    public function settings(array $settings = null)
+    public function settings(?array $settings = null): array
     {
         if ($settings) {
             $this->_settings = array_merge($this->_settings, $settings);
         }
+
         return $this->_settings;
     }
 
@@ -51,10 +53,9 @@ class AssetFilter implements FilterInterface
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
-     *
-     * @return string
+     * @return void
      */
-    public function input($filename, $content)
+    public function input(string $filename, string $content): string
     {
         return $content;
     }
@@ -64,10 +65,9 @@ class AssetFilter implements FilterInterface
      *
      * @param string $target  The build target being made.
      * @param string $content The content to filter.
-     *
      * @return string
      */
-    public function output($target, $content)
+    public function output(string $target, string $content): string
     {
         return $content;
     }
@@ -78,10 +78,10 @@ class AssetFilter implements FilterInterface
      * Preprocessor filters can use this hook method to find a list of dependent
      * files.
      *
-     * @param  \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
-     * @return array An array of MiniAsset\File\Local objects.
+     * @param \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
+     * @return array<\MiniAsset\FileInterface> An array of MiniAsset\File\Local objects.
      */
-    public function getDependencies(AssetTarget $target)
+    public function getDependencies(AssetTarget $target): array
     {
         return [];
     }
@@ -89,9 +89,9 @@ class AssetFilter implements FilterInterface
     /**
      * Overloaded in filters that can't handle dependencies
      *
-     * @return boolean True when the filter supports dependencies
+     * @return bool True when the filter supports dependencies
      */
-    public function hasDependencies()
+    public function hasDependencies(): bool
     {
         return true;
     }
@@ -99,15 +99,13 @@ class AssetFilter implements FilterInterface
     /**
      * Run the compressor command and get the output
      *
-     * @param string $cmd     The command to run.
+     * @param string $cmd The command to run.
      * @param string $content The content to run through the command.
      * @param array|null $environment
-     *
      * @return string The result of the command.
-     *
      * @throws \RuntimeException
      */
-    protected function _runCmd($cmd, $content, ?array $environment = null)
+    protected function _runCmd(string $cmd, string $content, ?array $environment = null): string
     {
         $Process = new AssetProcess();
         $Process->environment($environment);
@@ -116,6 +114,7 @@ class AssetFilter implements FilterInterface
         if ($Process->error()) {
             throw new RuntimeException($Process->error());
         }
+
         return $Process->output();
     }
 
@@ -125,10 +124,9 @@ class AssetFilter implements FilterInterface
      *
      * @param array  $search Paths to search.
      * @param string $file   The executable to find.
-     *
-     * @return null|string
+     * @return string|null
      */
-    protected function _findExecutable($search, $file): ?string
+    protected function _findExecutable(array $search, string $file): ?string
     {
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
         if (file_exists($file)) {
@@ -140,6 +138,7 @@ class AssetFilter implements FilterInterface
                 return $path . DIRECTORY_SEPARATOR . $file;
             }
         }
+
         return null;
     }
 }
