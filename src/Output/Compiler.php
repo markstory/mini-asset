@@ -40,7 +40,7 @@ class Compiler implements CompilerInterface
      * Constructor.
      *
      * @param \MiniAsset\Filter\FilterRegistry $filters The filter registry
-     * @param $debug Whether or not debug mode is enabled.
+     * @param bool $debug Whether or not debug mode is enabled.
      * @return void
      */
     public function __construct(FilterRegistry $filters, bool $debug)

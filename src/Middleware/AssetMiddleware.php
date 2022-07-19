@@ -90,9 +90,10 @@ class AssetMiddleware
     /**
      * Get the content type for an extension.
      *
-     * @param $ext string The extension to map to a content type.
+     * @param string $ext The extension to map to a content type.
+     * @return string
      */
-    private function mapType($ext): string
+    private function mapType(string $ext): string
     {
         $types = [
             'css' => 'application/css',
