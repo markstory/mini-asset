@@ -126,8 +126,9 @@ trait CssDependencyTrait
         $parts = explode($ds, $name);
         $filename = end($parts);
 
-        if ($name === $filename
-            || $filename[0] === $this->optionalDependencyPrefix
+        if (
+            $name === $filename ||
+            $filename[0] === $this->optionalDependencyPrefix
         ) {
             return $this->optionalDependencyPrefix . $name;
         }
