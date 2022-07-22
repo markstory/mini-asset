@@ -120,6 +120,9 @@ class AssetConfig
     {
         foreach ($constants as $key => $value) {
             if (is_resource($value) === false) {
+                if (!is_string($value)) {
+                    continue;
+                }
                 if (is_array($value) || strpos($value, DIRECTORY_SEPARATOR) === false) {
                     continue;
                 }

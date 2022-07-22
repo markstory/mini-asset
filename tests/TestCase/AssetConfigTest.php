@@ -45,9 +45,15 @@ class AssetConfigTest extends TestCase
      */
     public function testConstructImportsConstants()
     {
+        define('MINI_ASSET_INT_VAL', 1);
+        define('MINI_ASSET_FLOAT_VAL', 1.0);
+
         $config = new AssetConfig();
-        $this->assertArrayHasKey('WEBROOT', $config->constants());
-        $this->assertEquals(rtrim(WEBROOT, DS), $config->constants()['WEBROOT']);
+        $constants = $config->constants();
+        $this->assertArrayHasKey('WEBROOT', $constants);
+        $this->assertArrayNotHasKey('MINI_ASSET_INT_VAL', $constants);
+        $this->assertArrayNotHasKey('MINI_ASSET_FLOAT_VAL', $constants);
+        $this->assertEquals(rtrim(WEBROOT, DS), $constants['WEBROOT']);
     }
 
     public function testBuildFromIniFile()
