@@ -42,31 +42,42 @@ trait CssDependencyTrait
                 continue;
             }
 
-            $ext = $this->_settings['ext'];
-            $extLength = strlen($ext);
+            $extensions = $this->_settings['ext'];
+            if (is_string($extensions)) {
+                $extensions = [$extensions];
+            }
 
             $deps = [];
             foreach ($imports as $name) {
-                if ('.css' === substr($name, -4)) {
+                $importExt = '.' . pathinfo($name, PATHINFO_EXTENSION);
+                if ($importExt === '.css') {
                     // skip normal css imports
                     continue;
                 }
-                if ($ext !== substr($name, -$extLength)) {
-                    $name .= $ext;
+                if (!in_array($importExt, $extensions)) {
+                    $names = [];
+                    foreach ($extensions as $extension) {
+                        $names[] = $name . $extension;
+                    }
+                } else {
+                    $names = [$name];
                 }
-                $deps[] = $name;
-                if ($hasPrefix) {
-                    $prefixedName = $this->_prependPrefixToFilename($name);
-                    $deps[] = $prefixedName;
-                }
-                foreach ($paths as $path) {
-                    $deps[] = $path . DIRECTORY_SEPARATOR . $name;
+                foreach ($names as $name) {
+                    $deps[] = $name;
                     if ($hasPrefix) {
-                        $deps[] = $path . DIRECTORY_SEPARATOR . $prefixedName;
+                        $prefixedName = $this->_prependPrefixToFilename($name);
+                        $deps[] = $prefixedName;
+                    }
+                    foreach ($paths as $path) {
+                        $deps[] = $path . DIRECTORY_SEPARATOR . $name;
+                        if ($hasPrefix) {
+                            $deps[] = $path . DIRECTORY_SEPARATOR . $prefixedName;
+                        }
                     }
                 }
             }
             foreach ($deps as $import) {
+                $importExt = '.' . pathinfo($import, PATHINFO_EXTENSION);
                 $path = $this->_findFile($import);
                 try {
                     $file = new Local($path);
@@ -81,7 +92,7 @@ trait CssDependencyTrait
 
                 // Only recurse through non-css imports as css files are not
                 // inlined by less/sass.
-                if ($newTarget && $ext === substr($import, -$extLength)) {
+                if ($newTarget && in_array($importExt, $extensions)) {
                     $children = array_merge($children, $this->getDependencies($newTarget));
                 }
             }
