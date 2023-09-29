@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 class CompilerTest extends TestCase
 {
+    protected $_testFiles;
+    protected $_themeConfig;
+    protected $_pluginConfig;
+    protected $config;
+
     protected function setUp(): void
     {
         parent::setUp();

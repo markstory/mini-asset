@@ -23,6 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 class AssetCollectionTest extends TestCase
 {
+    protected $factory;
+
     protected function setUp(): void
     {
         parent::setUp();

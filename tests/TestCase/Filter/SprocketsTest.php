@@ -22,6 +22,11 @@ use PHPUnit\Framework\TestCase;
 
 class SprocketsTest extends TestCase
 {
+    protected $_testPath;
+    protected $_testFiles;
+    protected $_jsDir;
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();

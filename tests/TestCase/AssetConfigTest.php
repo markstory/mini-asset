@@ -21,6 +21,13 @@ use RuntimeException;
 
 class AssetConfigTest extends TestCase
 {
+    protected $_testFiles;
+    protected $extendConfig;
+    protected $_themeConfig;
+    protected $timestampConfig;
+    protected $config;
+    protected $testConfig;
+
     /**
      * setup method
      *

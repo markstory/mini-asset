@@ -21,6 +21,9 @@ use PHPUnit\Framework\TestCase;
 
 class ClearTaskTest extends TestCase
 {
+    protected $task;
+    protected $cli;
+
     protected function setUp(): void
     {
         parent::setUp();

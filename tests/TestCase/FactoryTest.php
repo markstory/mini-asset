@@ -20,6 +20,14 @@ use RuntimeException;
 
 class FactoryTest extends TestCase
 {
+    protected $config;
+    protected $integrationFile;
+    protected $themedFile;
+    protected $pluginFile;
+    protected $overrideFile;
+    protected $globFile;
+    protected $timestampFile;
+
     protected function setUp(): void
     {
         parent::setUp();

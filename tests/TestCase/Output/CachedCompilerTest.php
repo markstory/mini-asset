@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 class CachedCompilerTest extends TestCase
 {
+    protected $_testFiles;
+    protected $_themeConfig;
+    protected $_pluginConfig;
+    protected $config;
+
     protected function setUp(): void
     {
         parent::setUp();

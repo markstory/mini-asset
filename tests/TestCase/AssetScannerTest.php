@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 
 class AssetScannerTest extends TestCase
 {
+    protected $_testFiles;
+    protected $Scanner;
+
     protected function setUp(): void
     {
         parent::setUp();

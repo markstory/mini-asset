@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 class AssetCacherTest extends TestCase
 {
+    protected $target;
+    protected $files;
+    protected $cacher;
+    protected $themed;
+
     protected function setUp(): void
     {
         parent::setUp();
