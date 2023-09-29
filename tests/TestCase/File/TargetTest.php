@@ -22,6 +22,10 @@ use PHPUnit\Framework\TestCase;
 
 class TargetTest extends TestCase
 {
+    protected $compiler;
+    protected $asset;
+    protected $target;
+
     protected function setUp(): void
     {
         parent::setUp();

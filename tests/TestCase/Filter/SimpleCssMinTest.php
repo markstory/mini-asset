@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 
 class SimpleCssMinTest extends TestCase
 {
+    protected $_cssDir;
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();

@@ -20,6 +20,8 @@ use PHPUnit\Framework\TestCase;
 
 class AssetTargetTest extends TestCase
 {
+    protected $target;
+
     protected function setUp(): void
     {
         parent::setUp();

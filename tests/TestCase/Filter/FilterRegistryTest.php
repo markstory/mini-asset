@@ -23,6 +23,9 @@ use RuntimeException;
 
 class FilterRegistryTest extends TestCase
 {
+    protected $filters;
+    protected $registry;
+
     protected function setUp(): void
     {
         parent::setUp();

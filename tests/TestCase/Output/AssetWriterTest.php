@@ -24,6 +24,8 @@ use PHPUnit\Framework\TestCase;
 class AssetWriterTest extends TestCase
 {
     protected $files = [];
+    protected $writer;
+    protected $target;
 
     protected function setUp(): void
     {

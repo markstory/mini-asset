@@ -23,6 +23,9 @@ use PHPUnit\Framework\TestCase;
 
 class AssetMiddlewareTest extends TestCase
 {
+    protected $config;
+    protected $middleware;
+
     protected function setUp(): void
     {
         parent::setUp();

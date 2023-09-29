@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 
 class HoganTest extends TestCase
 {
+    protected $_path;
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();

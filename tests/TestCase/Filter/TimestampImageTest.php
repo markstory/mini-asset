@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 
 class TimestampImageTest extends TestCase
 {
+    protected $_testPath;
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();

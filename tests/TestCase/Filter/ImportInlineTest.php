@@ -20,6 +20,8 @@ use PHPUnit\Framework\TestCase;
 
 class ImportInlineTest extends TestCase
 {
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();

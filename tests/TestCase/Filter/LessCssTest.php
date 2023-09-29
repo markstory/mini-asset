@@ -22,6 +22,9 @@ use PHPUnit\Framework\TestCase;
 
 class LessCssTest extends TestCase
 {
+    protected $_cssDir;
+    protected $filter;
+
     protected function setUp(): void
     {
         parent::setUp();
