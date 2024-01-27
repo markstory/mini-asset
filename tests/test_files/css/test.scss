@@ -9,8 +9,8 @@
 }
 
 .border {
-  padding: $margin / 2;
-  margin: $margin / 2;
+  padding: calc($margin / 2);
+  margin: calc($margin / 2);
   border-color: $blue;
 }
 

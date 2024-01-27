@@ -31,7 +31,7 @@ class ScssFilter extends AssetFilter
     }
 
     protected array $_settings = [
-        'ext' => '.scss',
+        'ext' => ['.scss', '.sass'],
         'sass' => '/usr/bin/sass',
         'path' => '/usr/bin',
         'imports' => [],
@@ -61,9 +61,17 @@ class ScssFilter extends AssetFilter
      */
     public function input(string $filename, string $content): string
     {
-        if (substr($filename, strlen($this->_settings['ext']) * -1) !== $this->_settings['ext']) {
+        $ext = '.' . pathinfo($filename, PATHINFO_EXTENSION);
+
+        $acceptedExt = $this->_settings['ext'];
+        if (is_string($acceptedExt)) {
+            $acceptedExt = [$acceptedExt];
+        }
+
+        if (!in_array($ext, $acceptedExt)) {
             return $content;
         }
+
         $filename = preg_replace('/ /', '\\ ', $filename);
         $cmd = $this->_settings['sass'];
         foreach ($this->_settings['imports'] as $path) {
