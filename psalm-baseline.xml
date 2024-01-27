@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.11.2@d470903722cfcbc1cd04744c5491d3e6d13ec3d9">
+<files psalm-version="4.x-dev@">
   <file src="src/Filter/LessDotPHP.php">
     <UndefinedClass occurrences="1">
-      <code>\Less_Parser</code>
+      <code>Less_Parser</code>
     </UndefinedClass>
   </file>
   <file src="src/Filter/MinifyFilter.php">
