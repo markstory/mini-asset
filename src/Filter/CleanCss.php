@@ -28,7 +28,7 @@ class CleanCss extends AssetFilter
      * - `node` Path to nodejs on your machine
      * - `node_path` The path to the node_modules directory where cleancss is installed.
      */
-    protected $_settings = [
+    protected array $_settings = [
         'node' => '/usr/local/bin/node',
         'cleancss' => '/usr/local/bin/clean-css-cli/bin/cleancss',
         'node_path' => '/usr/local/lib/node_modules',

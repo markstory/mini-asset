@@ -53,7 +53,7 @@ class AssetFilter implements FilterInterface
      *
      * @param string $filename Name of the file
      * @param string $content  Content of the file.
-     * @return void
+     * @return string
      */
     public function input(string $filename, string $content): string
     {
@@ -79,7 +79,7 @@ class AssetFilter implements FilterInterface
      * files.
      *
      * @param \MiniAsset\AssetTarget $target The target to find dependencies for this filter.
-     * @return array<\MiniAsset\FileInterface> An array of MiniAsset\File\Local objects.
+     * @return array<\MiniAsset\File\FileInterface> An array of MiniAsset\File\Local objects.
      */
     public function getDependencies(AssetTarget $target): array
     {

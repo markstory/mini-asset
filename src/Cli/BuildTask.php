@@ -114,7 +114,7 @@ class BuildTask extends BaseTask
             $writer->write($build, $contents);
             $this->verbose('<green>Saved file</green> for ' . $name, '.');
         } catch (Exception $e) {
-            $this->cli->err('<red>Error:</red> ' . $e->getMessage());
+            $this->cli->error('<red>Error:</red> ' . $e->getMessage());
         }
     }
 }

@@ -68,7 +68,7 @@ class ClearTask extends BaseTask
         $this->verbose('Clearing build files:');
         $assets = $factory->assetCollection();
         if (count($assets) === 0) {
-            $this->cli->err('<red>No build targets defined</red>.');
+            $this->cli->error('<red>No build targets defined</red>.');
 
             return 1;
         }

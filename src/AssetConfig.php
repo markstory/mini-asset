@@ -191,8 +191,6 @@ class AssetConfig
                 $name = str_replace(self::FILTER_PREFIX, '', $section);
                 $this->filterConfig($name, $values);
             } else {
-                $lastDot = strrpos($section, '.') + 1;
-                $extension = substr($section, $lastDot);
                 $key = $section;
 
                 // must be a build target.
@@ -375,7 +373,7 @@ class AssetConfig
      *
      * @param string $ext Name of an extension
      * @param array  $filters Filters to replace either the global or per target filters.
-     * @return array|void Filters for extension.
+     * @return array|null Filters for extension.
      */
     public function filters(string $ext, ?array $filters = null): ?array
     {
@@ -520,7 +518,7 @@ class AssetConfig
      * @param string $target A build target. If provided the target's paths (if any) will also be
      *                        returned.
      * @param array  $paths  Paths to replace either the global or per target paths.
-     * @return array|void An array of paths to search for assets on or null when setting paths.
+     * @return array|null An array of paths to search for assets on or null when setting paths.
      */
     public function paths(string $ext, ?string $target = null, ?array $paths = null): ?array
     {
@@ -585,6 +583,8 @@ class AssetConfig
             return $this->_data[self::GENERAL][$key] ?? null;
         }
         $this->_data[self::GENERAL][$key] = $value;
+
+        return null;
     }
 
     /**
@@ -621,7 +621,6 @@ class AssetConfig
      */
     public function addTarget(string $target, array $config): void
     {
-        $ext = $this->getExt($target);
         $config += [
             'files' => [],
             'filters' => [],

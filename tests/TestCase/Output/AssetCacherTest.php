@@ -77,14 +77,14 @@ class AssetCacherTest extends TestCase
 
     public function testWrite()
     {
-        $result = $this->cacher->write($this->target, 'stuff');
+        $this->cacher->write($this->target, 'stuff');
         $this->assertFileExists(TMP . 'template.js');
         unlink(TMP . 'template.js');
     }
 
     public function testWriteThemed()
     {
-        $result = $this->themed->write($this->target, 'stuff');
+        $this->themed->write($this->target, 'stuff');
         $this->assertFileExists(TMP . 'Modern-template.js');
         unlink(TMP . 'Modern-template.js');
     }
