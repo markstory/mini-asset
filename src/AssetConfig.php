@@ -126,7 +126,7 @@ class AssetConfig
                 if (is_array($value) || strpos($value, DIRECTORY_SEPARATOR) === false) {
                     continue;
                 }
-                if ($value !== DIRECTORY_SEPARATOR && !file_exists($value)) {
+                if ($value !== DIRECTORY_SEPARATOR && !preg_match('/^[a-z]+\:\/\/.*$/', $value) && !file_exists($value)) {
                     continue;
                 }
                 $this->constantMap[$key] = rtrim($value, DIRECTORY_SEPARATOR);

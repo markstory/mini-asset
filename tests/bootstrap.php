@@ -23,5 +23,7 @@ define('TMP', sys_get_temp_dir() . DS);
 define('CONFIG', APP . 'config' . DS);
 define('WEBROOT', APP);
 
+define('TEST_FILEWRAPPER_VALUE', 'wss://example.com/socket/');
+
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
