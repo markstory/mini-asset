@@ -80,7 +80,7 @@ class AssetConfigTest extends TestCase
         $this->assertEquals(
             filemtime($this->_themeConfig),
             $config->modifiedTime(),
-            'Reflects last updated config file'
+            'Reflects last updated config file',
         );
     }
 
@@ -148,7 +148,7 @@ class AssetConfigTest extends TestCase
             'testing.js',
             [
             'files' => ['one.js', 'two.js'],
-            ]
+            ],
         );
         $this->assertEquals(['one.js', 'two.js'], $this->config->files('testing.js'));
     }
@@ -161,11 +161,11 @@ class AssetConfigTest extends TestCase
             'files' => ['one.js', 'two.js'],
             'filters' => ['uglify'],
             'theme' => true,
-            ]
+            ],
         );
         $this->assertEquals(
             ['one.js', 'two.js'],
-            $this->config->files('testing-two.js')
+            $this->config->files('testing-two.js'),
         );
         $this->assertTrue($this->config->isThemed('testing-two.js'));
     }
@@ -176,14 +176,14 @@ class AssetConfigTest extends TestCase
             'testing.js',
             [
             'files' => ['one.js', 'two.js'],
-            ]
+            ],
         );
         $this->config->addTarget(
             'child.js',
             [
             'files' => ['one.js', 'two.js'],
             'require' => 'base.js',
-            ]
+            ],
         );
         $this->assertEquals([], $this->config->requires('testing.js'));
         $this->assertEquals(['base.js'], $this->config->requires('child.js'));

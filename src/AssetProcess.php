@@ -105,7 +105,7 @@ class AssetProcess
             $descriptorSpec,
             $pipes,
             null,
-            $this->_env
+            $this->_env,
         );
         if (is_resource($process)) {
             fwrite($pipes[0], $input);

@@ -64,7 +64,7 @@ class BuildTask extends BaseTask
                 'description' => 'The config file to use.',
                 'required' => true,
             ],
-            ]
+            ],
         );
     }
 

@@ -106,7 +106,7 @@ JS;
             json_encode($input),
             json_encode($config),
             $id,
-            $filepath
+            $filepath,
         );
         file_put_contents($file, $contents);
     }

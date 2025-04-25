@@ -114,7 +114,7 @@ class FilterRegistry
                 [
                 'target' => $target->name(),
                 'paths' => $target->paths(),
-                ]
+                ],
             );
             $filters[] = $copy;
         }

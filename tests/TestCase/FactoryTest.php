@@ -88,11 +88,11 @@ class FactoryTest extends TestCase
 
         $this->assertEquals(
             APP . 'js/classes/base_class.js',
-            $result[0]->path()
+            $result[0]->path(),
         );
         $this->assertEquals(
             APP . 'js/classes/nested_class.js',
-            $result[1]->path()
+            $result[1]->path(),
         );
     }
 
@@ -109,19 +109,19 @@ class FactoryTest extends TestCase
 
         $this->assertEquals(
             APP . 'js/library_file.js',
-            $result[0]->path()
+            $result[0]->path(),
         );
         $this->assertEquals(
             APP . 'js/classes/base_class.js',
-            $result[1]->path()
+            $result[1]->path(),
         );
         $this->assertEquals(
             APP . 'js/classes/nested_class.js',
-            $result[2]->path()
+            $result[2]->path(),
         );
         $this->assertEquals(
             APP . 'js/local_script.js',
-            $result[3]->path()
+            $result[3]->path(),
         );
     }
 
@@ -186,7 +186,7 @@ class FactoryTest extends TestCase
         $this->assertStringContainsString(
             '//= require "local_script"',
             $contents,
-            'Sprockets should not be applied to intermediate build files'
+            'Sprockets should not be applied to intermediate build files',
         );
     }
 
@@ -196,7 +196,7 @@ class FactoryTest extends TestCase
             $this->integrationFile,
             [
             'WEBROOT' => TMP,
-            ]
+            ],
         );
         $factory = new Factory($config);
         $collection = $factory->assetCollection();
@@ -233,15 +233,15 @@ class FactoryTest extends TestCase
         $this->assertCount(3, $files);
         $this->assertEquals(
             APP . 'js/base.js',
-            $files[0]->path()
+            $files[0]->path(),
         );
         $this->assertEquals(
             APP . 'js/library_file.js',
-            $files[1]->path()
+            $files[1]->path(),
         );
         $this->assertEquals(
             APP . 'js/classes/base_class.js',
-            $files[2]->path()
+            $files[2]->path(),
         );
     }
 
@@ -259,7 +259,7 @@ class FactoryTest extends TestCase
         $this->assertEquals(
             [APP . 'js/', APP . 'js/classes/', APP . 'js/secondary/'],
             $asset->paths(),
-            'Should have expanded paths'
+            'Should have expanded paths',
         );
 
         $files = $asset->files();

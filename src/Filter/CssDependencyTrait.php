@@ -147,7 +147,7 @@ trait CssDependencyTrait
         return str_replace(
             $ds . $filename,
             $ds . $this->optionalDependencyPrefix . $filename,
-            $name
+            $name,
         );
     }
 }

@@ -36,7 +36,7 @@ class ClearTaskTest extends TestCase
 
         $config = AssetConfig::buildFromIniFile(
             APP . 'config/integration.ini',
-            ['WEBROOT' => TMP]
+            ['WEBROOT' => TMP],
         );
         $this->task = new ClearTask($cli, $config);
         $this->cli = $cli;

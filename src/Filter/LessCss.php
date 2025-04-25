@@ -75,7 +75,7 @@ parser.parse(%s, function (e, tree) {
 JS;
         file_put_contents(
             $file,
-            sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($content))
+            sprintf($text, str_replace('\/*', '', json_encode($this->_settings['paths'])), json_encode($content)),
         );
     }
 }

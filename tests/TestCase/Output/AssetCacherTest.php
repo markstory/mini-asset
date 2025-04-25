@@ -40,7 +40,7 @@ class AssetCacherTest extends TestCase
             $this->files,
             [],
             [],
-            true
+            true,
         );
         $filter = $this->getMockBuilder('MiniAsset\Filter\FilterInterface')->getMock();
         $filter->method('getDependencies')

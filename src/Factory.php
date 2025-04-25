@@ -77,7 +77,7 @@ class Factory
     {
         return new CachedCompiler(
             $this->cacher($outputDir),
-            $this->compiler($debug)
+            $this->compiler($debug),
         );
     }
 

@@ -58,7 +58,7 @@ class JSqueezeFilter extends AssetFilter
             $content,
             $this->_settings['singleLine'],
             $this->_settings['keepImportantComments'],
-            $this->_settings['specialVarRx']
+            $this->_settings['specialVarRx'],
         );
     }
 }
