@@ -28,7 +28,8 @@ class BuildTaskTest extends TestCase
     {
         parent::setUp();
         $cli = $this->getMockBuilder('League\CLImate\CLImate')
-            ->setMethods(['usage', 'out', 'err'])
+            ->onlyMethods(['usage'])
+            ->addMethods(['out', 'err'])
             ->getMock();
         $cli->expects($this->any())
             ->method('out')

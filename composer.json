@@ -24,7 +24,7 @@
     "cakephp/cakephp-codesniffer": "^5.0",
     "squizlabs/php_codesniffer": "*",
     "laminas/laminas-diactoros": "~2.0 | ~3.0",
-    "phpunit/phpunit": "^9.3"
+    "phpunit/phpunit": "^10.0"
   },
   "autoload": {
     "psr-4": {

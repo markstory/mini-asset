@@ -28,7 +28,8 @@ class ClearTaskTest extends TestCase
     {
         parent::setUp();
         $cli = $this->getMockBuilder('League\CLImate\CLImate')
-            ->setMethods(['usage', 'out', 'err'])
+            ->addMethods(['out', 'err'])
+            ->onlyMethods(['usage'])
             ->getMock();
         $cli->expects($this->any())
             ->method('out')
