@@ -44,7 +44,7 @@ class CachedCompilerTest extends TestCase
             [
             $this->_testFiles . 'js' . DS,
             $this->_testFiles . 'js' . DS . '*',
-            ]
+            ],
         );
         $this->config->paths(
             'css',
@@ -52,7 +52,7 @@ class CachedCompilerTest extends TestCase
             [
             $this->_testFiles . 'css' . DS,
             $this->_testFiles . 'css' . DS . '*',
-            ]
+            ],
         );
 
         if (file_exists(TMP . '/all.css')) {

@@ -136,7 +136,7 @@ class ClosureCompiler extends AssetFilter
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 0,
             CURLOPT_FOLLOWLOCATION => 0,
-            ]
+            ],
         );
 
         $output = curl_exec($ch);

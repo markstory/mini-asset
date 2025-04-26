@@ -49,7 +49,7 @@ class LessDotPHP extends AssetFilter
         }
         if (!class_exists('\Less_Parser')) {
             throw new Exception(
-                'Cannot not load "\Less_Parser" class. Make sure https://github.com/oyejorge/less.php is installed.'
+                'Cannot not load "\Less_Parser" class. Make sure https://github.com/oyejorge/less.php is installed.',
             );
         }
         $parser = new Less_Parser();

@@ -36,7 +36,7 @@ class BuildTaskTest extends TestCase
 
         $config = AssetConfig::buildFromIniFile(
             APP . 'config/integration.ini',
-            ['WEBROOT' => TMP]
+            ['WEBROOT' => TMP],
         );
         $this->task = new BuildTask($cli, $config);
         $this->cli = $cli;

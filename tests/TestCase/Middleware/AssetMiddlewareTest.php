@@ -34,7 +34,7 @@ class AssetMiddlewareTest extends TestCase
         $this->middleware = new AssetMiddleware(
             $this->config,
             sys_get_temp_dir() . DIRECTORY_SEPARATOR,
-            '/assets/'
+            '/assets/',
         );
     }
 
@@ -43,7 +43,7 @@ class AssetMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => '/wrong/assets/path',
-            ]
+            ],
         );
         $response = new Response();
         $next = function ($req, $res) {
@@ -58,7 +58,7 @@ class AssetMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => '/assets/nope.js',
-            ]
+            ],
         );
         $response = new Response();
         $next = function ($req, $res) {
@@ -75,13 +75,13 @@ class AssetMiddlewareTest extends TestCase
             'invalid.css',
             [
             'files' => [APP . 'invalid.css'],
-            ]
+            ],
         );
 
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => '/assets/invalid.css',
-            ]
+            ],
         );
         $response = new Response();
         $next = function ($req, $res) {
@@ -99,7 +99,7 @@ class AssetMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => '/assets/all.css',
-            ]
+            ],
         );
         $response = new Response();
         $next = function ($req, $res) {
@@ -119,7 +119,7 @@ class AssetMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => '/assets/all.css',
-            ]
+            ],
         );
         $response = new Response();
         $next = function ($req, $res) {
@@ -151,7 +151,7 @@ class AssetMiddlewareTest extends TestCase
         $request = ServerRequestFactory::fromGlobals(
             [
             'REQUEST_URI' => $uri,
-            ]
+            ],
         );
 
         $response = new Response();

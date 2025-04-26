@@ -49,7 +49,7 @@ class ClearTask extends BaseTask
                 'description' => 'The config file to use.',
                 'required' => true,
             ],
-            ]
+            ],
         );
     }
 

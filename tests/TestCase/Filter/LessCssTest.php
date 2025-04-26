@@ -33,7 +33,7 @@ class LessCssTest extends TestCase
         $this->filter->settings(
             [
             'paths' => [$this->_cssDir],
-            ]
+            ],
         );
     }
 

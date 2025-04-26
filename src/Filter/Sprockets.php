@@ -73,7 +73,7 @@ class Sprockets extends AssetFilter
         return preg_replace_callback(
             $this->_pattern,
             [$this, '_replace'],
-            $content
+            $content,
         );
     }
 
