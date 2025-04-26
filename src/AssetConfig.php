@@ -252,8 +252,8 @@ class AssetConfig
             if (!$parentConfig) {
                 return $config;
             }
-            $config['files'] = array_merge($parentConfig['files'], $config['files']);
-            $config['filters'] = array_merge($parentConfig['filters'], $config['filters']);
+            $config['files'] = array_unique(array_merge($parentConfig['files'], $config['files']));
+            $config['filters'] = array_unique(array_merge($parentConfig['filters'], $config['filters']));
             $config['theme'] = $parentConfig['theme'] || $config['theme'];
             return $config;
         };
