@@ -61,9 +61,8 @@ class Remote implements FileInterface
     {
         $time = time();
 
-        // @codingStandardsIgnoreStart
+        // phpcs:ignore
         $fp = @fopen($url, 'rb');
-        // @codingStandardsIgnoreEnd
         if (!$fp) {
             return false;
         }

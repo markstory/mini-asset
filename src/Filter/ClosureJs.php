@@ -66,15 +66,14 @@ class ClosureJs extends AssetFilter
             $output = $this->_runCmd($cmd, '');
         } catch (Exception $e) {
             //If there is an error need to remove tmpFile.
-            // @codingStandardsIgnoreStart
+            // phpcs:ignore
             @unlink($tmpFile);
-            // @codingStandardsIgnoreEnd
             throw $e;
         }
 
-        // @codingStandardsIgnoreStart
+        // phpcs:ignore
         @unlink($tmpFile);
-        // @codingStandardsIgnoreEnd
+
         return $output;
     }
 }
