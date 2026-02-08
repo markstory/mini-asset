@@ -1,7 +1,7 @@
 # Mini Asset
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
-[![Build Status](https://travis-ci.org/markstory/mini-asset.svg?branch=master)](https://travis-ci.org/markstory/mini-asset)
+[![Build Status](https://github.com/markstory/mini-asset/actions/workflows/ci.yml/badge.svg)](https://github.com/markstory/mini-asset/actions/workflows/ci.yml)
 [![codecov.io](https://codecov.io/github/markstory/mini-asset/coverage.svg?branch=master)](https://codecov.io/github/markstory/mini-asset?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/markstory/mini-asset.svg?style=flat-square)](https://packagist.org/packages/markstory/mini-asset)
 
@@ -62,14 +62,15 @@ CSS files should behave:
 
 * The `cachePath` option tells MiniAsset where to store generated assets.
 * The `paths[]` options tell MiniAsset where to find CSS files. Paths use glob syntax.
-* The `filters[]` options let you configure which filters are applied to all CSS files.
-  Filters are applied in the order they are defined.
+* The `filters[]` options let you configure which filters are applied to all CSS
+  files. Filters are applied in the order they are defined. See the [filters
+  documentation](https://github.com/markstory/mini-asset/wiki/filters) for the
+  available filters and their options.
 
 We also defined an `[app.css]` section. This section defines the files that are used to
 create `WEBROOT/cache_css/app.css` when it is generated. We've added two files.
 
-See the [sample configuration file](https://github.com/markstory/mini-asset/tree/master/config/assets.sample.ini)
-for an annotated sample configuration file.
+See the [sample configuration file](https://github.com/markstory/mini-asset/tree/master/config/assets.sample.ini) for an annotated sample configuration file, and [configuration docs](https://github.com/markstory/mini-asset/wiki/Configuration) for more configuration reference.
 
 ### Use the CLI tool to build your asset
 
@@ -123,7 +124,7 @@ Mini Asset is offered under an [MIT license](http://www.opensource.org/licenses/
 
 ## Copyright
 
-2010-2018 Mark Story (http://mark-story.com)
+2010-2026 Mark Story (http://mark-story.com)
 
 ### Authors
 
